@@ -42,7 +42,12 @@ catch (Exception $e)
 
 <html>
 <head>
-  <title><?php echo __('Tidy administration settings'); ?></title>
+	<title><?php echo __('Tidy administration settings'); ?></title>
+	<link rel="stylesheet" type="text/css" href="index.php?pf=tidyAdmin/style.css" />
+	<link rel="stylesheet" type="text/css" href="index.php?pf=tidyAdmin/codemirror/codemirror.css" />
+	<link rel="stylesheet" type="text/css" href="index.php?pf=tidyAdmin/codemirror.css" />
+	<script type="text/JavaScript" src="index.php?pf=tidyAdmin/codemirror/codemirror.js"></script>
+	<script type="text/JavaScript" src="index.php?pf=tidyAdmin/codemirror/css.js"></script>
 </head>
 
 <body>
@@ -58,7 +63,7 @@ echo dcPage::breadcrumb(
 <?php
 {
 	echo
-	'<form id="file-form" action="'.$p_url.'&rnd='.rand().'" method="post">'.
+	'<form id="file-form" action="'.$p_url.'" method="post">'.
 	'<fieldset><legend>'.__('Supplemental CSS editor').'</legend>'.
 	'<p>'.form::textarea('css_content',72,25,html::escapeHTML($css_content),'maximal','',!$css_writeable).'</p>';
 	if ($css_writeable)
@@ -79,5 +84,8 @@ echo dcPage::breadcrumb(
 ?>
 </div>
 
+<script>
+	var editor = CodeMirror.fromTextArea(css_content, {mode: "css"});
+</script>
 </body>
 </html>
