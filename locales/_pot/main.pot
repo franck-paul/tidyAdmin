@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-27 17:12+0200\n"
+"POT-Creation-Date: 2013-09-27 17:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,19 +29,19 @@ msgstr ""
 msgid "Unable to write file %s. Please check your css folder permissions of this plugin."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:45 ../hg-plugins/tidyAdmin/index.php:53
+#: ../hg-plugins/tidyAdmin/index.php:45 ../hg-plugins/tidyAdmin/index.php:58
 msgid "Tidy administration settings"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:62
+#: ../hg-plugins/tidyAdmin/index.php:67
 msgid "Supplemental CSS editor"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:73
+#: ../hg-plugins/tidyAdmin/index.php:78
 #, php-format
 msgid "The %s file is not writable. Please check the css folder permissions of this plugin."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:76
+#: ../hg-plugins/tidyAdmin/index.php:81
 msgid "Note: this supplemental CSS rules will surcharge the default CSS rules."
 msgstr ""
