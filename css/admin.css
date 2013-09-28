@@ -3,9 +3,6 @@
 body {
 	font-family: 'Open Sans',Helvetica,Arial,sans-serif;
 }
-pre, code {
-	font-family: 'Source Code Pro',"Andale Mono","Courier New",monospace;
-}
-#main-menu a {
-	font-weight: normal;
+pre, code, .codemirror {
+	font-family: 'Source Code Pro','Andale Mono','Courier New',monospace !important;
 }
