@@ -16,6 +16,5 @@ $this->registerModule(
 	/* Name */			"Tidy Administration",
 	/* Description*/	"Customize your dotclear administration",
 	/* Author */		"Franck Paul",
-	/* Version */		'0.1',
-	/* Permissions */	'usage,contentadmin'
+	/* Version */		'0.1'
 );

@@ -43,14 +43,22 @@ if (!empty($_POST['css'])) {
 	}
 }
 
+ob_start();	// DEBUG
+$iconsets_root = dirname(DC_RC_PATH).'/../admin/images/iconset/';
+$is_writable = false;
+
+if (!file_exists($iconsets_root)) {
+	// Try to create the iconset root folder
+	@mkdir($iconsets_root);
+}
+
+$excluded_dirs = array('.hg','.git','.svn');
+$iconsets = array();
+
 // Get current list of iconsets
 // inactives have their names begining by a . (dash)
-ob_start();
-$iconsets = array();
-$iconsets_root = dirname(DC_RC_PATH).'/../admin/images/iconset/';
-$is_writable = is_writable($iconsets_root);
-$excluded_dirs = array('.hg','.git','.svn');
 if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
+	$is_writable = is_writable($iconsets_root);
 	if (($d = @dir($iconsets_root)) !== false) {
 		while (($entry = $d->read()) !== false) {
 			if ($entry != '.' && $entry != '..' && is_dir($iconsets_root.'/'.$entry) && !in_array($entry, $excluded_dirs)) {
@@ -95,10 +103,54 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 		}
 		// Sort array on iconset's name
 		ksort($iconsets);
-		var_dump($iconsets);
+		var_dump($iconsets);	//DEBUG
 	}
 }
 $dump = ob_get_clean();
+
+$iconset_id = !empty($_POST['iconset_id']) ? $_POST['iconset_id'] : null;
+
+if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
+
+	// Delete iconset
+	if ($is_writable && $iconset_id && !empty($_POST['delete'])) {
+		try
+		{
+			;
+			http::redirect($p_url.'&del=1');
+		}
+		catch (Exception $e)
+		{
+			$core->error->add($e->getMessage());
+		}
+	}
+
+	// Deactivate iconset
+	if ($is_writable && $iconset_id && !empty($_POST['deactivate'])) {
+		try
+		{
+			rename($iconsets[$iconset_id]['path'],dirname($iconsets[$iconset_id]['path']).'/.'.$iconsets[$iconset_id]['name']);
+			http::redirect($p_url.'&dis=1');
+		}
+		catch (Exception $e)
+		{
+			$core->error->add($e->getMessage());
+		}
+	}
+
+	// Activate iconset
+	if ($is_writable && $iconset_id && !empty($_POST['activate'])) {
+		try
+		{
+			rename($iconsets[$iconset_id]['path'],dirname($iconsets[$iconset_id]['path']).'/'.$iconsets[$iconset_id]['name']);
+			http::redirect($p_url.'&act=1');
+		}
+		catch (Exception $e)
+		{
+			$core->error->add($e->getMessage());
+		}
+	}
+}
 
 if (!empty($_GET[css])) {
 	$part = 'css-editor';
@@ -114,9 +166,17 @@ if ($part == '') {
 	<link rel="stylesheet" type="text/css" href="index.php?pf=tidyAdmin/style.css" />
 	<link rel="stylesheet" type="text/css" href="index.php?pf=tidyAdmin/codemirror/codemirror.css" />
 	<link rel="stylesheet" type="text/css" href="index.php?pf=tidyAdmin/codemirror.css" />
-	<?php echo dcPage::jsModal(); ?>
-	<?php echo dcPage::jsConfirmClose('css-form'); ?>
-	<?php echo dcPage::jsPageTabs($part); ?>
+<?php
+	echo
+	dcPage::jsModal().
+	dcPage::jsConfirmClose('css-form').
+	dcPage::jsPageTabs($part).
+	'<script type="text/javascript">'."\n".
+	"//<![CDATA[\n".
+		dcPage::jsVar('dotclear.msg.confirm_delete_iconset',__('Are you sure you want to delete "%s" iconset?')).
+	"\n//]]>\n".
+	"</script>\n";
+?>
 	<script type="text/JavaScript" src="index.php?pf=tidyAdmin/js/iconset.js"></script>
 	<script type="text/JavaScript" src="index.php?pf=tidyAdmin/codemirror/codemirror.js"></script>
 	<script type="text/JavaScript" src="index.php?pf=tidyAdmin/codemirror/css.js"></script>
@@ -132,10 +192,19 @@ echo dcPage::breadcrumb(
 if (!empty($_GET['css'])) {
 	dcPage::success(__('CSS supplemental rules updated'));
 }
+if (!empty($_GET['del'])) {
+	dcPage::success(__('Iconset has been successfully deleted'));
+}
+if (!empty($_GET['dis'])) {
+	dcPage::success(__('Iconset has been successfully disabled'));
+}
+if (!empty($_GET['act'])) {
+	dcPage::success(__('Iconset has been successfully enabled'));
+}
 ?>
 
 <?php
-if ($dump != '') {
+if ($dump != '') {	// DEBUG
 //	echo '<div id="dump">'.$dump.'</div>';
 }
 ?>
@@ -147,7 +216,7 @@ if ($dump != '') {
 	// Iconset activation/deactivation/desintallation form
 	if (count($iconsets)) {
 		echo
-		'<div class="table-outer"><table id="iconset_list"><caption class="as_h3">'.__('Iconset list').'</caption>'.
+		'<div class="table-outer"><table class="iconset_list"><caption class="as_h3">'.__('Iconset list').'</caption>'.
 		'<thead>'.
 		'<tr>'."\n".
 		'  <th>'.__('Iconset').'</th>'."\n".
@@ -176,9 +245,9 @@ if ($dump != '') {
 					form::hidden(array('iconset_id'),html::escapeHTML($v['name']));
 
 					if ($v['enabled'] && $v['deactivable']) {
-						echo '<input type="submit" name"deactivate" value="'.__('Deactivate').'" /> ';
+						echo '<input type="submit" name="deactivate" value="'.__('Deactivate').'" /> ';
 					} elseif (!$v['enabled'] && $v['deactivable']) {
-						echo '<input type="submit" name"activate" value="'.__('Activate').'" /> ';
+						echo '<input type="submit" name="activate" value="'.__('Activate').'" /> ';
 					}
 					if ($v['deletable']) {
 						echo '<input type="submit" class="delete" name="delete" value="'.__('Delete').'" />';
@@ -190,11 +259,13 @@ if ($dump != '') {
 			'</tr>'."\n";
 		}
 		echo '</tbody></table></div>';
+	} else {
+		echo '<p class="info">'.__('No iconset installed.').'</p>';
 	}
 ?>
 </div>
 
-<div id="iconset-install"  class="multi-part" title="<?php echo __('Iconset installation'); ?>">
+<div id="iconset-install"  class="multi-part" title="<?php echo __('Iconset installation or update'); ?>">
 <h3 class="out-of-screen-if-js"><?php echo __('Iconset installation'); ?></h3>
 <?php
 	if ($is_writable) {
