@@ -50,11 +50,9 @@ $iconsets = array();
 $iconsets_root = dirname(DC_RC_PATH).'/../admin/images/iconset/';
 $is_writable = is_writable($iconsets_root);
 $excluded_dirs = array('.hg','.git','.svn');
-var_dump($iconsets_root);
 if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 	if (($d = @dir($iconsets_root)) !== false) {
 		while (($entry = $d->read()) !== false) {
-			var_dump($entry);
 			if ($entry != '.' && $entry != '..' && is_dir($iconsets_root.'/'.$entry) && !in_array($entry, $excluded_dirs)) {
 				if (substr($entry, 0, 1) == '.') {
 					$name = substr($entry,1);
@@ -64,8 +62,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 					$enabled = true;
 				}
 				// Try to find a README.md, README.txt or README
-				$readme = '';
-				$freadme = '';
+				$readme = $freadme = $treadme = '';
 				$path = $iconsets_root.'/'.$entry;
 				if (($f = @dir($path)) !== false) {
 					while (($file = $f->read()) !== false) {
@@ -73,8 +70,8 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 							if (in_array(strtolower($file), array('readme.md','readme.txt','readme'))) {
 								$freadme = $path.'/'.$file;
 								if (is_readable($freadme)) {
-									$readme = file_get_contents($freadme);
-									$readme = '<p>'.str_replace(array("\r\n","\r","\n"),"</p><p>",$readme).'</p>';
+									$treadme = file_get_contents($freadme);
+									$readme = '<h3>'.sprintf(__('%s Iconset'),$name).'</h3><hr /><p>'.nl2br($treadme,true).'</p>';
 									break;
 								} else {
 									$freadme = '';
@@ -91,9 +88,9 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 					'fname' => $entry,
 					'enabled' => $enabled,
 					'freadme' => $freadme,
-					'readme' => '<h3>'.sprintf(__('Iconset %s'),$name).'</h3>'.$readme
+					'treadme' => $treadme,
+					'readme' => $readme
 				);
-				var_dump($iconsets[$name]);
 			}
 		}
 		// Sort array on iconset's name
@@ -163,7 +160,9 @@ if ($dump != '') {
 			echo
 			'<tr class="line">'.
 				'<td scope="row" class="maximal">'.$v['name'].
-					($v['freadme'] != '' ? ' (<a href="#" class="iconset-readme" data-readme="'.$v['readme'].'" />'.__('Informations').'</a>)' : '').
+					($v['freadme'] != '' ?
+						' (<a href="#" class="iconset-readme" data-readme="'.$v['readme'].'" title="'.$v['treadme'].'" />'.__('Informations').'</a>)' :
+						'').
 				'</td>'.
 				'<td class="minimal">'.($v['enabled'] ?
 					'<img src="images/check-on.png" title="'.__('Enabled').'" alt="'.__('Enabled').'" />' :

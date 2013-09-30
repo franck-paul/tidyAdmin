@@ -1,9 +1,9 @@
 (function($) {
 	$.modalText = function(txt,w,h) {
-		div = $('<div>'+txt+'</div>').css({
+		div = $('<div class="readme">'+txt+'</div>').css({
 			border: 'none',
 			width: w,
-			height: h
+			height: h,
 		});
 		return new $.modal(div);
 	};
