@@ -116,7 +116,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 	if ($is_writable && $iconset_id && !empty($_POST['delete'])) {
 		try
 		{
-			;
+			files::deltree($iconsets[$iconset_id]['path']);
 			http::redirect($p_url.'&del=1');
 		}
 		catch (Exception $e)
