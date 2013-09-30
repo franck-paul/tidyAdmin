@@ -99,7 +99,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 $dump = ob_get_clean();
 
 if ($part == '') {
-	$part = !empty($_GET['part']) && $_GET['part'] == 'iconset' ? 'iconset' : 'css-editor';
+	$part = !empty($_GET['part']) && $_GET['part'] == 'css-editor' ? 'css-editor' : 'iconset';
 }
 ?>
 
@@ -131,31 +131,6 @@ if ($dump != '') {
 //	echo '<div id="dump">'.$dump.'</div>';
 }
 ?>
-
-<div id="css-editor"  class="multi-part" title="<?php echo __('Supplemental CSS editor'); ?>">
-<h3 class="out-of-screen-if-js"><?php echo __('Supplemental CSS editor'); ?></h3>
-<?php
-{
-	echo
-	'<form id="file-form" action="'.$p_url.'" method="post">'.
-	'<p>'.form::textarea('css_content',72,25,html::escapeHTML($css_content),'maximal','',!$css_writeable).'</p>';
-	if ($css_writeable)
-	{
-		echo
-		'<p><input type="submit" name="css" value="'.__('Save').' (s)" accesskey="s" /> '.
-		$core->formNonce().
-		'</p>';
-	}
-	else
-	{
-		echo '<p>'.sprintf(__('The %s file is not writable. Please check the css folder permissions of this plugin.'),$css_file).'</p>';
-	}
-	echo
-	'<p class="info">'.__('Note: this supplemental CSS rules will surcharge the default CSS rules.').'</p>'.
-	'</form>';
-}
-?>
-</div>
 
 <div id="iconset"  class="multi-part" title="<?php echo __('Iconset management'); ?>">
 <h3 class="out-of-screen-if-js"><?php echo __('Iconset management'); ?></h3>
@@ -201,6 +176,31 @@ if ($dump != '') {
 	echo
 	'<p>'.$core->formNonce().'</p>'.
 	'</form>';
+?>
+</div>
+
+<div id="css-editor"  class="multi-part" title="<?php echo __('Supplemental CSS editor'); ?>">
+<h3 class="out-of-screen-if-js"><?php echo __('Supplemental CSS editor'); ?></h3>
+<?php
+{
+	echo
+	'<form id="file-form" action="'.$p_url.'" method="post">'.
+	'<p>'.form::textarea('css_content',72,25,html::escapeHTML($css_content),'maximal','',!$css_writeable).'</p>';
+	if ($css_writeable)
+	{
+		echo
+		'<p><input type="submit" name="css" value="'.__('Save').' (s)" accesskey="s" /> '.
+		$core->formNonce().
+		'</p>';
+	}
+	else
+	{
+		echo '<p>'.sprintf(__('The %s file is not writable. Please check the css folder permissions of this plugin.'),$css_file).'</p>';
+	}
+	echo
+	'<p class="info">'.__('Note: this supplemental CSS rules will surcharge the default CSS rules.').'</p>'.
+	'</form>';
+}
 ?>
 </div>
 
