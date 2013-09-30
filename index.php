@@ -16,11 +16,11 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
 $css_file = dirname(__FILE__).'/css/admin.css';
 $css_content = file_get_contents($css_file);
-$css_writeable = file_exists($css_file) && is_writable($css_file) && is_writable(dirname($css_file));
+$css_writable = file_exists($css_file) && is_writable($css_file) && is_writable(dirname($css_file));
 $part = '';
 
 if (!empty($_POST['css'])) {
-	$part = 'css-editor';
+	// Try to write CSS rule
 	try
 	{
 		# Write file
@@ -48,6 +48,7 @@ if (!empty($_POST['css'])) {
 ob_start();
 $iconsets = array();
 $iconsets_root = dirname(DC_RC_PATH).'/../admin/images/iconset/';
+$is_writable = is_writable($iconsets_root);
 $excluded_dirs = array('.hg','.git','.svn');
 var_dump($iconsets_root);
 if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
@@ -73,6 +74,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 								$freadme = $path.'/'.$file;
 								if (is_readable($freadme)) {
 									$readme = file_get_contents($freadme);
+									$readme = '<p>'.str_replace(array("\r\n","\r","\n"),"</p><p>",$readme).'</p>';
 									break;
 								} else {
 									$freadme = '';
@@ -82,11 +84,14 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 					}
 				}
 				$iconsets[$name] = array(
+					'path' => $path,
+					'deletable' => $is_writable,
+					'deactivable' => $is_writable,
 					'name' => $name,
 					'fname' => $entry,
 					'enabled' => $enabled,
 					'freadme' => $freadme,
-					'readme' => html::escapeHTML($readme)
+					'readme' => '<h3>'.sprintf(__('Iconset %s'),$name).'</h3>'.$readme
 				);
 				var_dump($iconsets[$name]);
 			}
@@ -98,6 +103,9 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 }
 $dump = ob_get_clean();
 
+if (!empty($_GET[css])) {
+	$part = 'css-editor';
+}
 if ($part == '') {
 	$part = !empty($_GET['part']) && $_GET['part'] == 'css-editor' ? 'css-editor' : 'iconset';
 }
@@ -109,9 +117,12 @@ if ($part == '') {
 	<link rel="stylesheet" type="text/css" href="index.php?pf=tidyAdmin/style.css" />
 	<link rel="stylesheet" type="text/css" href="index.php?pf=tidyAdmin/codemirror/codemirror.css" />
 	<link rel="stylesheet" type="text/css" href="index.php?pf=tidyAdmin/codemirror.css" />
+	<?php echo dcPage::jsModal(); ?>
+	<?php echo dcPage::jsConfirmClose('css-form'); ?>
+	<?php echo dcPage::jsPageTabs($part); ?>
+	<script type="text/JavaScript" src="index.php?pf=tidyAdmin/js/iconset.js"></script>
 	<script type="text/JavaScript" src="index.php?pf=tidyAdmin/codemirror/codemirror.js"></script>
 	<script type="text/JavaScript" src="index.php?pf=tidyAdmin/codemirror/css.js"></script>
-	<?php echo dcPage::jsPageTabs($part); ?>
 </head>
 
 <body>
@@ -135,47 +146,89 @@ if ($dump != '') {
 <div id="iconset"  class="multi-part" title="<?php echo __('Iconset management'); ?>">
 <h3 class="out-of-screen-if-js"><?php echo __('Iconset management'); ?></h3>
 <?php
-	echo
-	'<form id="iconset-form" action="'.$p_url.'" method="post">';
-	// Display list of iconset
+
+	// Iconset activation/deactivation/desintallation form
 	if (count($iconsets)) {
-		$nb_actives = $nb_inactives = 0;
 		echo
 		'<div class="table-outer"><table id="iconset_list"><caption class="as_h3">'.__('Iconset list').'</caption>'.
 		'<thead>'.
 		'<tr>'."\n".
-		'  <th class="nowrap">'.__('Name').'</th>'."\n".
-		'  <th>'.__('Folder name').'</th>'."\n".
-		'  <th>'.__('Enabled').'</th>'."\n".
-		'  <th class="maximalx">'.__('Readme').'</th>'."\n".
+		'  <th>'.__('Iconset').'</th>'."\n".
+		'  <th class="nowrap">'.__('Status').'</th>'."\n".
+		'  <th class="nowrap">'.__('Action').'</th>'."\n".
 		'</tr>'."\n".
 		'</thead>'."\n".
-		'<tbody>';
+		'<tbody>'."\n";
 		foreach ($iconsets as $k => $v) {
 			echo
 			'<tr class="line">'.
-				'<td scope="row">'.form::checkbox(array('iconset[]'),$v['fname'],'','','',false,'title="'.__('select').' '.$v['name'].'"').' '.
-				$v['name'].'</td>'.
-				'<td>'.$v['fname'].'</td>'.
-				'<td>'.($v['enabled'] ? __('yes') : __('no')).'</td>'.
-				'<td>'.$v['freadme'].'</td>'.
-			'</tr>';
-			if ($v['enabled']) {
-				$nb_actives++;
-			} else {
-				$nb_inactives++;
-			}
+				'<td scope="row" class="maximal">'.$v['name'].
+					($v['freadme'] != '' ? ' (<a href="#" class="iconset-readme" data-readme="'.$v['readme'].'" />'.__('Informations').'</a>)' : '').
+				'</td>'.
+				'<td class="minimal">'.($v['enabled'] ?
+					'<img src="images/check-on.png" title="'.__('Enabled').'" alt="'.__('Enabled').'" />' :
+					'<img src="images/check-off.png" title="'.__('Disabled').'" alt="'.__('Disabled').'" />').
+				'</td>'.
+				'<td class="nowrap action">';
+				echo
+					'<form id="iconset-form" action="'.$p_url.'" method="post">'.
+					'<div>'.
+					$core->formNonce().
+					form::hidden(array('iconset_id'),html::escapeHTML($v['name']));
+
+					if ($v['enabled'] && $v['deactivable']) {
+						echo '<input type="submit" name"deactivate" value="'.__('Deactivate').'" /> ';
+					} elseif (!$v['enabled'] && $v['deactivable']) {
+						echo '<input type="submit" name"activate" value="'.__('Activate').'" /> ';
+					}
+					if ($v['deletable']) {
+						echo '<input type="submit" class="delete" name="delete" value="'.__('Delete').'" />';
+					}
+
+				echo
+					'</form>'.
+				'</td>'.
+			'</tr>'."\n";
 		}
 		echo '</tbody></table></div>';
+	}
+?>
+</div>
+
+<div id="iconset-install"  class="multi-part" title="<?php echo __('Iconset installation'); ?>">
+<h3 class="out-of-screen-if-js"><?php echo __('Iconset installation'); ?></h3>
+<?php
+	if ($is_writable) {
+		# 'Upload iconset' form
 		echo
-		'<p>'.
-		'<input type="submit" name="enable" value="'.__('Enable').'" '.($nb_inactives ? '' : 'disabled="disabled"').' />'.' '.
-		'<input type="submit" name="disable" value="'.__('Disable').'" '.($nb_actives ? '' : 'disabled="disabled"').' />'.
+		'<form method="post" action="'.$p_url.'" id="uploadpkg" enctype="multipart/form-data" class="fieldset">'.
+		'<h3>'.__('Upload a zip file').'</h3>'.
+		'<p class="field"><label for="pkg_file" class="classic required"><abbr title="'.__('Required field').'">*</abbr> '.__('Iconset zip file:').'</label> '.
+		'<input type="file" id="pkg_file" name="pkg_file" /></p>'.
+		'<p class="field"><label for="your_pwd1" class="classic required"><abbr title="'.__('Required field').'">*</abbr> '.__('Your password:').'</label> '.
+		form::password(array('your_pwd','your_pwd1'),20,255).'</p>'.
+		'<p><input type="submit" name="upload_pkg" value="'.__('Upload iconset').'" />'.
+		$core->formNonce().
+		'</p>'.
+		'</form>';
+
+		# 'Fetch iconset' form
+		echo
+		'<form method="post" action="'.$p_url.'" id="fetchpkg" class="fieldset">'.
+		'<h3>'.__('Download a zip file').'</h3>'.
+		'<p class="field"><label for="pkg_url" class="classic required"><abbr title="'.__('Required field').'">*</abbr> '.__('Iconset zip file URL:').'</label> '.
+		form::field(array('pkg_url','pkg_url'),40,255).'</p>'.
+		'<p class="field"><label for="your_pwd2" class="classic required"><abbr title="'.__('Required field').'">*</abbr> '.__('Your password:').'</label> '.
+		form::password(array('your_pwd','your_pwd2'),20,255).'</p>'.
+		'<p><input type="submit" name="fetch_pkg" value="'.__('Download iconset').'" />'.
+		$core->formNonce().'</p>'.
+		'</form>';
+	} else {
+		echo
+		'<p class="static-msg">'.
+		__('To enable iconset installation, please give write access to your iconset directory.').
 		'</p>';
 	}
-	echo
-	'<p>'.$core->formNonce().'</p>'.
-	'</form>';
 ?>
 </div>
 
@@ -184,9 +237,9 @@ if ($dump != '') {
 <?php
 {
 	echo
-	'<form id="file-form" action="'.$p_url.'" method="post">'.
-	'<p>'.form::textarea('css_content',72,25,html::escapeHTML($css_content),'maximal','',!$css_writeable).'</p>';
-	if ($css_writeable)
+	'<form id="css-form" action="'.$p_url.'" method="post">'.
+	'<p>'.form::textarea('css_content',72,25,html::escapeHTML($css_content),'maximal','',!$css_writable).'</p>';
+	if ($css_writable)
 	{
 		echo
 		'<p><input type="submit" name="css" value="'.__('Save').' (s)" accesskey="s" /> '.

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-29 19:06+0200\n"
+"POT-Creation-Date: 2013-09-30 15:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,40 +24,80 @@ msgstr ""
 msgid "Tidy Administration"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:30
+#: ../hg-plugins/tidyAdmin/index.php:32
 #, php-format
 msgid "Unable to write file %s. Please check your css folder permissions of this plugin."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:91 ../hg-plugins/tidyAdmin/index.php:104
+#: ../hg-plugins/tidyAdmin/index.php:112 ../hg-plugins/tidyAdmin/index.php:126
 msgid "Tidy administration settings"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:107
+#: ../hg-plugins/tidyAdmin/index.php:129
 msgid "CSS supplemental rules updated"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:121
+#: ../hg-plugins/tidyAdmin/index.php:139 ../hg-plugins/tidyAdmin/index.php:140
 msgid "Iconset management"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:137
-msgid "Enable"
+#: ../hg-plugins/tidyAdmin/index.php:146
+msgid "Iconset list"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:138
-msgid "Disable"
+#: ../hg-plugins/tidyAdmin/index.php:149
+msgid "Name"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:152
+#: ../hg-plugins/tidyAdmin/index.php:151
+msgid "Readme"
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:161
+msgid "Enabled"
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:162
+msgid "Disabled"
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:164
+msgid "Informations"
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:191 ../hg-plugins/tidyAdmin/index.php:192
+msgid "Iconset installation"
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:199
+msgid "Iconset zip file:"
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:203
+msgid "Upload iconset"
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:212
+msgid "Iconset zip file URL:"
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:216
+msgid "Download iconset"
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:222
+msgid "To enable iconset installation, please give write access to your iconset directory."
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:228 ../hg-plugins/tidyAdmin/index.php:229
 msgid "Supplemental CSS editor"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:163
+#: ../hg-plugins/tidyAdmin/index.php:244
 #, php-format
 msgid "The %s file is not writable. Please check the css folder permissions of this plugin."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:166
+#: ../hg-plugins/tidyAdmin/index.php:247
 msgid "Note: this supplemental CSS rules will surcharge the default CSS rules."
 msgstr ""
