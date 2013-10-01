@@ -18,6 +18,7 @@ $css_file = dirname(__FILE__).'/css/admin.css';
 $css_content = file_get_contents($css_file);
 $css_writable = file_exists($css_file) && is_writable($css_file) && is_writable(dirname($css_file));
 $part = '';
+$dump = '';
 
 if (!empty($_POST['css'])) {
 	// Try to write CSS rule
@@ -43,7 +44,6 @@ if (!empty($_POST['css'])) {
 	}
 }
 
-ob_start();	// DEBUG
 $iconsets_root = dirname(DC_RC_PATH).'/../admin/images/iconset/';
 $is_writable = false;
 
@@ -103,10 +103,8 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 		}
 		// Sort array on iconset's name
 		ksort($iconsets);
-		var_dump($iconsets);	//DEBUG
 	}
 }
-$dump = ob_get_clean();
 
 $iconset_id = !empty($_POST['iconset_id']) ? $_POST['iconset_id'] : null;
 
@@ -150,13 +148,76 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 			$core->error->add($e->getMessage());
 		}
 	}
+
+	// Iconset upload
+	if ($is_writable &&
+		((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
+		 (!empty($_POST['fetch_pkg']) && !empty($_POST['pkg_url']))))
+	{
+		try
+		{
+			if (empty($_POST['your_pwd']) || !$core->auth->checkPassword(crypt::hmac(DC_MASTER_KEY,$_POST['your_pwd']))) {
+				throw new Exception(__('Password verification failed'));
+			}
+
+			if (!empty($_POST['upload_pkg']))
+			{
+				files::uploadStatus($_FILES['pkg_file']);
+
+				$dest = $iconsets_root.$_FILES['pkg_file']['name'];
+				if (!move_uploaded_file($_FILES['pkg_file']['tmp_name'],$dest)) {
+					throw new Exception(__('Unable to move uploaded file.'));
+				}
+			}
+			else
+			{
+				$url = urldecode($_POST['pkg_url']);
+				$dest = $iconsets_root.basename($url);
+
+				try
+				{
+					$client = netHttp::initClient($url,$path);
+					$client->setUserAgent('Dotclear - http://www.dotclear.org/');
+					$client->useGzip(false);
+					$client->setPersistReferers(false);
+					$client->setOutput($dest);
+					$client->get($path);
+				}
+				catch( Exception $e)
+				{
+					throw new Exception(__('An error occurred while downloading the file.'));
+				}
+
+				unset($client);
+			}
+
+			$preserve = !empty($_POST['pkg_preserve']);
+			$ret_code = libIconset::installIconset($dest,$preserve);
+
+			http::redirect($p_url.'&added='.$ret_code);
+		}
+		catch (Exception $e)
+		{
+			$core->error->add($e->getMessage());
+			$part = 'iconset-install';
+		}
+	}
 }
 
 if (!empty($_GET[css])) {
 	$part = 'css-editor';
+} elseif (!empty($_GET[added])) {
+	$part = 'iconset-install';
 }
 if ($part == '') {
-	$part = !empty($_GET['part']) && $_GET['part'] == 'css-editor' ? 'css-editor' : 'iconset';
+	if (!empty($_GET['part'])) {
+		if (in_array($_GET['part'], array('iconset','iconset-install','css-editor'))) {
+			$part = $_GET['part'];
+		}
+	}
+}
+if ($part == '') {
+	$part = 'iconset';
 }
 ?>
 
@@ -201,11 +262,18 @@ if (!empty($_GET['dis'])) {
 if (!empty($_GET['act'])) {
 	dcPage::success(__('Iconset has been successfully enabled'));
 }
+if (!empty($_GET['added'])) {
+	if ($_GET['added'] == '2') {
+		dcPage::success(__('Iconset has been successfully updated'));
+	} else {
+		dcPage::success(__('Iconset has been successfully installed'));
+	}
+}
 ?>
 
 <?php
 if ($dump != '') {	// DEBUG
-//	echo '<div id="dump">'.$dump.'</div>';
+	echo '<div id="dump">'.$dump.'</div>';
 }
 ?>
 
@@ -278,7 +346,7 @@ if ($dump != '') {	// DEBUG
 		'<p class="field"><label for="your_pwd1" class="classic required"><abbr title="'.__('Required field').'">*</abbr> '.__('Your password:').'</label> '.
 		form::password(array('your_pwd','your_pwd1'),20,255).'</p>'.
 		'<p><label for="pkg_zip_preserve" class="classic">'.
-		form::checkbox('pkg_zip_preserve',1,true).' '.__('Preserve existing folders and files not in zip file').'</label></p>'.
+		form::checkbox(array('pkg_preserve','pkg_zip_preserve'),1,true).' '.__('Preserve existing folders and files not in zip file').'</label></p>'.
 		'<p><input type="submit" name="upload_pkg" value="'.__('Upload iconset').'" />'.
 		$core->formNonce().
 		'</p>'.
@@ -293,9 +361,10 @@ if ($dump != '') {	// DEBUG
 		'<p class="field"><label for="your_pwd2" class="classic required"><abbr title="'.__('Required field').'">*</abbr> '.__('Your password:').'</label> '.
 		form::password(array('your_pwd','your_pwd2'),20,255).'</p>'.
 		'<p><label for="pkg_url_preserve" class="classic">'.
-		form::checkbox('pkg_url_preserve',1,true).' '.__('Preserve existing folders and files not in zip file').'</label></p>'.
+		form::checkbox(array('pkg_preserve','pkg_url_preserve'),1,true).' '.__('Preserve existing folders and files not in zip file').'</label></p>'.
 		'<p><input type="submit" name="fetch_pkg" value="'.__('Download iconset').'" />'.
-		$core->formNonce().'</p>'.
+		$core->formNonce().
+		'</p>'.
 		'</form>';
 	} else {
 		echo
