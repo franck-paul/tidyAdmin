@@ -17,98 +17,98 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Customize your dotclear administration"
-msgstr ""
+msgstr "Changez l'aspect de votre administration"
 
 msgid "Tidy Administration"
-msgstr ""
+msgstr "Personnalisation de l'administration"
 
 msgid "An error occurred during iconset deletion."
-msgstr ""
+msgstr "Une erreur est survenue pendant la suppression du jeu d'icônes."
 
 #, php-format
 msgid "Unable to write file %s. Please check your css folder permissions of this plugin."
-msgstr ""
+msgstr "Impossible d'écrire le fichier %s. Vérifiez les permissions du dossier css de ce plugin."
 
 #, php-format
 msgid "%s Iconset"
-msgstr ""
+msgstr "Jeu d'icônes %s"
 
 msgid "Tidy administration settings"
-msgstr ""
+msgstr "Personnalisation de l'administration"
 
 #, php-format
 msgid "Are you sure you want to delete \"%s\" iconset?"
-msgstr ""
+msgstr "Êtes-vous sûr de vouloir supprimer le jeu d'icônes \"%s\" ?"
 
 msgid "CSS supplemental rules updated"
-msgstr ""
+msgstr "Les règles CSS supplémentaires ont été mises à jour"
 
 msgid "Iconset has been successfully deleted"
-msgstr ""
+msgstr "Le jeu d'icônes a été supprimé avec succès"
 
 msgid "Iconset has been successfully disabled"
-msgstr ""
+msgstr "Le jeu d'icône a été désactivé avec succès"
 
 msgid "Iconset has been successfully enabled"
-msgstr ""
+msgstr "Le jeu d'icône a été activé avec succès"
 
 msgid "Iconset has been successfully updated"
-msgstr ""
+msgstr "Le jeu d'icône a été mis à jour avec succès"
 
 msgid "Iconset has been successfully installed"
-msgstr ""
+msgstr "Le jeu d'icône a été installé avec succès"
 
 msgid "Iconset management"
-msgstr ""
+msgstr "Gestion des jeux d'icônes"
 
 msgid "Iconset list"
-msgstr ""
+msgstr "Liste des jeux dd'icônes"
 
 msgid "Iconset"
-msgstr ""
+msgstr "Jeu d'icône"
 
 msgid "Informations"
-msgstr ""
+msgstr "Informations"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Activé"
 
 msgid "Disabled"
-msgstr ""
+msgstr "Désactivé"
 
 msgid "No iconset installed."
-msgstr ""
+msgstr "Aucun jeu d'icônes installé."
 
 msgid "Iconset installation or update"
-msgstr ""
+msgstr "Installation et mise à jour de jeux d'icônes"
 
 msgid "Iconset installation"
-msgstr ""
+msgstr "Installation d'un jeu d'icônes"
 
 msgid "Iconset zip file:"
-msgstr ""
+msgstr "Fichier zip du jeu d'icônes&nbsp;:"
 
 msgid "Preserve existing folders and files not in zip file"
-msgstr ""
+msgstr "Préserver les dossiers et fichiers non présents dans le fichier zip"
 
 msgid "Upload iconset"
-msgstr ""
+msgstr "Déposer le jeu d'icônes"
 
 msgid "Iconset zip file URL:"
-msgstr ""
+msgstr "URL du fichier zip du jeu d'icônes&nbsp;:"
 
 msgid "Download iconset"
-msgstr ""
+msgstr "Télécharger le jeu d'icônes"
 
 msgid "To enable iconset installation, please give write access to your iconset directory."
-msgstr ""
+msgstr "Pour permettre l'installation de jeux d'icônes, veuillez positionner un droit d'écriture sur le dossier iconset."
 
 msgid "Supplemental CSS editor"
-msgstr ""
+msgstr "Éditeur des règles CSS supplémentaires"
 
 #, php-format
 msgid "The %s file is not writable. Please check the css folder permissions of this plugin."
-msgstr ""
+msgstr "Le fichier %s n'est pas accessible en écriture. Vérifiez les permissions du dossier css de ce plugin."
 
 msgid "Note: this supplemental CSS rules will surcharge the default CSS rules."
-msgstr ""
+msgstr "Note : ces règles CSS supplémentaires viendront surcharger les règles CSS par défaut."
