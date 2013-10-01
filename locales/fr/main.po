@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-30 18:16+0200\n"
+"POT-Creation-Date: 2013-10-01 00:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,10 +70,16 @@ msgstr ""
 msgid "No iconset installed."
 msgstr ""
 
+msgid "Iconset installation or update"
+msgstr ""
+
 msgid "Iconset installation"
 msgstr ""
 
 msgid "Iconset zip file:"
+msgstr ""
+
+msgid "Preserve existing folders and files not in zip file"
 msgstr ""
 
 msgid "Upload iconset"

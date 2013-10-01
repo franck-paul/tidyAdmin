@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-30 18:16+0200\n"
+"POT-Creation-Date: 2013-10-01 00:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,92 +34,100 @@ msgstr ""
 msgid "%s Iconset"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:165 ../hg-plugins/tidyAdmin/index.php:184
+#: ../hg-plugins/tidyAdmin/index.php:165 ../hg-plugins/tidyAdmin/index.php:190
 msgid "Tidy administration settings"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:173
+#: ../hg-plugins/tidyAdmin/index.php:176
 #, php-format
 msgid "Are you sure you want to delete \"%s\" iconset?"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:187
+#: ../hg-plugins/tidyAdmin/index.php:193
 msgid "CSS supplemental rules updated"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:190
+#: ../hg-plugins/tidyAdmin/index.php:196
 msgid "Iconset has been successfully deleted"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:193
+#: ../hg-plugins/tidyAdmin/index.php:199
 msgid "Iconset has been successfully disabled"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:196
+#: ../hg-plugins/tidyAdmin/index.php:202
 msgid "Iconset has been successfully enabled"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:206 ../hg-plugins/tidyAdmin/index.php:207
+#: ../hg-plugins/tidyAdmin/index.php:212 ../hg-plugins/tidyAdmin/index.php:213
 msgid "Iconset management"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:213
+#: ../hg-plugins/tidyAdmin/index.php:219
 msgid "Iconset list"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:216
+#: ../hg-plugins/tidyAdmin/index.php:222
 msgid "Iconset"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:227
+#: ../hg-plugins/tidyAdmin/index.php:233
 msgid "Informations"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:231
+#: ../hg-plugins/tidyAdmin/index.php:237
 msgid "Enabled"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:232
+#: ../hg-plugins/tidyAdmin/index.php:238
 msgid "Disabled"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:257
+#: ../hg-plugins/tidyAdmin/index.php:263
 msgid "No iconset installed."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:262 ../hg-plugins/tidyAdmin/index.php:263
+#: ../hg-plugins/tidyAdmin/index.php:268
+msgid "Iconset installation or update"
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:269
 msgid "Iconset installation"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:270
+#: ../hg-plugins/tidyAdmin/index.php:276
 msgid "Iconset zip file:"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:274
+#: ../hg-plugins/tidyAdmin/index.php:281 ../hg-plugins/tidyAdmin/index.php:296
+msgid "Preserve existing folders and files not in zip file"
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:282
 msgid "Upload iconset"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:283
+#: ../hg-plugins/tidyAdmin/index.php:291
 msgid "Iconset zip file URL:"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:287
+#: ../hg-plugins/tidyAdmin/index.php:297
 msgid "Download iconset"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:293
+#: ../hg-plugins/tidyAdmin/index.php:303
 msgid "To enable iconset installation, please give write access to your iconset directory."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:299 ../hg-plugins/tidyAdmin/index.php:300
+#: ../hg-plugins/tidyAdmin/index.php:309 ../hg-plugins/tidyAdmin/index.php:310
 msgid "Supplemental CSS editor"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:315
+#: ../hg-plugins/tidyAdmin/index.php:325
 #, php-format
 msgid "The %s file is not writable. Please check the css folder permissions of this plugin."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:318
+#: ../hg-plugins/tidyAdmin/index.php:328
 msgid "Note: this supplemental CSS rules will surcharge the default CSS rules."
 msgstr ""

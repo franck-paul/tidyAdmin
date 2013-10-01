@@ -277,6 +277,8 @@ if ($dump != '') {	// DEBUG
 		'<input type="file" id="pkg_file" name="pkg_file" /></p>'.
 		'<p class="field"><label for="your_pwd1" class="classic required"><abbr title="'.__('Required field').'">*</abbr> '.__('Your password:').'</label> '.
 		form::password(array('your_pwd','your_pwd1'),20,255).'</p>'.
+		'<p><label for="pkg_zip_preserve" class="classic">'.
+		form::checkbox('pkg_zip_preserve',1,true).' '.__('Preserve existing folders and files not in zip file').'</label></p>'.
 		'<p><input type="submit" name="upload_pkg" value="'.__('Upload iconset').'" />'.
 		$core->formNonce().
 		'</p>'.
@@ -290,6 +292,8 @@ if ($dump != '') {	// DEBUG
 		form::field(array('pkg_url','pkg_url'),40,255).'</p>'.
 		'<p class="field"><label for="your_pwd2" class="classic required"><abbr title="'.__('Required field').'">*</abbr> '.__('Your password:').'</label> '.
 		form::password(array('your_pwd','your_pwd2'),20,255).'</p>'.
+		'<p><label for="pkg_url_preserve" class="classic">'.
+		form::checkbox('pkg_url_preserve',1,true).' '.__('Preserve existing folders and files not in zip file').'</label></p>'.
 		'<p><input type="submit" name="fetch_pkg" value="'.__('Download iconset').'" />'.
 		$core->formNonce().'</p>'.
 		'</form>';
