@@ -34,7 +34,8 @@ if (!empty($_POST['css'])) {
 			} else {
 				fwrite($fp,$css_content);
 				fclose($fp);
-				http::redirect($p_url.'&css=1');
+				dcPage::addSuccessNotice(__('CSS supplemental rules updated'));
+				http::redirect($p_url.'&part=css-editor');
 			}
 		}
 	}
@@ -115,7 +116,8 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 		try
 		{
 			files::deltree($iconsets[$iconset_id]['path']);
-			http::redirect($p_url.'&del=1');
+			dcPage::addSuccessNotice(__('Iconset has been successfully deleted'));
+			http::redirect($p_url.'&part=iconset');
 		}
 		catch (Exception $e)
 		{
@@ -128,7 +130,8 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 		try
 		{
 			rename($iconsets[$iconset_id]['path'],dirname($iconsets[$iconset_id]['path']).'/.'.$iconsets[$iconset_id]['name']);
-			http::redirect($p_url.'&dis=1');
+			dcPage::addSuccessNotice(__('Iconset has been successfully disabled'));
+			http::redirect($p_url.'&part=iconset');
 		}
 		catch (Exception $e)
 		{
@@ -141,7 +144,8 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 		try
 		{
 			rename($iconsets[$iconset_id]['path'],dirname($iconsets[$iconset_id]['path']).'/'.$iconsets[$iconset_id]['name']);
-			http::redirect($p_url.'&act=1');
+			dcPage::addSuccessNotice(__('Iconset has been successfully enabled'));
+			http::redirect($p_url.'&part=iconset');
 		}
 		catch (Exception $e)
 		{
@@ -193,8 +197,12 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 
 			$preserve = !empty($_POST['pkg_preserve']);
 			$ret_code = libIconset::installIconset($dest,$preserve);
-
-			http::redirect($p_url.'&added='.$ret_code);
+			if ($ret_code == '2') {
+				dcPage::addSuccessNotice(__('Iconset has been successfully updated'));
+			} else {
+				dcPage::addSuccessNotice(__('Iconset has been successfully installed'));
+			}
+			http::redirect($p_url.'&part=iconset-install');
 		}
 		catch (Exception $e)
 		{
@@ -204,11 +212,6 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 	}
 }
 
-if (!empty($_GET[css])) {
-	$part = 'css-editor';
-} elseif (!empty($_GET[added])) {
-	$part = 'iconset-install';
-}
 if ($part == '') {
 	if (!empty($_GET['part'])) {
 		if (in_array($_GET['part'], array('iconset','iconset-install','css-editor'))) {
@@ -250,31 +253,7 @@ echo dcPage::breadcrumb(
 		__('System') => '',
 		__('Tidy administration settings') => ''
 	));
-if (!empty($_GET['css'])) {
-	dcPage::success(__('CSS supplemental rules updated'));
-}
-if (!empty($_GET['del'])) {
-	dcPage::success(__('Iconset has been successfully deleted'));
-}
-if (!empty($_GET['dis'])) {
-	dcPage::success(__('Iconset has been successfully disabled'));
-}
-if (!empty($_GET['act'])) {
-	dcPage::success(__('Iconset has been successfully enabled'));
-}
-if (!empty($_GET['added'])) {
-	if ($_GET['added'] == '2') {
-		dcPage::success(__('Iconset has been successfully updated'));
-	} else {
-		dcPage::success(__('Iconset has been successfully installed'));
-	}
-}
-?>
-
-<?php
-if ($dump != '') {	// DEBUG
-	echo '<div id="dump">'.$dump.'</div>';
-}
+echo dcPage::notices();
 ?>
 
 <div id="iconset"  class="multi-part" title="<?php echo __('Iconset management'); ?>">
@@ -366,6 +345,9 @@ if ($dump != '') {	// DEBUG
 		$core->formNonce().
 		'</p>'.
 		'</form>';
+
+		echo
+		'<p class="info">'.__('Note: An iconset must be enabled in order to be updated.').'</p>';
 	} else {
 		echo
 		'<p class="static-msg">'.

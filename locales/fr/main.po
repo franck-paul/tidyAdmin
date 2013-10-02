@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-01 12:46+0200\n"
+"POT-Creation-Date: 2013-10-01 14:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,7 +89,7 @@ msgid "Iconset zip file:"
 msgstr "Fichier zip du jeu d'icônes&nbsp;:"
 
 msgid "Preserve existing folders and files not in zip file"
-msgstr "Préserver les dossiers et fichiers non présents dans le fichier zip"
+msgstr "Préserver les dossiers et fichiers existants et non présents dans le fichier zip du jeu d'icônes"
 
 msgid "Upload iconset"
 msgstr "Déposer le jeu d'icônes"
@@ -99,6 +99,9 @@ msgstr "URL du fichier zip du jeu d'icônes&nbsp;:"
 
 msgid "Download iconset"
 msgstr "Télécharger le jeu d'icônes"
+
+msgid "Note: An iconset must be enabled in order to be updated."
+msgstr "Note : Un jeu d'icône ne peut être mis à jour que s'il est activé."
 
 msgid "To enable iconset installation, please give write access to your iconset directory."
 msgstr "Pour permettre l'installation de jeux d'icônes, veuillez positionner un droit d'écriture sur le dossier iconset."

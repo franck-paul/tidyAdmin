@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-01 12:46+0200\n"
+"POT-Creation-Date: 2013-10-01 14:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,19 +127,23 @@ msgstr ""
 msgid "Download iconset"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:372
+#: ../hg-plugins/tidyAdmin/index.php:371
+msgid "Note: An iconset must be enabled in order to be updated."
+msgstr ""
+
+#: ../hg-plugins/tidyAdmin/index.php:375
 msgid "To enable iconset installation, please give write access to your iconset directory."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:378 ../hg-plugins/tidyAdmin/index.php:379
+#: ../hg-plugins/tidyAdmin/index.php:381 ../hg-plugins/tidyAdmin/index.php:382
 msgid "Supplemental CSS editor"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:394
+#: ../hg-plugins/tidyAdmin/index.php:397
 #, php-format
 msgid "The %s file is not writable. Please check the css folder permissions of this plugin."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin/index.php:397
+#: ../hg-plugins/tidyAdmin/index.php:400
 msgid "Note: this supplemental CSS rules will surcharge the default CSS rules."
 msgstr ""
