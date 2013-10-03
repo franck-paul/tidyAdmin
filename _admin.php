@@ -19,7 +19,9 @@ $_menu['System']->addItem(__('Tidy Administration'),'plugin.php?p=tidyAdmin','in
 		preg_match('/plugin.php\?p=tidyAdmin(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->isSuperAdmin());
 
-$core->addBehavior('adminDashboardFavs',array('tidyAdminBehaviour','adminDashboardFavs'));
+/* Register favorite */
+$core->addBehavior('adminDashboardFavorites',array('tidyAdminBehaviour','adminDashboardFavorites'));
+
 $core->addBehavior('adminPageHTMLHead',array('tidyAdminBehaviour','adminCssLink'));
 
 class tidyAdminBehaviour
@@ -34,10 +36,14 @@ class tidyAdminBehaviour
 			'" type="text/css" media="screen" />'."\n";
 	}
 
-	public static function adminDashboardFavs($core,$favs)
+	public static function adminDashboardFavorites($core,$favs)
 	{
-		$favs['tidyAdmin'] = new ArrayObject(array('tidyAdmin','Tidy Administration','plugin.php?p=tidyAdmin',
-			'index.php?pf=tidyAdmin/icon.png','index.php?pf=tidyAdmin/icon-big.png',
-			null,null,null));
+		$favs->register('tidyAdmin', array(
+			'title' => __('Tidy Administration'),
+			'url' => 'plugin.php?p=tidyAdmin',
+			'small-icon' => 'index.php?pf=tidyAdmin/icon.png',
+			'large-icon' => 'index.php?pf=tidyAdmin/icon-big.png',
+			'permissions' => $core->auth->isSuperAdmin()
+		));
 	}
 }
