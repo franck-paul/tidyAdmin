@@ -286,7 +286,7 @@ echo dcPage::notices();
 				'</td>'.
 				'<td class="nowrap action">';
 				echo
-					'<form id="iconset-form" action="'.$p_url.'" method="post">'.
+					'<form action="'.$p_url.'" method="post">'.
 					'<div>'.
 					$core->formNonce().
 					form::hidden(array('iconset_id'),html::escapeHTML($v['name']));
@@ -301,6 +301,7 @@ echo dcPage::notices();
 					}
 
 				echo
+					'</div>'.
 					'</form>'.
 				'</td>'.
 			'</tr>'."\n";
