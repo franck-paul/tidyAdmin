@@ -44,19 +44,19 @@ msgid "CSS supplemental rules updated"
 msgstr "Les règles CSS supplémentaires ont été mises à jour"
 
 msgid "Iconset has been successfully deleted"
-msgstr "Le jeu d'icônes a été supprimé avec succès"
+msgstr "Le jeu d'icônes a été supprimé."
 
 msgid "Iconset has been successfully disabled"
-msgstr "Le jeu d'icône a été désactivé avec succès"
+msgstr "Le jeu d'icône a été désactivé."
 
 msgid "Iconset has been successfully enabled"
-msgstr "Le jeu d'icône a été activé avec succès"
+msgstr "Le jeu d'icône a été activé."
 
 msgid "Iconset has been successfully updated"
-msgstr "Le jeu d'icône a été mis à jour avec succès"
+msgstr "Le jeu d'icône a été mis à jour."
 
 msgid "Iconset has been successfully installed"
-msgstr "Le jeu d'icône a été installé avec succès"
+msgstr "Le jeu d'icône a été installé."
 
 msgid "Iconset management"
 msgstr "Gestion des jeux d'icônes"
