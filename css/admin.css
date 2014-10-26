@@ -9,3 +9,6 @@ body {
 pre, code, .codemirror {
   font-family: 'Source Code Pro','Andale Mono','Courier New',monospace !important;
 }
+#dashboard-main {
+  padding: 0;
+}
