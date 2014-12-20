@@ -53,7 +53,7 @@ if (!file_exists($iconsets_root)) {
 	@mkdir($iconsets_root);
 }
 
-$excluded_dirs = array('.hg','.git','.svn');
+$excluded_dirs = array('.hg','.hgcheck','.git','.svn');
 $iconsets = array();
 
 // Get current list of iconsets
