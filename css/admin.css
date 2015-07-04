@@ -1,1 +1,20 @@
 /* User-defined CSS styles */
+
+/* Change admin fonts and make them a little bit bigger */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600,700);
+body {
+  font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+  font-size: 130%;
+}
+pre, code, .codemirror {
+  font-family: 'Source Code Pro','Andale Mono','Courier New',monospace !important;
+}
+/* Reduce padding of dashboard elements */
+#dashboard-main {
+  padding: 0;
+}
+#icons p {
+  width: 13em;
+  padding: 0;
+}
