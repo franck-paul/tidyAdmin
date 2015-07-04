@@ -32,7 +32,7 @@ if (!empty($_POST['css'])) {
 		# Write file
 		if (!empty($_POST['css_content']))
 		{
-			$css_content = $_POST['css_content'];
+			$css_content = $_POST['css_content']."\n";
 			$fp = @fopen($css_file,'wb');
 			if (!$fp) {
 				throw new Exception(sprintf(__('Unable to write file %s. Please check your css folder permissions of this plugin.'),$css_file));
