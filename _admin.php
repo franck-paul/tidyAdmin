@@ -30,10 +30,13 @@ class tidyAdminBehaviour
 	{
 		global $core;
 
-		echo
-			'<link rel="stylesheet" href="'.
-			$core->blog->getQmarkURL().'pf='.basename(dirname(__FILE__)).'/css/admin.css'.
-			'" type="text/css" media="screen" />'."\n";
+		if (file_exists(basename(dirname(__FILE__)).'/css/admin.css'))
+		{
+			echo
+				'<link rel="stylesheet" href="'.
+				$core->blog->getQmarkURL().'pf='.basename(dirname(__FILE__)).'/css/admin.css'.
+				'" type="text/css" media="screen" />'."\n";
+		}
 	}
 
 	public static function adminDashboardFavorites($core,$favs)
