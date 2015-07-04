@@ -30,7 +30,7 @@ class tidyAdminBehaviour
 	{
 		global $core;
 
-		if (file_exists(basename(dirname(__FILE__)).'/css/admin.css'))
+		if (file_exists(dirname(__FILE__).'/css/admin.css'))
 		{
 			echo
 				'<link rel="stylesheet" href="'.
