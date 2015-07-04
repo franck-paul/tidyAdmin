@@ -15,10 +15,15 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 // Get current content of CSS file
 
 $css_file = dirname(__FILE__).'/css/admin.css';
-$css_content = file_get_contents($css_file);
+$css_content = @file_get_contents($css_file);
 $css_writable = file_exists($css_file) && is_writable($css_file) && is_writable(dirname($css_file));
 $part = '';
 $dump = '';
+
+// Get demo CSS content
+
+$css_demo_file = dirname(__FILE__).'/css/admin-demo.css';
+$css_demo_content = @file_get_contents($css_demo_file);
 
 if (!empty($_POST['css'])) {
 	// Try to write CSS rule
@@ -378,6 +383,11 @@ echo dcPage::notices();
 	}
 	echo
 	'<p class="info">'.__('Note: this supplemental CSS rules will surcharge the default CSS rules.').'</p>'.
+
+	// Display demo CSS content
+	'<p>'.__('Sample CSS:').'</p>'.
+	'<p>'.form::textarea('css_demo_content',72,25,html::escapeHTML($css_demo_content),'maximal','',false,'readonly="true"').'</p>';
+
 	'</form>';
 }
 ?>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-01 14:23+0200\n"
+"POT-Creation-Date: 2015-07-04 10:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,19 +29,12 @@ msgstr "Une erreur est survenue pendant la suppression du jeu d'icônes."
 msgid "Unable to write file %s. Please check your css folder permissions of this plugin."
 msgstr "Impossible d'écrire le fichier %s. Vérifiez les permissions du dossier css de ce plugin."
 
+msgid "CSS supplemental rules updated"
+msgstr "Les règles CSS supplémentaires ont été mises à jour"
+
 #, php-format
 msgid "%s Iconset"
 msgstr "Jeu d'icônes %s"
-
-msgid "Tidy administration settings"
-msgstr "Personnalisation de l'administration"
-
-#, php-format
-msgid "Are you sure you want to delete \"%s\" iconset?"
-msgstr "Êtes-vous sûr de vouloir supprimer le jeu d'icônes \"%s\" ?"
-
-msgid "CSS supplemental rules updated"
-msgstr "Les règles CSS supplémentaires ont été mises à jour"
 
 msgid "Iconset has been successfully deleted"
 msgstr "Le jeu d'icônes a été supprimé."
@@ -57,6 +50,13 @@ msgstr "Le jeu d'icône a été mis à jour."
 
 msgid "Iconset has been successfully installed"
 msgstr "Le jeu d'icône a été installé."
+
+msgid "Tidy administration settings"
+msgstr "Personnalisation de l'administration"
+
+#, php-format
+msgid "Are you sure you want to delete \"%s\" iconset?"
+msgstr "Êtes-vous sûr de vouloir supprimer le jeu d'icônes \"%s\" ?"
 
 msgid "Iconset management"
 msgstr "Gestion des jeux d'icônes"
@@ -115,3 +115,6 @@ msgstr "Le fichier %s n'est pas accessible en écriture. Vérifiez les permissio
 
 msgid "Note: this supplemental CSS rules will surcharge the default CSS rules."
 msgstr "Note : ces règles CSS supplémentaires viendront surcharger les règles CSS par défaut."
+
+msgid "Sample CSS:"
+msgstr "Exemple de CSS :"
