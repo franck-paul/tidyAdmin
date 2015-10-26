@@ -232,11 +232,11 @@ if ($part == '') {
 <html>
 <head>
 	<title><?php echo __('Tidy administration settings'); ?></title>
-	<link rel="stylesheet" type="text/css" href="index.php?pf=tidyAdmin/style.css" />
-	<link rel="stylesheet" type="text/css" href="index.php?pf=tidyAdmin/codemirror/codemirror.css" />
-	<link rel="stylesheet" type="text/css" href="index.php?pf=tidyAdmin/codemirror.css" />
 <?php
 	echo
+	dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/style.css')),'screen',$core->getVersion('tidyAdmin')).
+	dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror/codemirror.css')),'screen',$core->getVersion('tidyAdmin')).
+	dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror.css')),'screen',$core->getVersion('tidyAdmin')).
 	dcPage::jsModal().
 	dcPage::jsConfirmClose('css-form').
 	dcPage::jsPageTabs($part).
@@ -244,11 +244,11 @@ if ($part == '') {
 	"//<![CDATA[\n".
 		dcPage::jsVar('dotclear.msg.confirm_delete_iconset',__('Are you sure you want to delete "%s" iconset?')).
 	"\n//]]>\n".
-	"</script>\n";
+	"</script>\n".
+	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/js/iconset.js')),$core->getVersion('tidyAdmin')).
+	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror/codemirror.js')),$core->getVersion('tidyAdmin')).
+	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror/css.js')),$core->getVersion('tidyAdmin'));
 ?>
-	<script type="text/JavaScript" src="index.php?pf=tidyAdmin/js/iconset.js"></script>
-	<script type="text/JavaScript" src="index.php?pf=tidyAdmin/codemirror/codemirror.js"></script>
-	<script type="text/JavaScript" src="index.php?pf=tidyAdmin/codemirror/css.js"></script>
 </head>
 
 <body>

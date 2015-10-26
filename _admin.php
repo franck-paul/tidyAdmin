@@ -15,7 +15,9 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 // dead but useful code, in order to have translations
 __('Tidy Administration').__('Customize your dotclear administration');
 
-$_menu['System']->addItem(__('Tidy Administration'),'plugin.php?p=tidyAdmin','index.php?pf=tidyAdmin/icon.png',
+$_menu['System']->addItem(__('Tidy Administration'),
+		'plugin.php?p=tidyAdmin',
+		urldecode(dcPage::getPF('tidyAdmin/icon.png')),
 		preg_match('/plugin.php\?p=tidyAdmin(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->isSuperAdmin());
 
@@ -33,9 +35,7 @@ class tidyAdminBehaviour
 		if (file_exists(dirname(__FILE__).'/css/admin.css'))
 		{
 			echo
-				'<link rel="stylesheet" href="'.
-				$core->blog->getQmarkURL().'pf='.basename(dirname(__FILE__)).'/css/admin.css'.
-				'" type="text/css" media="screen" />'."\n";
+				dcPage::cssLoad(urldecode(dcPage::getPF(basename(dirname(__FILE__)).'/css/admin.css')))."\n";
 		}
 	}
 
@@ -44,8 +44,8 @@ class tidyAdminBehaviour
 		$favs->register('tidyAdmin', array(
 			'title' => __('Tidy Administration'),
 			'url' => 'plugin.php?p=tidyAdmin',
-			'small-icon' => 'index.php?pf=tidyAdmin/icon.png',
-			'large-icon' => 'index.php?pf=tidyAdmin/icon-big.png',
+			'small-icon' => urldecode(dcPage::getPF('tidyAdmin/icon.png')),
+			'large-icon' => urldecode(dcPage::getPF('tidyAdmin/icon-big.png')),
 			'permissions' => $core->auth->isSuperAdmin()
 		));
 	}
