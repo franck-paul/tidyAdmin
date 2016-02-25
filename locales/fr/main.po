@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-04 10:29+0200\n"
+"POT-Creation-Date: 2016-02-25 14:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,6 +24,14 @@ msgstr "Personnalisation de l'administration"
 
 msgid "An error occurred during iconset deletion."
 msgstr "Une erreur est survenue pendant la suppression du jeu d'icônes."
+
+#, php-format
+msgid "Unable to write file %s. Please check your js folder permissions of this plugin."
+msgstr "Impossible d'écrire le fichier %s. Vérifiez les permissions du dossier js de ce plugin."
+
+#
+msgid "JS supplemental script updated"
+msgstr "Le script JS supplémentaire a été mis à jour"
 
 #, php-format
 msgid "Unable to write file %s. Please check your css folder permissions of this plugin."
@@ -118,3 +126,12 @@ msgstr "Note : ces règles CSS supplémentaires viendront surcharger les règles
 
 msgid "Sample CSS:"
 msgstr "Exemple de CSS :"
+
+msgid "Supplemental JS editor"
+msgstr "Éditeur de script JS supplémentaire"
+
+msgid "Note: this supplemental JS script will surcharge the default JS scripts."
+msgstr "Note : ce script JS supplémentaire viendra compléter les scripts JS par défaut."
+
+msgid "Sample JS:"
+msgstr "Exemple de JS :"

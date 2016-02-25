@@ -24,18 +24,23 @@ $_menu['System']->addItem(__('Tidy Administration'),
 /* Register favorite */
 $core->addBehavior('adminDashboardFavorites',array('tidyAdminBehaviour','adminDashboardFavorites'));
 
-$core->addBehavior('adminPageHTMLHead',array('tidyAdminBehaviour','adminCssLink'));
+$core->addBehavior('adminPageHTMLHead',array('tidyAdminBehaviour','adminPageHTMLHead'));
 
 class tidyAdminBehaviour
 {
-	public static function adminCssLink()
+	public static function adminPageHTMLHead()
 	{
 		global $core;
 
-		if (file_exists(dirname(__FILE__).'/css/admin.css'))
-		{
+		// User defined CSS rules
+		if (file_exists(dirname(__FILE__).'/css/admin.css')) {
 			echo
 				dcPage::cssLoad(urldecode(dcPage::getPF(basename(dirname(__FILE__)).'/css/admin.css')))."\n";
+		}
+		// User defined Javascript
+		if (file_exists(dirname(__FILE__).'/js/admin.js')) {
+			echo
+				dcPage::jsLoad(urldecode(dcPage::getPF(basename(dirname(__FILE__)).'/js/admin.js')))."\n";
 		}
 	}
 

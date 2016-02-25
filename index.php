@@ -12,13 +12,49 @@
 
 if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
+$part = '';
+
+// Get current content of JS file
+
+$js_file = dirname(__FILE__).'/js/admin.js';
+$js_content = @file_get_contents($js_file);
+$js_writable = file_exists($js_file) && is_writable($js_file) && is_writable(dirname($js_file));
+
+// Get demo JS content
+
+$js_demo_file = dirname(__FILE__).'/js/admin-demo.js';
+$js_demo_content = @file_get_contents($js_demo_file);
+
+if (!empty($_POST['js'])) {
+	// Try to write JS file
+	try
+	{
+		# Write file
+		if (!empty($_POST['js_content']))
+		{
+			$js_content = $_POST['js_content']."\n";
+			$fp = @fopen($js_file,'wb');
+			if (!$fp) {
+				throw new Exception(sprintf(__('Unable to write file %s. Please check your js folder permissions of this plugin.'),$js_file));
+			} else {
+				fwrite($fp,$js_content);
+				fclose($fp);
+				dcPage::addSuccessNotice(__('JS supplemental script updated'));
+				http::redirect($p_url.'&part=js-editor');
+			}
+		}
+	}
+	catch (Exception $e)
+	{
+		$core->error->add($e->getMessage());
+	}
+}
+
 // Get current content of CSS file
 
 $css_file = dirname(__FILE__).'/css/admin.css';
 $css_content = @file_get_contents($css_file);
 $css_writable = file_exists($css_file) && is_writable($css_file) && is_writable(dirname($css_file));
-$part = '';
-$dump = '';
 
 // Get demo CSS content
 
@@ -219,7 +255,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 
 if ($part == '') {
 	if (!empty($_GET['part'])) {
-		if (in_array($_GET['part'], array('iconset','iconset-install','css-editor'))) {
+		if (in_array($_GET['part'], array('iconset','iconset-install','css-editor','js-editor'))) {
 			$part = $_GET['part'];
 		}
 	}
@@ -247,7 +283,8 @@ if ($part == '') {
 	"</script>\n".
 	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/js/iconset.js')),$core->getVersion('tidyAdmin')).
 	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror/codemirror.js')),$core->getVersion('tidyAdmin')).
-	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror/css.js')),$core->getVersion('tidyAdmin'));
+	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror/css.js')),$core->getVersion('tidyAdmin')).
+	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror/javascript.js')),$core->getVersion('tidyAdmin'));
 ?>
 </head>
 
@@ -393,9 +430,40 @@ echo dcPage::notices();
 ?>
 </div>
 
+<div id="js-editor"  class="multi-part" title="<?php echo __('Supplemental JS editor'); ?>">
+<h3 class="out-of-screen-if-js"><?php echo __('Supplemental JS editor'); ?></h3>
+<?php
+{
+	echo
+	'<form id="js-form" action="'.$p_url.'" method="post">'.
+	'<p>'.form::textarea('js_content',72,25,html::escapeHTML($js_content),'maximal','',!$js_writable).'</p>';
+	if ($js_writable)
+	{
+		echo
+		'<p><input type="submit" name="js" value="'.__('Save').' (s)" accesskey="s" /> '.
+		$core->formNonce().
+		'</p>';
+	}
+	else
+	{
+		echo '<p>'.sprintf(__('The %s file is not writable. Please check the css folder permissions of this plugin.'),$js_file).'</p>';
+	}
+	echo
+	'<p class="info">'.__('Note: this supplemental JS script will surcharge the default JS scripts.').'</p>'.
+
+	// Display demo JS content
+	'<p>'.__('Sample JS:').'</p>'.
+	'<p>'.form::textarea('js_demo_content',72,25,html::escapeHTML($js_demo_content),'maximal','',false,'readonly="true"').'</p>';
+
+	'</form>';
+}
+?>
+</div>
+
 <script type="text/javascript">
 //<![CDATA[
-	var editor = CodeMirror.fromTextArea(css_content, {mode: "css"});
+	var editor_css = CodeMirror.fromTextArea(css_content, {mode: "css"});
+	var editor_js = CodeMirror.fromTextArea(js_content, {mode: "javascript"});
 //]]>
 </script>
 </body>
