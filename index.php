@@ -17,6 +17,7 @@ $part = '';
 // Get current content of JS file
 
 $js_file = dirname(__FILE__).'/js/admin.js';
+$js_backup_file = dirname(__FILE__).'/js/admin-backup.js';
 $js_content = @file_get_contents($js_file);
 $js_writable = file_exists($js_file) && is_writable($js_file) && is_writable(dirname($js_file));
 
@@ -39,6 +40,11 @@ if (!empty($_POST['js'])) {
 			} else {
 				fwrite($fp,$js_content);
 				fclose($fp);
+				if ($fp = @fopen($js_backup_file,'wb')) {
+					// Backup file
+					fwrite($fp,$js_content);
+					fclose($fp);
+				}
 				dcPage::addSuccessNotice(__('JS supplemental script updated'));
 				http::redirect($p_url.'&part=js-editor');
 			}
@@ -53,6 +59,7 @@ if (!empty($_POST['js'])) {
 // Get current content of CSS file
 
 $css_file = dirname(__FILE__).'/css/admin.css';
+$css_backup_file = dirname(__FILE__).'/css/admin-backup.css';
 $css_content = @file_get_contents($css_file);
 $css_writable = file_exists($css_file) && is_writable($css_file) && is_writable(dirname($css_file));
 
@@ -75,6 +82,11 @@ if (!empty($_POST['css'])) {
 			} else {
 				fwrite($fp,$css_content);
 				fclose($fp);
+				if ($fp = @fopen($css_backup_file,'wb')) {
+					// Backup file
+					fwrite($fp,$js_content);
+					fclose($fp);
+				}
 				dcPage::addSuccessNotice(__('CSS supplemental rules updated'));
 				http::redirect($p_url.'&part=css-editor');
 			}
