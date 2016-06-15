@@ -18,6 +18,7 @@ $this->registerModule(
 	/* Author */		"Franck Paul",
 	/* Version */		'0.5',
 	array(
+		/* Dependencies */	'requires' =>		array(array('core','2.10')),
 		/* Type */			'type' =>			'plugin'
 	)
 );

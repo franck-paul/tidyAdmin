@@ -275,6 +275,11 @@ if ($part == '') {
 if ($part == '') {
 	$part = 'iconset';
 }
+
+# Get interface setting
+$core->auth->user_prefs->addWorkspace('interface');
+$user_ui_colorsyntax = $core->auth->user_prefs->interface->colorsyntax;
+$user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_theme;
 ?>
 
 <html>
@@ -283,7 +288,6 @@ if ($part == '') {
 <?php
 	echo
 	dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/style.css')),'screen',$core->getVersion('tidyAdmin')).
-	dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror/codemirror.css')),'screen',$core->getVersion('tidyAdmin')).
 	dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror.css')),'screen',$core->getVersion('tidyAdmin')).
 	dcPage::jsModal().
 	dcPage::jsConfirmClose('css-form').
@@ -294,9 +298,7 @@ if ($part == '') {
 	"\n//]]>\n".
 	"</script>\n".
 	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/js/iconset.js')),$core->getVersion('tidyAdmin')).
-	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror/codemirror.js')),$core->getVersion('tidyAdmin')).
-	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror/css.js')),$core->getVersion('tidyAdmin')).
-	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/codemirror/javascript.js')),$core->getVersion('tidyAdmin'));
+	dcPage::jsCodeMirror($user_ui_colorsyntax_theme,false,array('css','javascript'));
 ?>
 </head>
 
@@ -474,8 +476,10 @@ echo dcPage::notices();
 
 <script type="text/javascript">
 //<![CDATA[
-	var editor_css = CodeMirror.fromTextArea(css_content, {mode: "css"});
-	var editor_js = CodeMirror.fromTextArea(js_content, {mode: "javascript"});
+	var editor_css = CodeMirror.fromTextArea(css_content,
+		{mode: "css" <?php echo ($user_ui_colorsyntax_theme != '' ? ',theme: "'.$user_ui_colorsyntax_theme.'"' : '') ?>});
+	var editor_js = CodeMirror.fromTextArea(js_content,
+		{mode: "javascript" <?php echo ($user_ui_colorsyntax_theme != '' ? ',theme: "'.$user_ui_colorsyntax_theme.'"' : '') ?>});
 //]]>
 </script>
 </body>

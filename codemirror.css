@@ -2,7 +2,5 @@
 	font-size: 1.2em;
 	background: #fff;
 	border: 1px solid #ccc;
-}
-.CodeMirror .CodeMirror-wrap, .CodeMirror .CodeMirror-scroll {
-	height: 30em;
+	height: 30em !important;
 }
