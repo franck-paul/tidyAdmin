@@ -6,3 +6,7 @@ div.readme {
 	margin: 1em;
 	line-height: 1.2em;
 }
+
+.CodeMirror {
+	height: 30em;
+}
