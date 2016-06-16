@@ -19,13 +19,7 @@ if (version_compare($old_version,$new_version,'>=')) return;
 
 try
 {
-	if (version_compare(DC_VERSION,'2.10','<'))
-	{
-		throw new Exception('Tidy Admin requires Dotclear 2.10 or higher');
-	}
-
 	$core->setVersion('tidyAdmin',$new_version);
-
 	return true;
 }
 catch (Exception $e)
