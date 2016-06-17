@@ -296,19 +296,19 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
 	"\n//]]>\n".
 	"</script>\n".
 	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/js/iconset.js')),$core->getVersion('tidyAdmin')).
-	dcPage::jsCodeMirror($user_ui_colorsyntax_theme,false,array('css','javascript')).
+	dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme,false,array('css','javascript')).
 	dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/style.css')),'screen',$core->getVersion('tidyAdmin'));
 ?>
 </head>
 
 <body>
 <?php
-echo dcPage::breadcrumb(
-	array(
-		__('System') => '',
-		__('Tidy administration settings') => ''
-	));
-echo dcPage::notices();
+	echo dcPage::breadcrumb(
+		array(
+			__('System') => '',
+			__('Tidy administration settings') => ''
+		));
+	echo dcPage::notices();
 ?>
 
 <div id="iconset"  class="multi-part" title="<?php echo __('Iconset management'); ?>">
@@ -416,7 +416,6 @@ echo dcPage::notices();
 <div id="css-editor"  class="multi-part" title="<?php echo __('Supplemental CSS editor'); ?>">
 <h3 class="out-of-screen-if-js"><?php echo __('Supplemental CSS editor'); ?></h3>
 <?php
-{
 	echo
 	'<form id="css-form" action="'.$p_url.'" method="post">'.
 	'<p>'.form::textarea('css_content',72,25,html::escapeHTML($css_content),'maximal','',!$css_writable).'</p>';
@@ -439,14 +438,12 @@ echo dcPage::notices();
 	'<p>'.form::textarea('css_demo_content',72,25,html::escapeHTML($css_demo_content),'maximal','',false,'readonly="true"').'</p>';
 
 	'</form>';
-}
 ?>
 </div>
 
 <div id="js-editor"  class="multi-part" title="<?php echo __('Supplemental JS editor'); ?>">
 <h3 class="out-of-screen-if-js"><?php echo __('Supplemental JS editor'); ?></h3>
 <?php
-{
 	echo
 	'<form id="js-form" action="'.$p_url.'" method="post">'.
 	'<p>'.form::textarea('js_content',72,25,html::escapeHTML($js_content),'maximal','',!$js_writable).'</p>';
@@ -469,25 +466,13 @@ echo dcPage::notices();
 	'<p>'.form::textarea('js_demo_content',72,25,html::escapeHTML($js_demo_content),'maximal','',false,'readonly="true"').'</p>';
 
 	'</form>';
-}
 ?>
 </div>
 
-<script type="text/javascript">
-//<![CDATA[
-	var editor_css = CodeMirror.fromTextArea(css_content,
-		{
-			mode: "css",
-			extraKeys: {"F11": function(cm) {cm.setOption("fullScreen",!cm.getOption("fullScreen"));}}
-			<?php echo ($user_ui_colorsyntax_theme != '' ? ',theme: "'.$user_ui_colorsyntax_theme.'"' : '') ?>
-		});
-	var editor_js = CodeMirror.fromTextArea(js_content,
-		{
-			mode: "javascript",
-			extraKeys: {"F11": function(cm) {cm.setOption("fullScreen",!cm.getOption("fullScreen"));}}
-		 	<?php echo ($user_ui_colorsyntax_theme != '' ? ',theme: "'.$user_ui_colorsyntax_theme.'"' : '') ?>
-		 });
-//]]>
-</script>
+<?php
+	echo
+		dcPage::jsRunCodeMirror('editor_css','css_content','css',$user_ui_colorsyntax_theme).
+		dcPage::jsRunCodeMirror('editor_js','js_content','javascript',$user_ui_colorsyntax_theme);
+?>
 </body>
 </html>
