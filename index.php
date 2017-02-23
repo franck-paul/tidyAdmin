@@ -213,7 +213,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 	{
 		try
 		{
-			if (empty($_POST['your_pwd']) || !$core->auth->checkPassword(crypt::hmac(DC_MASTER_KEY,$_POST['your_pwd']))) {
+			if (empty($_POST['your_pwd']) || !$core->auth->checkPassword(crypt::hmac(DC_MASTER_KEY,$_POST['your_pwd'],DC_CRYPT_ALGO))) {
 				throw new Exception(__('Password verification failed'));
 			}
 
@@ -291,9 +291,7 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
 	dcPage::jsConfirmClose('css-form').
 	dcPage::jsPageTabs($part).
 	'<script type="text/javascript">'."\n".
-	"//<![CDATA[\n".
 		dcPage::jsVar('dotclear.msg.confirm_delete_iconset',__('Are you sure you want to delete "%s" iconset?')).
-	"\n//]]>\n".
 	"</script>\n".
 	dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/js/iconset.js')),$core->getVersion('tidyAdmin')).
 	dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme,false,array('css','javascript')).
