@@ -213,7 +213,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 	{
 		try
 		{
-			if (empty($_POST['your_pwd']) || !$core->auth->checkPassword(crypt::hmac(DC_MASTER_KEY,$_POST['your_pwd'],DC_CRYPT_ALGO))) {
+			if (empty($_POST['your_pwd']) || !$core->auth->checkPassword($_POST['your_pwd'])) {
 				throw new Exception(__('Password verification failed'));
 			}
 
