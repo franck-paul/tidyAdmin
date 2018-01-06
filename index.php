@@ -375,9 +375,9 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
 		'<form method="post" action="'.$p_url.'" id="uploadpkg" enctype="multipart/form-data" class="fieldset">'.
 		'<h3>'.__('Upload a zip file').'</h3>'.
 		'<p class="field"><label for="pkg_file" class="classic required"><abbr title="'.__('Required field').'">*</abbr> '.__('Iconset zip file:').'</label> '.
-		'<input type="file" id="pkg_file" name="pkg_file" /></p>'.
+		'<input type="file" id="pkg_file" name="pkg_file" required /></p>'.
 		'<p class="field"><label for="your_pwd1" class="classic required"><abbr title="'.__('Required field').'">*</abbr> '.__('Your password:').'</label> '.
-		form::password(array('your_pwd','your_pwd1'),20,255).'</p>'.
+		form::password(array('your_pwd','your_pwd1'),20,255,'','','',false,'required placeholder="'.__('Password').'"').'</p>'.
 		'<p><label for="pkg_zip_preserve" class="classic">'.
 		form::checkbox(array('pkg_preserve','pkg_zip_preserve'),1,true).' '.__('Preserve existing folders and files not in zip file').'</label></p>'.
 		'<p><input type="submit" name="upload_pkg" value="'.__('Upload iconset').'" />'.
@@ -390,9 +390,9 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
 		'<form method="post" action="'.$p_url.'" id="fetchpkg" class="fieldset">'.
 		'<h3>'.__('Download a zip file').'</h3>'.
 		'<p class="field"><label for="pkg_url" class="classic required"><abbr title="'.__('Required field').'">*</abbr> '.__('Iconset zip file URL:').'</label> '.
-		form::field(array('pkg_url','pkg_url'),40,255).'</p>'.
+		form::field(array('pkg_url','pkg_url'),40,255,'','','',false,'required placeholder="'.__('URL').'"').'</p>'.
 		'<p class="field"><label for="your_pwd2" class="classic required"><abbr title="'.__('Required field').'">*</abbr> '.__('Your password:').'</label> '.
-		form::password(array('your_pwd','your_pwd2'),20,255).'</p>'.
+		form::password(array('your_pwd','your_pwd2'),20,255,'','','',false,'required placeholder="'.__('Password').'"').'</p>'.
 		'<p><label for="pkg_url_preserve" class="classic">'.
 		form::checkbox(array('pkg_preserve','pkg_url_preserve'),1,true).' '.__('Preserve existing folders and files not in zip file').'</label></p>'.
 		'<p><input type="submit" name="fetch_pkg" value="'.__('Download iconset').'" />'.
