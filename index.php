@@ -433,7 +433,7 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
 
 	// Display demo CSS content
 	'<p>'.__('Sample CSS:').'</p>'.
-	'<p>'.form::textarea('css_demo_content',72,25,html::escapeHTML($css_demo_content),'maximal','',false,'readonly="true"').'</p>';
+	'<p>'.form::textarea('css_demo_content',72,25,html::escapeHTML($css_demo_content),'maximal','',false,'readonly="true"').'</p>'.
 
 	'</form>';
 ?>
@@ -461,7 +461,7 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
 
 	// Display demo JS content
 	'<p>'.__('Sample JS:').'</p>'.
-	'<p>'.form::textarea('js_demo_content',72,25,html::escapeHTML($js_demo_content),'maximal','',false,'readonly="true"').'</p>';
+	'<p>'.form::textarea('js_demo_content',72,25,html::escapeHTML($js_demo_content),'maximal','',false,'readonly="true"').'</p>'.
 
 	'</form>';
 ?>

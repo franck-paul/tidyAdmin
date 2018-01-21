@@ -16,7 +16,7 @@ $this->registerModule(
 	/* Name */			"Tidy Administration",
 	/* Description*/	"Customize your dotclear administration",
 	/* Author */		"Franck Paul",
-	/* Version */		'0.6.1',
+	/* Version */		'0.7',
 	array(
 		/* Dependencies */	'requires' =>		array(array('core','2.13')),
 		/* Type */			'type' =>			'plugin'
