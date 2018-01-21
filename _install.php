@@ -10,20 +10,20 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # -- END LICENSE BLOCK ------------------------------------
 
-if (!defined('DC_CONTEXT_ADMIN')) { return; }
+if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
-$new_version = $core->plugins->moduleInfo('tidyAdmin','version');
+$new_version = $core->plugins->moduleInfo('tidyAdmin', 'version');
 $old_version = $core->getVersion('tidyAdmin');
 
-if (version_compare($old_version,$new_version,'>=')) return;
+if (version_compare($old_version, $new_version, '>=')) {
+    return;
+}
 
 try
 {
-	$core->setVersion('tidyAdmin',$new_version);
-	return true;
-}
-catch (Exception $e)
-{
-	$core->error->add($e->getMessage());
+    $core->setVersion('tidyAdmin', $new_version);
+    return true;
+} catch (Exception $e) {
+    $core->error->add($e->getMessage());
 }
 return false;

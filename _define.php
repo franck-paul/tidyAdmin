@@ -10,15 +10,15 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # -- END LICENSE BLOCK ------------------------------------
 
-if (!defined('DC_CONTEXT_ADMIN')) { return; }
+if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
 $this->registerModule(
-	/* Name */			"Tidy Administration",
-	/* Description*/	"Customize your dotclear administration",
-	/* Author */		"Franck Paul",
-	/* Version */		'0.7',
-	array(
-		/* Dependencies */	'requires' =>		array(array('core','2.13')),
-		/* Type */			'type' =>			'plugin'
-	)
+    "Tidy Administration", // Name
+    "Customize your dotclear administration", //Description
+    "Franck Paul", // Author
+    '0.7', // Version
+    array(
+        'requires' => array(array('core', '2.13')), // Dependencies
+        'type'     => 'plugin', // Type
+    )
 );
