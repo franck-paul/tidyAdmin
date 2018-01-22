@@ -7,7 +7,7 @@ div.readme {
     padding: 1em;
     border: 1px solid #fff;
 }
-div.readme h3, p {
+div.readme h3, div.readme p {
     color: #fff;
 }
 .CodeMirror {
