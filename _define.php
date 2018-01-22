@@ -13,12 +13,12 @@
 if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
 $this->registerModule(
-    "Tidy Administration", // Name
+    "Tidy Administration",                    // Name
     "Customize your dotclear administration", //Description
-    "Franck Paul", // Author
-    '0.7', // Version
+    "Franck Paul",                            // Author
+    '0.7',                                    // Version
     array(
         'requires' => array(array('core', '2.13')), // Dependencies
-        'type'     => 'plugin', // Type
+        'type'     => 'plugin'                     // Type
     )
 );

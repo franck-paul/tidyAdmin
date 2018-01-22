@@ -28,8 +28,7 @@ $js_demo_content = @file_get_contents($js_demo_file);
 
 if (!empty($_POST['js'])) {
     // Try to write JS file
-    try
-    {
+    try {
         # Write file
         if (!empty($_POST['js_content'])) {
             $js_content = $_POST['js_content'] . "\n";
@@ -67,8 +66,7 @@ $css_demo_content = @file_get_contents($css_demo_file);
 
 if (!empty($_POST['css'])) {
     // Try to write CSS rule
-    try
-    {
+    try {
         # Write file
         if (!empty($_POST['css_content'])) {
             $css_content = $_POST['css_content'] . "\n";
@@ -145,7 +143,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
                     'enabled'     => $enabled,
                     'freadme'     => $freadme,
                     'treadme'     => $treadme,
-                    'readme'      => $readme,
+                    'readme'      => $readme
                 );
             }
         }
@@ -157,11 +155,9 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 $iconset_id = !empty($_POST['iconset_id']) ? $_POST['iconset_id'] : null;
 
 if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
-
     // Delete iconset
     if ($is_writable && $iconset_id && !empty($_POST['delete'])) {
-        try
-        {
+        try {
             files::deltree($iconsets[$iconset_id]['path']);
             dcPage::addSuccessNotice(__('Iconset has been successfully deleted'));
             http::redirect($p_url . '&part=iconset');
@@ -172,8 +168,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 
     // Deactivate iconset
     if ($is_writable && $iconset_id && !empty($_POST['deactivate'])) {
-        try
-        {
+        try {
             rename($iconsets[$iconset_id]['path'], dirname($iconsets[$iconset_id]['path']) . '/.' . $iconsets[$iconset_id]['name']);
             dcPage::addSuccessNotice(__('Iconset has been successfully disabled'));
             http::redirect($p_url . '&part=iconset');
@@ -184,8 +179,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 
     // Activate iconset
     if ($is_writable && $iconset_id && !empty($_POST['activate'])) {
-        try
-        {
+        try {
             rename($iconsets[$iconset_id]['path'], dirname($iconsets[$iconset_id]['path']) . '/' . $iconsets[$iconset_id]['name']);
             dcPage::addSuccessNotice(__('Iconset has been successfully enabled'));
             http::redirect($p_url . '&part=iconset');
@@ -198,8 +192,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
     if ($is_writable &&
         ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
             (!empty($_POST['fetch_pkg']) && !empty($_POST['pkg_url'])))) {
-        try
-        {
+        try {
             if (empty($_POST['your_pwd']) || !$core->auth->checkPassword($_POST['your_pwd'])) {
                 throw new Exception(__('Password verification failed'));
             }
@@ -215,8 +208,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
                 $url  = urldecode($_POST['pkg_url']);
                 $dest = $iconsets_root . basename($url);
 
-                try
-                {
+                try {
                     $client = netHttp::initClient($url, $path);
                     $client->setUserAgent('Dotclear - http://www.dotclear.org/');
                     $client->useGzip(false);
@@ -264,7 +256,7 @@ $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_the
 
 <html>
 <head>
-	<title><?php echo __('Tidy administration settings'); ?></title>
+    <title><?php echo __('Tidy administration settings'); ?></title>
 <?php
 echo
 dcPage::jsModal() .
@@ -284,8 +276,9 @@ dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/style.css')), 'screen', $core
 echo dcPage::breadcrumb(
     array(
         __('System')                       => '',
-        __('Tidy administration settings') => '',
-    ));
+        __('Tidy administration settings') => ''
+    )
+);
 echo dcPage::notices();
 ?>
 

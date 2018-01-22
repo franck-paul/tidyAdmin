@@ -15,11 +15,13 @@ if (!defined('DC_CONTEXT_ADMIN')) {return;}
 // dead but useful code, in order to have translations
 __('Tidy Administration') . __('Customize your dotclear administration');
 
-$_menu['System']->addItem(__('Tidy Administration'),
+$_menu['System']->addItem(
+    __('Tidy Administration'),
     'plugin.php?p=tidyAdmin',
     urldecode(dcPage::getPF('tidyAdmin/icon.png')),
     preg_match('/plugin.php\?p=tidyAdmin(&.*)?$/', $_SERVER['REQUEST_URI']),
-    $core->auth->isSuperAdmin());
+    $core->auth->isSuperAdmin()
+);
 
 /* Register favorite */
 $core->addBehavior('adminDashboardFavorites', array('tidyAdminBehaviour', 'adminDashboardFavorites'));
