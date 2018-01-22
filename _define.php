@@ -14,7 +14,7 @@ if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
 $this->registerModule(
     "Tidy Administration",                    // Name
-    "Customize your dotclear administration", //Description
+    "Customize your dotclear administration", // Description
     "Franck Paul",                            // Author
     '0.7',                                    // Version
     array(
