@@ -35,14 +35,14 @@ class tidyAdminBehaviour
         global $core;
 
         // User defined CSS rules
-        if (file_exists(dirname(__FILE__) . '/css/admin.css')) {
+        if (file_exists(path::real(DC_VAR) . '/plugins/tidyAdmin/' . 'admin.css')) {
             echo
-            dcPage::cssLoad(urldecode(dcPage::getPF(basename(dirname(__FILE__)) . '/css/admin.css'))) . "\n";
+            dcPage::cssLoad(urldecode(dcPage::getVF('plugins/tidyAdmin/admin.css'))) . "\n";
         }
         // User defined Javascript
-        if (file_exists(dirname(__FILE__) . '/js/admin.js')) {
+        if (file_exists(path::real(DC_VAR) . '/plugins/tidyAdmin/' . 'admin.js')) {
             echo
-            dcPage::jsLoad(urldecode(dcPage::getPF(basename(dirname(__FILE__)) . '/js/admin.js'))) . "\n";
+            dcPage::jsLoad(urldecode(dcPage::getVF('plugins/tidyAdmin/admin.js'))) . "\n";
         }
     }
 

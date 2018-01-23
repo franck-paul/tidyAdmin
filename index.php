@@ -14,12 +14,38 @@ if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
 $part = '';
 
+// Get plugin var path
+
+$var_path = path::real(DC_VAR) . '/plugins/tidyAdmin/';
+files::makeDir($var_path, true);
+
 // Get current content of JS file
 
-$js_file        = dirname(__FILE__) . '/js/admin.js';
-$js_backup_file = dirname(__FILE__) . '/js/admin-backup.js';
-$js_content     = @file_get_contents($js_file);
-$js_writable    = file_exists($js_file) && is_writable($js_file) && is_writable(dirname($js_file));
+$js_file        = $var_path . 'admin.js';
+$js_backup_file = $var_path . 'admin-backup.js';
+if (!file_exists($js_file)) {
+    try {
+        // Create empty file if necessary
+        touch($js_file);
+        // Check if a legacy file exists
+        $js_legacy_file = dirname(__FILE__) . '/js/admin.js';
+        if (file_exists($js_legacy_file)) {
+            // Try to fill new file with legacy content
+            if ($js_legacy_content = @file_get_contents($js_legacy_file)) {
+                if ($fp = fopen($js_file, 'wb')) {
+                    fwrite($fp, $js_legacy_content);
+                    fclose($fp);
+                } else {
+                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $js_file));
+                }
+            }
+        }
+    } catch (Exception $e) {
+        $core->error->add($e->getMessage());
+    }
+}
+$js_content  = @file_get_contents($js_file);
+$js_writable = file_exists($js_file) && is_writable($js_file) && is_writable(dirname($js_file));
 
 // Get demo JS content
 
@@ -30,22 +56,21 @@ if (!empty($_POST['js'])) {
     // Try to write JS file
     try {
         # Write file
-        if (!empty($_POST['js_content'])) {
-            $js_content = $_POST['js_content'] . "\n";
-            $fp         = @fopen($js_file, 'wb');
-            if (!$fp) {
-                throw new Exception(sprintf(__('Unable to write file %s. Please check your js folder permissions of this plugin.'), $js_file));
-            } else {
-                fwrite($fp, $js_content);
+        $js_old_content = $js_content;
+        $js_content     = $_POST['js_content'] . "\n";
+        $fp             = @fopen($js_file, 'wb');
+        if (!$fp) {
+            throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $js_file));
+        } else {
+            fwrite($fp, $js_content);
+            fclose($fp);
+            if ($fp = @fopen($js_backup_file, 'wb')) {
+                // Backup file
+                fwrite($fp, $js_old_content);
                 fclose($fp);
-                if ($fp = @fopen($js_backup_file, 'wb')) {
-                    // Backup file
-                    fwrite($fp, $js_content);
-                    fclose($fp);
-                }
-                dcPage::addSuccessNotice(__('JS supplemental script updated'));
-                http::redirect($p_url . '&part=js-editor');
             }
+            dcPage::addSuccessNotice(__('JS supplemental script updated'));
+            http::redirect($p_url . '&part=js-editor');
         }
     } catch (Exception $e) {
         $core->error->add($e->getMessage());
@@ -54,10 +79,31 @@ if (!empty($_POST['js'])) {
 
 // Get current content of CSS file
 
-$css_file        = dirname(__FILE__) . '/css/admin.css';
-$css_backup_file = dirname(__FILE__) . '/css/admin-backup.css';
-$css_content     = @file_get_contents($css_file);
-$css_writable    = file_exists($css_file) && is_writable($css_file) && is_writable(dirname($css_file));
+$css_file        = $var_path . 'admin.css';
+$css_backup_file = $var_path . 'admin-backup.css';
+if (!file_exists($css_file)) {
+    try {
+        // Create empty file if necessary
+        touch($css_file);
+        // Check if a legacy file exists
+        $css_legacy_file = dirname(__FILE__) . '/css/admin.css';
+        if (file_exists($css_legacy_file)) {
+            // Try to fill new file with legacy content
+            if ($css_legacy_content = @file_get_contents($css_legacy_file)) {
+                if ($fp = fopen($css_file, 'wb')) {
+                    fwrite($fp, $css_legacy_content);
+                    fclose($fp);
+                } else {
+                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $css_file));
+                }
+            }
+        }
+    } catch (Exception $e) {
+        $core->error->add($e->getMessage());
+    }
+}
+$css_content  = @file_get_contents($css_file);
+$css_writable = file_exists($css_file) && is_writable($css_file) && is_writable(dirname($css_file));
 
 // Get demo CSS content
 
@@ -68,22 +114,21 @@ if (!empty($_POST['css'])) {
     // Try to write CSS rule
     try {
         # Write file
-        if (!empty($_POST['css_content'])) {
-            $css_content = $_POST['css_content'] . "\n";
-            $fp          = @fopen($css_file, 'wb');
-            if (!$fp) {
-                throw new Exception(sprintf(__('Unable to write file %s. Please check your css folder permissions of this plugin.'), $css_file));
-            } else {
-                fwrite($fp, $css_content);
+        $css_old_content = $css_content;
+        $css_content     = $_POST['css_content'] . "\n";
+        $fp              = @fopen($css_file, 'wb');
+        if (!$fp) {
+            throw new Exception(sprintf(__('Unable to write file %s. Please check your css folder permissions of this plugin.'), $css_file));
+        } else {
+            fwrite($fp, $css_content);
+            fclose($fp);
+            if ($fp = @fopen($css_backup_file, 'wb')) {
+                // Backup file
+                fwrite($fp, $css_old_content);
                 fclose($fp);
-                if ($fp = @fopen($css_backup_file, 'wb')) {
-                    // Backup file
-                    fwrite($fp, $js_content);
-                    fclose($fp);
-                }
-                dcPage::addSuccessNotice(__('CSS supplemental rules updated'));
-                http::redirect($p_url . '&part=css-editor');
             }
+            dcPage::addSuccessNotice(__('CSS supplemental rules updated'));
+            http::redirect($p_url . '&part=css-editor');
         }
     } catch (Exception $e) {
         $core->error->add($e->getMessage());
