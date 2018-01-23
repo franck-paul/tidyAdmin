@@ -24,25 +24,7 @@ files::makeDir($var_path, true);
 $js_file        = $var_path . 'admin.js';
 $js_backup_file = $var_path . 'admin-backup.js';
 if (!file_exists($js_file)) {
-    try {
-        // Create empty file if necessary
-        touch($js_file);
-        // Check if a legacy file exists
-        $js_legacy_file = dirname(__FILE__) . '/js/admin.js';
-        if (file_exists($js_legacy_file)) {
-            // Try to fill new file with legacy content
-            if ($js_legacy_content = @file_get_contents($js_legacy_file)) {
-                if ($fp = fopen($js_file, 'wb')) {
-                    fwrite($fp, $js_legacy_content);
-                    fclose($fp);
-                } else {
-                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $js_file));
-                }
-            }
-        }
-    } catch (Exception $e) {
-        $core->error->add($e->getMessage());
-    }
+    @touch($js_file);
 }
 $js_content  = @file_get_contents($js_file);
 $js_writable = file_exists($js_file) && is_writable($js_file) && is_writable(dirname($js_file));
@@ -82,25 +64,7 @@ if (!empty($_POST['js'])) {
 $css_file        = $var_path . 'admin.css';
 $css_backup_file = $var_path . 'admin-backup.css';
 if (!file_exists($css_file)) {
-    try {
-        // Create empty file if necessary
-        touch($css_file);
-        // Check if a legacy file exists
-        $css_legacy_file = dirname(__FILE__) . '/css/admin.css';
-        if (file_exists($css_legacy_file)) {
-            // Try to fill new file with legacy content
-            if ($css_legacy_content = @file_get_contents($css_legacy_file)) {
-                if ($fp = fopen($css_file, 'wb')) {
-                    fwrite($fp, $css_legacy_content);
-                    fclose($fp);
-                } else {
-                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $css_file));
-                }
-            }
-        }
-    } catch (Exception $e) {
-        $core->error->add($e->getMessage());
-    }
+    touch($css_file);
 }
 $css_content  = @file_get_contents($css_file);
 $css_writable = file_exists($css_file) && is_writable($css_file) && is_writable(dirname($css_file));
@@ -118,7 +82,7 @@ if (!empty($_POST['css'])) {
         $css_content     = $_POST['css_content'] . "\n";
         $fp              = @fopen($css_file, 'wb');
         if (!$fp) {
-            throw new Exception(sprintf(__('Unable to write file %s. Please check your css folder permissions of this plugin.'), $css_file));
+            throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $css_file));
         } else {
             fwrite($fp, $css_content);
             fclose($fp);
@@ -441,7 +405,7 @@ if ($css_writable) {
     $core->formNonce() .
         '</p>';
 } else {
-    echo '<p>' . sprintf(__('The %s file is not writable. Please check the css folder permissions of this plugin.'), $css_file) . '</p>';
+    echo '<p>' . sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $css_file) . '</p>';
 }
 echo
 '<p class="info">' . __('Note: this supplemental CSS rules will surcharge the default CSS rules.') . '</p>' .
@@ -466,7 +430,7 @@ if ($js_writable) {
     $core->formNonce() .
         '</p>';
 } else {
-    echo '<p>' . sprintf(__('The %s file is not writable. Please check the css folder permissions of this plugin.'), $js_file) . '</p>';
+    echo '<p>' . sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $js_file) . '</p>';
 }
 echo
 '<p class="info">' . __('Note: this supplemental JS script will surcharge the default JS scripts.') . '</p>' .

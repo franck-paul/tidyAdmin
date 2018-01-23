@@ -16,7 +16,7 @@ $this->registerModule(
     "Tidy Administration",                    // Name
     "Customize your dotclear administration", // Description
     "Franck Paul",                            // Author
-    '0.8',                                    // Version
+    '0.8.1',                                  // Version
     array(
         'requires' => array(array('core', '2.13')),         // Dependencies
         'support'  => 'https://open-time.net/?q=tidydamin', // Support URL
