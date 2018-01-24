@@ -276,7 +276,7 @@ dcPage::jsVar('dotclear.msg.confirm_delete_iconset', __('Are you sure you want t
 "</script>\n" .
 dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/js/iconset.js')), $core->getVersion('tidyAdmin')) .
 dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme, false, array('css', 'javascript')) .
-dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/style.css')), 'screen', $core->getVersion('tidyAdmin'));
+dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/css/style.css')), 'screen', $core->getVersion('tidyAdmin'));
 ?>
 </head>
 
