@@ -1,3 +1,6 @@
+/*global $ */
+'use strict';
+
 /* User-defined JS script */
 // Hide and Show menubar on collapser mouseover event
 $(function() {

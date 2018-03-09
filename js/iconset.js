@@ -1,6 +1,9 @@
+/*global $, jQuery, dotclear */
+'use strict';
+
 (function($) {
   $.modalText = function(txt, w, h) {
-    div = $('<div class="readme">' + txt + '</div>').css({
+    var div = $('<div class="readme">' + txt + '</div>').css({
       width: w,
       height: h,
     });
