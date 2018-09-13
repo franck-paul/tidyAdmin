@@ -55,7 +55,7 @@ msgstr "Personnalisation de l'administration"
 
 #, php-format
 msgid "Are you sure you want to delete \"%s\" iconset?"
-msgstr "Êtes-vous sûr de vouloir supprimer le jeu d'icônes \"%s\" ?"
+msgstr "Êtes-vous sûr·e de vouloir supprimer le jeu d'icônes \"%s\" ?"
 
 msgid "Iconset management"
 msgstr "Gestion des jeux d'icônes"

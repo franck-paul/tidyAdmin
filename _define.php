@@ -17,10 +17,10 @@ $this->registerModule(
     "Tidy Administration",                    // Name
     "Customize your dotclear administration", // Description
     "Franck Paul",                            // Author
-    '0.8.1',                                  // Version
-    array(
-        'requires' => array(array('core', '2.14')),         // Dependencies
+    '0.9',                                    // Version
+    [
+        'requires' => [['core', '2.14']],                   // Dependencies
         'support'  => 'https://open-time.net/?q=tidyadmin', // Support URL
         'type'     => 'plugin'                             // Type
-    )
+    ]
 );

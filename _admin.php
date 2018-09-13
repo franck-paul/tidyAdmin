@@ -25,9 +25,9 @@ $_menu['System']->addItem(
 );
 
 /* Register favorite */
-$core->addBehavior('adminDashboardFavorites', array('tidyAdminBehaviour', 'adminDashboardFavorites'));
+$core->addBehavior('adminDashboardFavorites', ['tidyAdminBehaviour', 'adminDashboardFavorites']);
 
-$core->addBehavior('adminPageHTMLHead', array('tidyAdminBehaviour', 'adminPageHTMLHead'));
+$core->addBehavior('adminPageHTMLHead', ['tidyAdminBehaviour', 'adminPageHTMLHead']);
 
 class tidyAdminBehaviour
 {
@@ -49,12 +49,12 @@ class tidyAdminBehaviour
 
     public static function adminDashboardFavorites($core, $favs)
     {
-        $favs->register('tidyAdmin', array(
+        $favs->register('tidyAdmin', [
             'title'       => __('Tidy Administration'),
             'url'         => 'plugin.php?p=tidyAdmin',
             'small-icon'  => urldecode(dcPage::getPF('tidyAdmin/icon.png')),
             'large-icon'  => urldecode(dcPage::getPF('tidyAdmin/icon-big.png')),
             'permissions' => $core->auth->isSuperAdmin()
-        ));
+        ]);
     }
 }

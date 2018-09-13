@@ -108,8 +108,8 @@ if (!file_exists($iconsets_root)) {
     @mkdir($iconsets_root);
 }
 
-$excluded_dirs = array('.hg', '.hgcheck', '.git', '.svn');
-$iconsets      = array();
+$excluded_dirs = ['.hg', '.hgcheck', '.git', '.svn', '.vscode'];
+$iconsets      = [];
 
 // Get current list of iconsets
 // inactives have their names begining by a . (dash)
@@ -131,7 +131,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
                 if (($f = @dir($path)) !== false) {
                     while (($file = $f->read()) !== false) {
                         if ($file != '.' && $file != '..' && !is_dir($path . '/' . $file)) {
-                            if (in_array(strtolower($file), array('readme.md', 'readme.txt', 'readme'))) {
+                            if (in_array(strtolower($file), ['readme.md', 'readme.txt', 'readme'])) {
                                 $freadme = $path . '/' . $file;
                                 if (is_readable($freadme)) {
                                     $treadme = file_get_contents($freadme);
@@ -144,7 +144,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
                         }
                     }
                 }
-                $iconsets[$name] = array(
+                $iconsets[$name] = [
                     'path'        => $path,
                     'deletable'   => $is_writable,
                     'deactivable' => $is_writable,
@@ -154,7 +154,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
                     'freadme'     => $freadme,
                     'treadme'     => $treadme,
                     'readme'      => $readme
-                );
+                ];
             }
         }
         // Sort array on iconset's name
@@ -249,7 +249,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 
 if ($part == '') {
     if (!empty($_GET['part'])) {
-        if (in_array($_GET['part'], array('iconset', 'iconset-install', 'css-editor', 'js-editor'))) {
+        if (in_array($_GET['part'], ['iconset', 'iconset-install', 'css-editor', 'js-editor'])) {
             $part = $_GET['part'];
         }
     }
@@ -276,7 +276,7 @@ dcPage::jsPageTabs($part) .
 dcPage::jsVar('dotclear.msg.confirm_delete_iconset', __('Are you sure you want to delete "%s" iconset?')) .
 "</script>\n" .
 dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/js/iconset.js')), $core->getVersion('tidyAdmin')) .
-dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme, false, array('css', 'javascript')) .
+dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme, false, ['css', 'javascript']) .
 dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/css/style.css')), 'screen', $core->getVersion('tidyAdmin'));
 ?>
 </head>
@@ -284,10 +284,10 @@ dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/css/style.css')), 'screen', $
 <body>
 <?php
 echo dcPage::breadcrumb(
-    array(
+    [
         __('System')                       => '',
         __('Tidy administration settings') => ''
-    )
+    ]
 );
 echo dcPage::notices();
 ?>
@@ -325,7 +325,7 @@ if (count($iconsets)) {
         '<form action="' . $p_url . '" method="post">' .
         '<div>' .
         $core->formNonce() .
-        form::hidden(array('iconset_id'), html::escapeHTML($v['name']));
+        form::hidden(['iconset_id'], html::escapeHTML($v['name']));
 
         if ($v['enabled'] && $v['deactivable']) {
             echo '<input type="submit" name="deactivate" value="' . __('Deactivate') . '" /> ';
@@ -360,14 +360,14 @@ if ($is_writable) {
     '<p class="field"><label for="pkg_file" class="classic required"><abbr title="' . __('Required field') . '">*</abbr> ' . __('Iconset zip file:') . '</label> ' .
     '<input type="file" id="pkg_file" name="pkg_file" required /></p>' .
     '<p class="field"><label for="your_pwd1" class="classic required"><abbr title="' . __('Required field') . '">*</abbr> ' . __('Your password:') . '</label> ' .
-    form::password(array('your_pwd', 'your_pwd1'), 20, 255,
-        array(
+    form::password(['your_pwd', 'your_pwd1'], 20, 255,
+        [
             'extra_html'   => 'required placeholder="' . __('Password') . '"',
             'autocomplete' => 'current-password'
-        )
+        ]
     ) . '</p>' .
     '<p><label for="pkg_zip_preserve" class="classic">' .
-    form::checkbox(array('pkg_preserve', 'pkg_zip_preserve'), 1, true) . ' ' . __('Preserve existing folders and files not in zip file') . '</label></p>' .
+    form::checkbox(['pkg_preserve', 'pkg_zip_preserve'], 1, true) . ' ' . __('Preserve existing folders and files not in zip file') . '</label></p>' .
     '<p><input type="submit" name="upload_pkg" value="' . __('Upload iconset') . '" />' .
     $core->formNonce() .
         '</p>' .
@@ -378,16 +378,16 @@ if ($is_writable) {
     '<form method="post" action="' . $p_url . '" id="fetchpkg" class="fieldset">' .
     '<h3>' . __('Download a zip file') . '</h3>' .
     '<p class="field"><label for="pkg_url" class="classic required"><abbr title="' . __('Required field') . '">*</abbr> ' . __('Iconset zip file URL:') . '</label> ' .
-    form::field(array('pkg_url', 'pkg_url'), 40, 255, '', '', '', false, 'required placeholder="' . __('URL') . '"') . '</p>' .
+    form::field(['pkg_url', 'pkg_url'], 40, 255, '', '', '', false, 'required placeholder="' . __('URL') . '"') . '</p>' .
     '<p class="field"><label for="your_pwd2" class="classic required"><abbr title="' . __('Required field') . '">*</abbr> ' . __('Your password:') . '</label> ' .
-    form::password(array('your_pwd', 'your_pwd2'), 20, 255,
-        array(
+    form::password(['your_pwd', 'your_pwd2'], 20, 255,
+        [
             'extra_html'   => 'required placeholder="' . __('Password') . '"',
             'autocomplete' => 'current-password'
-        )
+        ]
     ) . '</p>' .
     '<p><label for="pkg_url_preserve" class="classic">' .
-    form::checkbox(array('pkg_preserve', 'pkg_url_preserve'), 1, true) . ' ' . __('Preserve existing folders and files not in zip file') . '</label></p>' .
+    form::checkbox(['pkg_preserve', 'pkg_url_preserve'], 1, true) . ' ' . __('Preserve existing folders and files not in zip file') . '</label></p>' .
     '<p><input type="submit" name="fetch_pkg" value="' . __('Download iconset') . '" />' .
     $core->formNonce() .
         '</p>' .
