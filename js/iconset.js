@@ -3,7 +3,7 @@
 
 (function($) {
   $.modalText = function(txt, w, h) {
-    var div = $('<div class="readme">' + txt + '</div>').css({
+    const div = $('<div class="readme">' + txt + '</div>').css({
       width: w,
       height: h,
     });
@@ -28,7 +28,7 @@ $(function() {
   $('a.iconset-readme').modalText($(window).width() / 2 - 40, $(window).height() / 2 - 40);
   // Iconset delete confirmation
   $('table.iconset_list form input[type=submit][name=delete]').click(function() {
-    var p_name = $('input[name=iconset_id]', $(this).parent()).val();
+    const p_name = $('input[name=iconset_id]', $(this).parent()).val();
     return window.confirm(dotclear.msg.confirm_delete_iconset.replace('%s', p_name));
   });
 });

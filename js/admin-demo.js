@@ -4,7 +4,7 @@
 /* User-defined JS script */
 // Hide and Show menubar on collapser mouseover event
 $(function() {
-  var objMain = $('#wrapper');
+  const objMain = $('#wrapper');
 
   function showSidebar() {
     // Show sidebar
@@ -22,7 +22,7 @@ $(function() {
     });
   }
   // Sidebar separator
-  var objSeparator = $('#collapser');
+  const objSeparator = $('#collapser');
   objSeparator.mouseover(function(e) {
     e.preventDefault();
     if (objMain.hasClass('hide-mm')) {

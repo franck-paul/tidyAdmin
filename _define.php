@@ -19,7 +19,7 @@ $this->registerModule(
     "Franck Paul",                            // Author
     '0.9',                                    // Version
     [
-        'requires' => [['core', '2.14']],                   // Dependencies
+        'requires' => [['core', '2.15']],                   // Dependencies
         'support'  => 'https://open-time.net/?q=tidyadmin', // Support URL
         'type'     => 'plugin'                             // Type
     ]

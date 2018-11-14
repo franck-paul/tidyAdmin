@@ -456,8 +456,21 @@ echo
 
 <?php
 echo
-dcPage::jsRunCodeMirror('editor_css', 'css_content', 'css', $user_ui_colorsyntax_theme) .
-dcPage::jsRunCodeMirror('editor_js', 'js_content', 'javascript', $user_ui_colorsyntax_theme);
+dcPage::jsRunCodeMirror(
+    [
+        [
+            'name'  => 'editor_css',
+            'id'    => 'css_content',
+            'mode'  => 'css',
+            'theme' => $user_ui_colorsyntax_theme
+        ],
+        [
+            'name'  => 'editor_js',
+            'id'    => 'js_content',
+            'mode'  => 'javascript',
+            'theme' => $user_ui_colorsyntax_theme
+        ]
+    ]);
 ?>
 </body>
 </html>
