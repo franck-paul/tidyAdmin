@@ -16,7 +16,7 @@ class libIconset
     public static function installIconset($zip_file, $preserve = true)
     {
         $zip = new fileUnzip($zip_file);
-        $zip->getList(false, '#(^|/)(__MACOSX|\.hg|\.git|\.svn|\.DS_Store|\.directory|Thumbs\.db)(/|$)#');
+        $zip->getList(false, '#(^|/)(__MACOSX|\.hg.*|\.git.*|\.svn|\.DS_Store|\.directory|Thumbs\.db)(/|$)#');
 
         $zip_root_dir = $zip->getRootDir();
         if ($zip_root_dir != false) {
