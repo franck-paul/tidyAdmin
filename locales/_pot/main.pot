@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-23 13:41+0100\n"
+"POT-Creation-Date: 2019-10-08 11:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,158 +16,159 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hg-plugins/tidyAdmin//_admin.php:16
+#: ../git-plugins/tidyAdmin//_admin.php:17
 msgid "Customize your dotclear administration"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//_admin.php:16
-#: ../hg-plugins/tidyAdmin//_admin.php:19
-#: ../hg-plugins/tidyAdmin//_admin.php:52
+#: ../git-plugins/tidyAdmin//_admin.php:17
+#: ../git-plugins/tidyAdmin//_admin.php:20
+#: ../git-plugins/tidyAdmin//_admin.php:53
 msgid "Tidy Administration"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//inc/lib.iconset.php:41
+#: ../git-plugins/tidyAdmin//inc/lib.iconset.php:42
 msgid "An error occurred during iconset deletion."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:45 ../hg-plugins/tidyAdmin//index.php:85
-#: ../hg-plugins/tidyAdmin//index.php:408
-#: ../hg-plugins/tidyAdmin//index.php:433
+#: ../git-plugins/tidyAdmin//index.php:46
+#: ../git-plugins/tidyAdmin//index.php:86
+#: ../git-plugins/tidyAdmin//index.php:419
+#: ../git-plugins/tidyAdmin//index.php:444
 #, php-format
 msgid "Unable to write file %s. Please check the dotclear var folder permissions."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:54
+#: ../git-plugins/tidyAdmin//index.php:55
 msgid "JS supplemental script updated"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:94
+#: ../git-plugins/tidyAdmin//index.php:95
 msgid "CSS supplemental rules updated"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:137
+#: ../git-plugins/tidyAdmin//index.php:138
 #, php-format
 msgid "%s Iconset"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:171
+#: ../git-plugins/tidyAdmin//index.php:172
 msgid "Iconset has been successfully deleted"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:182
+#: ../git-plugins/tidyAdmin//index.php:183
 msgid "Iconset has been successfully disabled"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:193
+#: ../git-plugins/tidyAdmin//index.php:194
 msgid "Iconset has been successfully enabled"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:237
+#: ../git-plugins/tidyAdmin//index.php:238
 msgid "Iconset has been successfully updated"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:239
+#: ../git-plugins/tidyAdmin//index.php:240
 msgid "Iconset has been successfully installed"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:268
-#: ../hg-plugins/tidyAdmin//index.php:288
+#: ../git-plugins/tidyAdmin//index.php:269
+#: ../git-plugins/tidyAdmin//index.php:289
 msgid "Tidy administration settings"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:275
+#: ../git-plugins/tidyAdmin//index.php:276
 #, php-format
 msgid "Are you sure you want to delete \"%s\" iconset?"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:294
-#: ../hg-plugins/tidyAdmin//index.php:295
+#: ../git-plugins/tidyAdmin//index.php:295
+#: ../git-plugins/tidyAdmin//index.php:296
 msgid "Iconset management"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:301
+#: ../git-plugins/tidyAdmin//index.php:302
 msgid "Iconset list"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:304
+#: ../git-plugins/tidyAdmin//index.php:305
 msgid "Iconset"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:315
+#: ../git-plugins/tidyAdmin//index.php:316
 msgid "Informations"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:319
+#: ../git-plugins/tidyAdmin//index.php:320
 msgid "Enabled"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:320
+#: ../git-plugins/tidyAdmin//index.php:321
 msgid "Disabled"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:346
+#: ../git-plugins/tidyAdmin//index.php:347
 msgid "No iconset installed."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:351
+#: ../git-plugins/tidyAdmin//index.php:352
 msgid "Iconset installation or update"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:352
+#: ../git-plugins/tidyAdmin//index.php:353
 msgid "Iconset installation"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:359
+#: ../git-plugins/tidyAdmin//index.php:360
 msgid "Iconset zip file:"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:364
-#: ../hg-plugins/tidyAdmin//index.php:379
+#: ../git-plugins/tidyAdmin//index.php:370
+#: ../git-plugins/tidyAdmin//index.php:390
 msgid "Preserve existing folders and files not in zip file"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:365
+#: ../git-plugins/tidyAdmin//index.php:371
 msgid "Upload iconset"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:374
+#: ../git-plugins/tidyAdmin//index.php:380
 msgid "Iconset zip file URL:"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:380
+#: ../git-plugins/tidyAdmin//index.php:391
 msgid "Download iconset"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:386
+#: ../git-plugins/tidyAdmin//index.php:397
 msgid "Note: An iconset must be enabled in order to be updated."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:390
+#: ../git-plugins/tidyAdmin//index.php:401
 msgid "To enable iconset installation, please give write access to your iconset directory."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:396
-#: ../hg-plugins/tidyAdmin//index.php:397
+#: ../git-plugins/tidyAdmin//index.php:407
+#: ../git-plugins/tidyAdmin//index.php:408
 msgid "Supplemental CSS editor"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:411
+#: ../git-plugins/tidyAdmin//index.php:422
 msgid "Note: this supplemental CSS rules will surcharge the default CSS rules."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:414
+#: ../git-plugins/tidyAdmin//index.php:425
 msgid "Sample CSS:"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:421
-#: ../hg-plugins/tidyAdmin//index.php:422
+#: ../git-plugins/tidyAdmin//index.php:432
+#: ../git-plugins/tidyAdmin//index.php:433
 msgid "Supplemental JS editor"
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:436
+#: ../git-plugins/tidyAdmin//index.php:447
 msgid "Note: this supplemental JS script will surcharge the default JS scripts."
 msgstr ""
 
-#: ../hg-plugins/tidyAdmin//index.php:439
+#: ../git-plugins/tidyAdmin//index.php:450
 msgid "Sample JS:"
 msgstr ""
