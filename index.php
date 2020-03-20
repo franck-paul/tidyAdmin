@@ -272,7 +272,7 @@ echo
 dcPage::jsModal() .
 dcPage::jsConfirmClose('css-form') .
 dcPage::jsPageTabs($part) .
-'<script type="text/javascript">' . "\n" .
+'<script>' . "\n" .
 dcPage::jsVar('dotclear.msg.confirm_delete_iconset', __('Are you sure you want to delete "%s" iconset?')) .
 "</script>\n" .
 dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/js/iconset.js')), $core->getVersion('tidyAdmin')) .
