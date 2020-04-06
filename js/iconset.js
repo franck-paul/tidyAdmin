@@ -1,4 +1,4 @@
-/*global $, jQuery, dotclear */
+/*global $, jQuery, dotclear, mergeDeep, getData */
 'use strict';
 
 (function($) {
@@ -24,6 +24,7 @@
   };
 })(jQuery);
 $(function() {
+  mergeDeep(dotclear, getData('tidy_admin'));
   // Iconset information
   $('a.iconset-readme').modalText($(window).width() / 2 - 40, $(window).height() / 2 - 40);
   // Iconset delete confirmation
