@@ -260,8 +260,10 @@ if ($part == '') {
 
 # Get interface setting
 $core->auth->user_prefs->addWorkspace('interface');
-$user_ui_colorsyntax       = $core->auth->user_prefs->interface->colorsyntax;
-$user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_theme;
+$user_ui_colorsyntax = $core->auth->user_prefs->interface->colorsyntax;
+if ($user_ui_colorsyntax) {
+    $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_theme ?: 'default';
+}
 ?>
 
 <html>
@@ -275,8 +277,12 @@ dcPage::jsPageTabs($part) .
 dcPage::jsJson('tidy_admin', [
     'msg' => ['confirm_delete_iconset' => __('Are you sure you want to delete "%s" iconset?')]
 ]) .
-dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/js/iconset.js')), $core->getVersion('tidyAdmin')) .
-dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme, false, ['css', 'javascript']) .
+dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/js/iconset.js')), $core->getVersion('tidyAdmin'));
+if ($user_ui_colorsyntax) {
+    echo
+    dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme, false, ['css', 'javascript']);
+}
+echo
 dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/css/style.css')), 'screen', $core->getVersion('tidyAdmin'));
 ?>
 </head>
@@ -455,22 +461,24 @@ echo
 </div>
 
 <?php
-echo
-dcPage::jsRunCodeMirror(
-    [
+if ($user_ui_colorsyntax) {
+    echo
+    dcPage::jsRunCodeMirror(
         [
-            'name'  => 'editor_css',
-            'id'    => 'css_content',
-            'mode'  => 'css',
-            'theme' => $user_ui_colorsyntax_theme
-        ],
-        [
-            'name'  => 'editor_js',
-            'id'    => 'js_content',
-            'mode'  => 'javascript',
-            'theme' => $user_ui_colorsyntax_theme
-        ]
-    ]);
+            [
+                'name'  => 'editor_css',
+                'id'    => 'css_content',
+                'mode'  => 'css',
+                'theme' => $user_ui_colorsyntax_theme
+            ],
+            [
+                'name'  => 'editor_js',
+                'id'    => 'js_content',
+                'mode'  => 'javascript',
+                'theme' => $user_ui_colorsyntax_theme
+            ]
+        ]);
+}
 ?>
 </body>
 </html>
