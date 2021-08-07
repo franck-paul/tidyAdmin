@@ -10,8 +10,9 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
 $part = '';
 
@@ -44,17 +45,16 @@ if (!empty($_POST['js'])) {
         $fp             = @fopen($js_file, 'wb');
         if (!$fp) {
             throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $js_file));
-        } else {
-            fwrite($fp, $js_content);
-            fclose($fp);
-            if ($fp = @fopen($js_backup_file, 'wb')) {
-                // Backup file
-                fwrite($fp, $js_old_content);
-                fclose($fp);
-            }
-            dcPage::addSuccessNotice(__('JS supplemental script updated'));
-            http::redirect($p_url . '&part=js-editor');
         }
+        fwrite($fp, $js_content);
+        fclose($fp);
+        if ($fp = @fopen($js_backup_file, 'wb')) {
+            // Backup file
+            fwrite($fp, $js_old_content);
+            fclose($fp);
+        }
+        dcPage::addSuccessNotice(__('JS supplemental script updated'));
+        http::redirect($p_url . '&part=js-editor');
     } catch (Exception $e) {
         $core->error->add($e->getMessage());
     }
@@ -84,17 +84,16 @@ if (!empty($_POST['css'])) {
         $fp              = @fopen($css_file, 'wb');
         if (!$fp) {
             throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $css_file));
-        } else {
-            fwrite($fp, $css_content);
-            fclose($fp);
-            if ($fp = @fopen($css_backup_file, 'wb')) {
-                // Backup file
-                fwrite($fp, $css_old_content);
-                fclose($fp);
-            }
-            dcPage::addSuccessNotice(__('CSS supplemental rules updated'));
-            http::redirect($p_url . '&part=css-editor');
         }
+        fwrite($fp, $css_content);
+        fclose($fp);
+        if ($fp = @fopen($css_backup_file, 'wb')) {
+            // Backup file
+            fwrite($fp, $css_old_content);
+            fclose($fp);
+        }
+        dcPage::addSuccessNotice(__('CSS supplemental rules updated'));
+        http::redirect($p_url . '&part=css-editor');
     } catch (Exception $e) {
         $core->error->add($e->getMessage());
     }
@@ -136,10 +135,10 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
                                 if (is_readable($freadme)) {
                                     $treadme = file_get_contents($freadme);
                                     $readme  = '<h3>' . sprintf(__('%s Iconset'), $name) . '</h3><hr /><p>' . nl2br($treadme, true) . '</p>';
+
                                     break;
-                                } else {
-                                    $freadme = '';
                                 }
+                                $freadme = '';
                             }
                         }
                     }
@@ -199,9 +198,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
     }
 
     // Iconset upload
-    if ($is_writable &&
-        ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
-            (!empty($_POST['fetch_pkg']) && !empty($_POST['pkg_url'])))) {
+    if ($is_writable && ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) || (!empty($_POST['fetch_pkg']) && !empty($_POST['pkg_url'])))) {
         try {
             if (empty($_POST['your_pwd']) || !$core->auth->checkPassword($_POST['your_pwd'])) {
                 throw new Exception(__('Password verification failed'));

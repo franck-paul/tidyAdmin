@@ -10,7 +10,6 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
 class libIconset
 {
     public static function installIconset($zip_file, $preserve = true)
@@ -30,6 +29,7 @@ class libIconset
         if ($zip->isEmpty()) {
             $zip->close();
             unlink($zip_file);
+
             throw new Exception(__('Empty module zip file.'));
         }
 
@@ -47,6 +47,7 @@ class libIconset
         $zip->unzipAll($target);
         $zip->close();
         unlink($zip_file);
+
         return $ret_code;
     }
 }
