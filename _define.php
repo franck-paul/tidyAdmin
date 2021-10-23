@@ -21,9 +21,11 @@ $this->registerModule(
     '0.12',                                   // Version
     [
         'requires' => [['core', '2.19']],                         // Dependencies
-        'support'  => 'https://github.com/franck-paul/tidyadmin', // Support URL
-        'details'  => 'https://open-time.net/?q=tidyadmin',       // Details URL
+        'type'     => 'plugin',                                   // Type
         'settings' => [],                                         // Settings
-        'type'     => 'plugin'                                    // Type
+
+        'details'    => 'https://open-time.net/?q=tidyadmin',       // Details URL
+        'support'    => 'https://github.com/franck-paul/tidyadmin', // Support URL
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/tidyadmin/main/dcstore.xml'
     ]
 );
