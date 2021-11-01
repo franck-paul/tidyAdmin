@@ -26,6 +26,6 @@ $this->registerModule(
 
         'details'    => 'https://open-time.net/?q=tidyadmin',       // Details URL
         'support'    => 'https://github.com/franck-paul/tidyadmin', // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/tidyadmin/main/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/tidyadmin/master/dcstore.xml'
     ]
 );
