@@ -1,8 +1,8 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="tidyAdmin">
-    <name>Tidy Administration</name>
+    <name>Customize your dotclear administration</name>
     <version>0.12</version>
-    <author>Franck Paul</author>
+    <author>Customize your dotclear administration</author>
     <desc>Customize your dotclear administration</desc>
     <file>https://github.com/franck-paul/tidyAdmin/releases/download/0.12/plugin-tidyAdmin-0.12.zip</file>
     <da:dcmin>2.19</da:dcmin>
