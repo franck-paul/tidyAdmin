@@ -33,8 +33,21 @@ $js_writable = file_exists($js_file) && is_writable($js_file) && is_writable(dir
 
 // Get demo JS content
 
-$js_demo_file    = dirname(__FILE__) . '/js/admin-demo.js';
+$js_demo_file    = __DIR__ . '/js/admin-demo.js';
 $js_demo_content = @file_get_contents($js_demo_file);
+
+// Save options
+if (!empty($_POST['opts'])) {
+    $core->auth->user_prefs->addWorkspace('interface');
+
+    $core->auth->user_prefs->interface->put('minidcicon', !empty($_POST['user_ui_minidcicon']), 'boolean');
+
+    $core->auth->user_prefs->interface->put('movesearchmenu', !empty($_POST['user_ui_movesearchmenu']), 'boolean');
+    $core->auth->user_prefs->interface->put('clonesearchmedia', !empty($_POST['user_ui_clonesearchmedia']), 'boolean');
+
+    dcPage::addSuccessNotice(__('Options updated'));
+    http::redirect($p_url . '&part=options');
+}
 
 if (!empty($_POST['js'])) {
     // Try to write JS file
@@ -72,7 +85,7 @@ $css_writable = file_exists($css_file) && is_writable($css_file) && is_writable(
 
 // Get demo CSS content
 
-$css_demo_file    = dirname(__FILE__) . '/css/admin-demo.css';
+$css_demo_file    = __DIR__ . '/css/admin-demo.css';
 $css_demo_content = @file_get_contents($css_demo_file);
 
 if (!empty($_POST['css'])) {
@@ -152,7 +165,7 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
                     'enabled'     => $enabled,
                     'freadme'     => $freadme,
                     'treadme'     => $treadme,
-                    'readme'      => $readme
+                    'readme'      => $readme,
                 ];
             }
         }
@@ -246,21 +259,25 @@ if (is_dir($iconsets_root) && is_readable($iconsets_root)) {
 
 if ($part == '') {
     if (!empty($_GET['part'])) {
-        if (in_array($_GET['part'], ['iconset', 'iconset-install', 'css-editor', 'js-editor'])) {
+        if (in_array($_GET['part'], ['options', 'iconset', 'iconset-install', 'css-editor', 'js-editor'])) {
             $part = $_GET['part'];
         }
     }
 }
 if ($part == '') {
-    $part = 'iconset';
+    $part = 'options';
 }
 
 # Get interface setting
 $core->auth->user_prefs->addWorkspace('interface');
-$user_ui_colorsyntax = $core->auth->user_prefs->interface->colorsyntax;
+$user_ui_colorsyntax       = $core->auth->user_prefs->interface->colorsyntax;
+$user_ui_colorsyntax_theme = '';
 if ($user_ui_colorsyntax) {
     $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_theme ?: 'default';
 }
+$user_ui_minidcicon       = $core->auth->user_prefs->interface->minidcicon;
+$user_ui_movesearchmenu   = $core->auth->user_prefs->interface->movesearchmenu;
+$user_ui_clonesearchmedia = $core->auth->user_prefs->interface->clonesearchmedia;
 ?>
 
 <html>
@@ -272,15 +289,15 @@ dcPage::jsModal() .
 dcPage::jsConfirmClose('css-form') .
 dcPage::jsPageTabs($part) .
 dcPage::jsJson('tidy_admin', [
-    'msg' => ['confirm_delete_iconset' => __('Are you sure you want to delete "%s" iconset?')]
+    'msg' => ['confirm_delete_iconset' => __('Are you sure you want to delete "%s" iconset?')],
 ]) .
-dcPage::jsLoad(urldecode(dcPage::getPF('tidyAdmin/js/iconset.js')), $core->getVersion('tidyAdmin'));
+dcPage::jsModuleLoad('tidyAdmin/js/iconset.js', $core->getVersion('tidyAdmin'));
 if ($user_ui_colorsyntax) {
     echo
     dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme, false, ['css', 'javascript']);
 }
 echo
-dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/css/style.css')), 'screen', $core->getVersion('tidyAdmin'));
+dcPage::cssModuleLoad('tidyAdmin/css/style.css', 'screen', $core->getVersion('tidyAdmin'));
 ?>
 </head>
 
@@ -289,11 +306,30 @@ dcPage::cssLoad(urldecode(dcPage::getPF('tidyAdmin/css/style.css')), 'screen', $
 echo dcPage::breadcrumb(
     [
         __('System')                       => '',
-        __('Tidy administration settings') => ''
+        __('Tidy administration settings') => '',
     ]
 );
 echo dcPage::notices();
 ?>
+
+<div id="options"  class="multi-part" title="<?php echo __('Options'); ?>">
+<h3 class="out-of-screen-if-js"><?php echo __('Options'); ?></h3>
+<?php
+echo
+'<form id="options" action="' . $p_url . '" method="post">' .
+'<p><label for="user_ui_minidcicon" class="classic">' .
+form::checkbox('user_ui_minidcicon', 1, $user_ui_minidcicon) . ' ' . __('Use mini Dotclear icon (top left) in header') . '</label></p>' .
+'<p><label for="user_ui_movesearchmenu" class="classic">' .
+form::checkbox('user_ui_movesearchmenu', 1, $user_ui_movesearchmenu) . ' ' . __('Move the search form (main menu) in header') . '</label></p>' .
+'<p><label for="user_ui_clonesearchmedia" class="classic">' .
+form::checkbox('user_ui_clonesearchmedia', 1, $user_ui_clonesearchmedia) . ' ' . __('Clone the media manager search input in always visible area') . '</label></p>';
+
+echo
+'<p><input type="submit" name="opts" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
+$core->formNonce() .
+'</p>';
+?>
+</div>
 
 <div id="iconset"  class="multi-part" title="<?php echo __('Iconset management'); ?>">
 <h3 class="out-of-screen-if-js"><?php echo __('Iconset management'); ?></h3>
@@ -363,10 +399,13 @@ if ($is_writable) {
     '<p class="field"><label for="pkg_file" class="classic required"><abbr title="' . __('Required field') . '">*</abbr> ' . __('Iconset zip file:') . '</label> ' .
     '<input type="file" id="pkg_file" name="pkg_file" required /></p>' .
     '<p class="field"><label for="your_pwd1" class="classic required"><abbr title="' . __('Required field') . '">*</abbr> ' . __('Your password:') . '</label> ' .
-    form::password(['your_pwd', 'your_pwd1'], 20, 255,
+    form::password(
+        ['your_pwd', 'your_pwd1'],
+        20,
+        255,
         [
             'extra_html'   => 'required placeholder="' . __('Password') . '"',
-            'autocomplete' => 'current-password'
+            'autocomplete' => 'current-password',
         ]
     ) . '</p>' .
     '<p><label for="pkg_zip_preserve" class="classic">' .
@@ -383,10 +422,13 @@ if ($is_writable) {
     '<p class="field"><label for="pkg_url" class="classic required"><abbr title="' . __('Required field') . '">*</abbr> ' . __('Iconset zip file URL:') . '</label> ' .
     form::field(['pkg_url', 'pkg_url'], 40, 255, '', '', '', false, 'required placeholder="' . __('URL') . '"') . '</p>' .
     '<p class="field"><label for="your_pwd2" class="classic required"><abbr title="' . __('Required field') . '">*</abbr> ' . __('Your password:') . '</label> ' .
-    form::password(['your_pwd', 'your_pwd2'], 20, 255,
+    form::password(
+        ['your_pwd', 'your_pwd2'],
+        20,
+        255,
         [
             'extra_html'   => 'required placeholder="' . __('Password') . '"',
-            'autocomplete' => 'current-password'
+            'autocomplete' => 'current-password',
         ]
     ) . '</p>' .
     '<p><label for="pkg_url_preserve" class="classic">' .
@@ -466,15 +508,16 @@ if ($user_ui_colorsyntax) {
                 'name'  => 'editor_css',
                 'id'    => 'css_content',
                 'mode'  => 'css',
-                'theme' => $user_ui_colorsyntax_theme
+                'theme' => $user_ui_colorsyntax_theme,
             ],
             [
                 'name'  => 'editor_js',
                 'id'    => 'js_content',
                 'mode'  => 'javascript',
-                'theme' => $user_ui_colorsyntax_theme
-            ]
-        ]);
+                'theme' => $user_ui_colorsyntax_theme,
+            ],
+        ]
+    );
 }
 ?>
 </body>

@@ -1,0 +1,18 @@
+/* Use only Dotclear small icon */
+#header.tidy_dcicon h1,
+#header.tidy_dcicon h1 a {
+  width: 32px !important;
+  height: 32px;
+}
+#header.tidy_dcicon #top-info-blog {
+  padding-left: 0.5em;
+}
+@media screen and (max-width: 43em) {
+  #top-info-blog {
+    margin-bottom: 0;
+    padding: 0.5em 0 0 0.5em;
+  }
+}
+#top-info-blog a {
+  margin-left: 0.5em;
+}

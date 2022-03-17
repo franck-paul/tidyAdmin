@@ -18,14 +18,14 @@ $this->registerModule(
     'Tidy Administration',                    // Name
     'Customize your dotclear administration', // Description
     'Franck Paul',                            // Author
-    '0.12',                                   // Version
+    '1.0',                                    // Version
     [
-        'requires' => [['core', '2.19']],                         // Dependencies
+        'requires' => [['core', '2.21']],                         // Dependencies
         'type'     => 'plugin',                                   // Type
         'settings' => [],                                         // Settings
 
         'details'    => 'https://open-time.net/?q=tidyadmin',       // Details URL
         'support'    => 'https://github.com/franck-paul/tidyadmin', // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/tidyadmin/master/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/tidyadmin/master/dcstore.xml',
     ]
 );

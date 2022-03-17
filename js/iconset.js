@@ -1,9 +1,10 @@
 /*global $, jQuery, dotclear */
 'use strict';
 
-(function ($) {
-  $.modalText = function (txt, w, h) {
-    const div = $('<div class="readme">' + txt + '</div>').css({
+(() => {
+  const $ = jQuery;
+  $.modalText = (txt, w, h) => {
+    const div = $(`<div class="readme">${txt}</div>`).css({
       width: w,
       height: h,
     });
@@ -22,8 +23,8 @@
       return false;
     });
   };
-})(jQuery);
-$(function () {
+})();
+$(() => {
   dotclear.mergeDeep(dotclear, dotclear.getData('tidy_admin'));
   // Iconset information
   $('a.iconset-readme').modalText($(window).width() / 2 - 40, $(window).height() / 2 - 40);

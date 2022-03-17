@@ -14,4 +14,4 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-$__autoload['libIconset'] = dirname(__FILE__) . '/inc/lib.iconset.php';
+$__autoload['libIconset'] = __DIR__ . '/inc/lib.iconset.php';
