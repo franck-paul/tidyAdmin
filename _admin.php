@@ -56,11 +56,11 @@ class tidyAdminBehaviour
 
         // User defined CSS rules
         if (file_exists(path::real(DC_VAR) . '/plugins/tidyAdmin/admin.css')) {
-            echo dcPage::cssModuleLoad(dcPage::getVF('plugins/tidyAdmin/admin.css')) . "\n";
+            echo dcPage::cssLoad(urldecode(dcPage::getVF('plugins/tidyAdmin/admin.css'))) . "\n";
         }
         // User defined Javascript
         if (file_exists(path::real(DC_VAR) . '/plugins/tidyAdmin/admin.js')) {
-            echo dcPage::jsModuleLoad(dcPage::getVF('plugins/tidyAdmin/admin.js')) . "\n";
+            echo dcPage::jsLoad(urldecode(dcPage::getVF('plugins/tidyAdmin/admin.js'))) . "\n";
         }
     }
 
