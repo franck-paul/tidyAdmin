@@ -18,9 +18,9 @@ $this->registerModule(
     'Tidy Administration',                    // Name
     'Customize your dotclear administration', // Description
     'Franck Paul',                            // Author
-    '1.1',                                    // Version
+    '1.2',                                    // Version
     [
-        'requires' => [['core', '2.21']],                         // Dependencies
+        'requires' => [['core', '2.23']],                         // Dependencies
         'type'     => 'plugin',                                   // Type
         'settings' => [],                                         // Settings
 
