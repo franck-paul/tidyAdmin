@@ -1,8 +1,7 @@
-/*global $, jQuery, dotclear */
+/*global $, dotclear */
 'use strict';
 
 (() => {
-  const $ = jQuery;
   $.modalText = (txt, w, h) => {
     const div = $(`<div class="readme">${txt}</div>`).css({
       width: w,
