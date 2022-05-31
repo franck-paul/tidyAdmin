@@ -36,18 +36,20 @@ class tidyAdminBehaviour
     {
         global $core;
 
-        // Load search form repositioning helper
+        // Reduce home button
         $core->auth->user_prefs->addWorkspace('interface');
         if ($core->auth->user_prefs->interface->minidcicon) {
             echo
                 dcPage::cssModuleLoad('tidyAdmin/css/dcicon.css', 'screen', $core->getVersion('tidyAdmin')) . "\n" .
                 dcPage::jsModuleLoad('tidyAdmin/js/dcicon.js', $core->getVersion('tidyAdmin')) . "\n";
         }
+        // Load search form (menu) repositioning helper
         if ($core->auth->user_prefs->interface->movesearchmenu) {
             echo
                 dcPage::cssModuleLoad('tidyAdmin/css/search_menu.css', 'screen', $core->getVersion('tidyAdmin')) . "\n" .
                 dcPage::jsModuleLoad('tidyAdmin/js/search_menu.js', $core->getVersion('tidyAdmin')) . "\n";
         }
+        // Load search form (media) repositioning helper
         if ($core->auth->user_prefs->interface->clonesearchmedia) {
             echo
                 dcPage::cssModuleLoad('tidyAdmin/css/search_media.css', 'screen', $core->getVersion('tidyAdmin')) . "\n" .
