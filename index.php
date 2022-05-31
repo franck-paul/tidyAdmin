@@ -112,9 +112,48 @@ if (!empty($_POST['css'])) {
     }
 }
 
+// Get current content of PO file
+
+$po_file        = $var_path . 'admin.po';
+$po_backup_file = $var_path . 'admin-backup.po';
+if (!file_exists($po_file)) {
+    touch($po_file);
+}
+$po_content  = @file_get_contents($po_file);
+$po_writable = file_exists($po_file) && is_writable($po_file) && is_writable(dirname($po_file));
+
+// Get demo PO content
+
+$po_demo_file    = __DIR__ . '/po/admin-demo.po';
+$po_demo_content = @file_get_contents($po_demo_file);
+
+if (!empty($_POST['po'])) {
+    // Try to write PO content
+    try {
+        # Write file
+        $po_old_content = $po_content;
+        $po_content     = $_POST['po_content'] . "\n";
+        $fp             = @fopen($po_file, 'wb');
+        if (!$fp) {
+            throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $po_file));
+        }
+        fwrite($fp, $po_content);
+        fclose($fp);
+        if ($fp = @fopen($po_backup_file, 'wb')) {
+            // Backup file
+            fwrite($fp, $po_old_content);
+            fclose($fp);
+        }
+        dcPage::addSuccessNotice(__('PO supplemental l10n updated'));
+        http::redirect($p_url . '&part=po-editor');
+    } catch (Exception $e) {
+        $core->error->add($e->getMessage());
+    }
+}
+
 if ($part == '') {
     if (!empty($_GET['part'])) {
-        if (in_array($_GET['part'], ['options', 'css-editor', 'js-editor'])) {
+        if (in_array($_GET['part'], ['options', 'css-editor', 'js-editor', 'po-editor'])) {
             $part = $_GET['part'];
         }
     }
@@ -232,6 +271,31 @@ echo
 ?>
 </div>
 
+<div id="po-editor"  class="multi-part" title="<?php echo __('Supplemental PO editor'); ?>">
+<h3 class="out-of-screen-if-js"><?php echo __('Supplemental PO editor'); ?></h3>
+<?php
+echo
+'<form id="po-form" action="' . $p_url . '" method="post">' .
+'<p>' . form::textarea('po_content', 72, 25, html::escapeHTML($po_content), 'maximal', '', !$po_writable) . '</p>';
+if ($po_writable) {
+    echo
+    '<p><input type="submit" name="po" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
+    $core->formNonce() .
+        '</p>';
+} else {
+    echo '<p>' . sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $css_file) . '</p>';
+}
+echo
+'<p class="info">' . __('Note: this supplemental PO l10n will surcharge the default l10n.') . '</p>' .
+
+// Display demo PO content
+'<p>' . __('Sample PO:') . '</p>' .
+'<p>' . form::textarea('po_demo_content', 72, 25, html::escapeHTML($po_demo_content), 'maximal', '', false, 'readonly="true"') . '</p>' .
+
+    '</form>';
+?>
+</div>
+
 <?php
 if ($user_ui_colorsyntax) {
     echo
@@ -247,6 +311,12 @@ if ($user_ui_colorsyntax) {
                 'name'  => 'editor_js',
                 'id'    => 'js_content',
                 'mode'  => 'javascript',
+                'theme' => $user_ui_colorsyntax_theme,
+            ],
+            [
+                'name'  => 'editor_po',
+                'id'    => 'po_content',
+                'mode'  => 'text/plain',
                 'theme' => $user_ui_colorsyntax_theme,
             ],
         ]
