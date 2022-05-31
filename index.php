@@ -21,6 +21,19 @@ $part = '';
 $var_path = path::real(DC_VAR) . '/plugins/tidyAdmin/';
 files::makeDir($var_path, true);
 
+// Save options
+if (!empty($_POST['opts'])) {
+    $core->auth->user_prefs->addWorkspace('interface');
+
+    $core->auth->user_prefs->interface->put('minidcicon', !empty($_POST['user_ui_minidcicon']), 'boolean');
+
+    $core->auth->user_prefs->interface->put('movesearchmenu', !empty($_POST['user_ui_movesearchmenu']), 'boolean');
+    $core->auth->user_prefs->interface->put('clonesearchmedia', !empty($_POST['user_ui_clonesearchmedia']), 'boolean');
+
+    dcPage::addSuccessNotice(__('Options updated'));
+    http::redirect($p_url . '&part=options');
+}
+
 // Get current content of JS file
 
 $js_file        = $var_path . 'admin.js';
@@ -35,19 +48,6 @@ $js_writable = file_exists($js_file) && is_writable($js_file) && is_writable(dir
 
 $js_demo_file    = __DIR__ . '/js/admin-demo.js';
 $js_demo_content = @file_get_contents($js_demo_file);
-
-// Save options
-if (!empty($_POST['opts'])) {
-    $core->auth->user_prefs->addWorkspace('interface');
-
-    $core->auth->user_prefs->interface->put('minidcicon', !empty($_POST['user_ui_minidcicon']), 'boolean');
-
-    $core->auth->user_prefs->interface->put('movesearchmenu', !empty($_POST['user_ui_movesearchmenu']), 'boolean');
-    $core->auth->user_prefs->interface->put('clonesearchmedia', !empty($_POST['user_ui_clonesearchmedia']), 'boolean');
-
-    dcPage::addSuccessNotice(__('Options updated'));
-    http::redirect($p_url . '&part=options');
-}
 
 if (!empty($_POST['js'])) {
     // Try to write JS file
