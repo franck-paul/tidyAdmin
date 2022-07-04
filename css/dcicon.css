@@ -4,7 +4,6 @@
   width: calc(32px + 0.5em) !important;
   height: 32px;
   background-position-x: -270px;
-  border-right: 1px solid var(--header-border);
 }
 #header.tidy_dcicon #top-info-blog {
   padding-left: 0.5em;
