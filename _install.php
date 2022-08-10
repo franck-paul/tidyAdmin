@@ -14,19 +14,19 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-$new_version = $core->plugins->moduleInfo('tidyAdmin', 'version');
-$old_version = $core->getVersion('tidyAdmin');
+$new_version = dcCore::app()->plugins->moduleInfo('tidyAdmin', 'version');
+$old_version = dcCore::app()->getVersion('tidyAdmin');
 
 if (version_compare($old_version, $new_version, '>=')) {
     return;
 }
 
 try {
-    $core->setVersion('tidyAdmin', $new_version);
+    dcCore::app()->setVersion('tidyAdmin', $new_version);
 
     return true;
 } catch (Exception $e) {
-    $core->error->add($e->getMessage());
+    dcCore::app()->error->add($e->getMessage());
 }
 
 return false;

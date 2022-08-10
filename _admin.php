@@ -22,38 +22,36 @@ $_menu['System']->addItem(
     'plugin.php?p=tidyAdmin',
     urldecode(dcPage::getPF('tidyAdmin/icon.svg')),
     preg_match('/plugin.php\?p=tidyAdmin(&.*)?$/', $_SERVER['REQUEST_URI']),
-    $core->auth->isSuperAdmin()
+    dcCore::app()->auth->isSuperAdmin()
 );
 
 /* Register favorite */
-$core->addBehavior('adminDashboardFavorites', ['tidyAdminBehaviour', 'adminDashboardFavorites']);
+dcCore::app()->addBehavior('adminDashboardFavorites', ['tidyAdminBehaviour', 'adminDashboardFavorites']);
 
-$core->addBehavior('adminPageHTMLHead', ['tidyAdminBehaviour', 'adminPageHTMLHead']);
+dcCore::app()->addBehavior('adminPageHTMLHead', ['tidyAdminBehaviour', 'adminPageHTMLHead']);
 
 class tidyAdminBehaviour
 {
     public static function adminPageHTMLHead()
     {
-        global $core;
-
         // Reduce home button
-        $core->auth->user_prefs->addWorkspace('interface');
-        if ($core->auth->user_prefs->interface->minidcicon) {
+        dcCore::app()->auth->user_prefs->addWorkspace('interface');
+        if (dcCore::app()->auth->user_prefs->interface->minidcicon) {
             echo
-                dcPage::cssModuleLoad('tidyAdmin/css/dcicon.css', 'screen', $core->getVersion('tidyAdmin')) . "\n" .
-                dcPage::jsModuleLoad('tidyAdmin/js/dcicon.js', $core->getVersion('tidyAdmin')) . "\n";
+                dcPage::cssModuleLoad('tidyAdmin/css/dcicon.css', 'screen', dcCore::app()->getVersion('tidyAdmin')) . "\n" .
+                dcPage::jsModuleLoad('tidyAdmin/js/dcicon.js', dcCore::app()->getVersion('tidyAdmin')) . "\n";
         }
         // Load search form (menu) repositioning helper
-        if ($core->auth->user_prefs->interface->movesearchmenu) {
+        if (dcCore::app()->auth->user_prefs->interface->movesearchmenu) {
             echo
-                dcPage::cssModuleLoad('tidyAdmin/css/search_menu.css', 'screen', $core->getVersion('tidyAdmin')) . "\n" .
-                dcPage::jsModuleLoad('tidyAdmin/js/search_menu.js', $core->getVersion('tidyAdmin')) . "\n";
+                dcPage::cssModuleLoad('tidyAdmin/css/search_menu.css', 'screen', dcCore::app()->getVersion('tidyAdmin')) . "\n" .
+                dcPage::jsModuleLoad('tidyAdmin/js/search_menu.js', dcCore::app()->getVersion('tidyAdmin')) . "\n";
         }
         // Load search form (media) repositioning helper
-        if ($core->auth->user_prefs->interface->clonesearchmedia) {
+        if (dcCore::app()->auth->user_prefs->interface->clonesearchmedia) {
             echo
-                dcPage::cssModuleLoad('tidyAdmin/css/search_media.css', 'screen', $core->getVersion('tidyAdmin')) . "\n" .
-                dcPage::jsModuleLoad('tidyAdmin/js/search_media.js', $core->getVersion('tidyAdmin')) . "\n";
+                dcPage::cssModuleLoad('tidyAdmin/css/search_media.css', 'screen', dcCore::app()->getVersion('tidyAdmin')) . "\n" .
+                dcPage::jsModuleLoad('tidyAdmin/js/search_media.js', dcCore::app()->getVersion('tidyAdmin')) . "\n";
         }
 
         // User defined CSS rules
@@ -66,14 +64,14 @@ class tidyAdminBehaviour
         }
     }
 
-    public static function adminDashboardFavorites($core, $favs)
+    public static function adminDashboardFavorites($core = null, $favs)
     {
         $favs->register('tidyAdmin', [
             'title'       => __('Tidy Administration'),
             'url'         => 'plugin.php?p=tidyAdmin',
             'small-icon'  => urldecode(dcPage::getPF('tidyAdmin/icon.svg')),
             'large-icon'  => urldecode(dcPage::getPF('tidyAdmin/icon.svg')),
-            'permissions' => $core->auth->isSuperAdmin(),
+            'permissions' => dcCore::app()->auth->isSuperAdmin(),
         ]);
     }
 }

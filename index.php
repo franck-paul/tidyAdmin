@@ -23,12 +23,12 @@ files::makeDir($var_path, true);
 
 // Save options
 if (!empty($_POST['opts'])) {
-    $core->auth->user_prefs->addWorkspace('interface');
+    dcCore::app()->auth->user_prefs->addWorkspace('interface');
 
-    $core->auth->user_prefs->interface->put('minidcicon', !empty($_POST['user_ui_minidcicon']), 'boolean');
+    dcCore::app()->auth->user_prefs->interface->put('minidcicon', !empty($_POST['user_ui_minidcicon']), 'boolean');
 
-    $core->auth->user_prefs->interface->put('movesearchmenu', !empty($_POST['user_ui_movesearchmenu']), 'boolean');
-    $core->auth->user_prefs->interface->put('clonesearchmedia', !empty($_POST['user_ui_clonesearchmedia']), 'boolean');
+    dcCore::app()->auth->user_prefs->interface->put('movesearchmenu', !empty($_POST['user_ui_movesearchmenu']), 'boolean');
+    dcCore::app()->auth->user_prefs->interface->put('clonesearchmedia', !empty($_POST['user_ui_clonesearchmedia']), 'boolean');
 
     dcPage::addSuccessNotice(__('Options updated'));
     http::redirect($p_url . '&part=options');
@@ -69,7 +69,7 @@ if (!empty($_POST['js'])) {
         dcPage::addSuccessNotice(__('JS supplemental script updated'));
         http::redirect($p_url . '&part=js-editor');
     } catch (Exception $e) {
-        $core->error->add($e->getMessage());
+        dcCore::app()->error->add($e->getMessage());
     }
 }
 
@@ -108,7 +108,7 @@ if (!empty($_POST['css'])) {
         dcPage::addSuccessNotice(__('CSS supplemental rules updated'));
         http::redirect($p_url . '&part=css-editor');
     } catch (Exception $e) {
-        $core->error->add($e->getMessage());
+        dcCore::app()->error->add($e->getMessage());
     }
 }
 
@@ -147,31 +147,29 @@ if (!empty($_POST['po'])) {
         dcPage::addSuccessNotice(__('PO supplemental l10n updated'));
         http::redirect($p_url . '&part=po-editor');
     } catch (Exception $e) {
-        $core->error->add($e->getMessage());
+        dcCore::app()->error->add($e->getMessage());
     }
 }
 
-if ($part == '') {
-    if (!empty($_GET['part'])) {
-        if (in_array($_GET['part'], ['options', 'css-editor', 'js-editor', 'po-editor'])) {
-            $part = $_GET['part'];
-        }
+if (!empty($_GET['part'])) {
+    if (in_array($_GET['part'], ['options', 'css-editor', 'js-editor', 'po-editor'])) {
+        $part = $_GET['part'];
     }
 }
-if ($part == '') {
+if ($part === '') {
     $part = 'options';
 }
 
 # Get interface setting
-$core->auth->user_prefs->addWorkspace('interface');
-$user_ui_colorsyntax       = $core->auth->user_prefs->interface->colorsyntax;
+dcCore::app()->auth->user_prefs->addWorkspace('interface');
+$user_ui_colorsyntax       = dcCore::app()->auth->user_prefs->interface->colorsyntax;
 $user_ui_colorsyntax_theme = '';
 if ($user_ui_colorsyntax) {
-    $user_ui_colorsyntax_theme = $core->auth->user_prefs->interface->colorsyntax_theme ?: 'default';
+    $user_ui_colorsyntax_theme = dcCore::app()->auth->user_prefs->interface->colorsyntax_theme ?: 'default';
 }
-$user_ui_minidcicon       = $core->auth->user_prefs->interface->minidcicon;
-$user_ui_movesearchmenu   = $core->auth->user_prefs->interface->movesearchmenu;
-$user_ui_clonesearchmedia = $core->auth->user_prefs->interface->clonesearchmedia;
+$user_ui_minidcicon       = dcCore::app()->auth->user_prefs->interface->minidcicon;
+$user_ui_movesearchmenu   = dcCore::app()->auth->user_prefs->interface->movesearchmenu;
+$user_ui_clonesearchmedia = dcCore::app()->auth->user_prefs->interface->clonesearchmedia;
 ?>
 
 <html>
@@ -187,7 +185,7 @@ if ($user_ui_colorsyntax) {
     dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme, false, ['css', 'javascript']);
 }
 echo
-dcPage::cssModuleLoad('tidyAdmin/css/style.css', 'screen', $core->getVersion('tidyAdmin'));
+dcPage::cssModuleLoad('tidyAdmin/css/style.css', 'screen', dcCore::app()->getVersion('tidyAdmin'));
 ?>
 </head>
 
@@ -216,7 +214,7 @@ form::checkbox('user_ui_clonesearchmedia', 1, $user_ui_clonesearchmedia) . ' ' .
 
 echo
 '<p><input type="submit" name="opts" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
-$core->formNonce() .
+dcCore::app()->formNonce() .
 '</p>';
 ?>
 </div>
@@ -230,7 +228,7 @@ echo
 if ($css_writable) {
     echo
     '<p><input type="submit" name="css" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
-    $core->formNonce() .
+    dcCore::app()->formNonce() .
         '</p>';
 } else {
     echo '<p>' . sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $css_file) . '</p>';
@@ -255,7 +253,7 @@ echo
 if ($js_writable) {
     echo
     '<p><input type="submit" name="js" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
-    $core->formNonce() .
+    dcCore::app()->formNonce() .
         '</p>';
 } else {
     echo '<p>' . sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $js_file) . '</p>';
@@ -280,7 +278,7 @@ echo
 if ($po_writable) {
     echo
     '<p><input type="submit" name="po" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
-    $core->formNonce() .
+    dcCore::app()->formNonce() .
         '</p>';
 } else {
     echo '<p>' . sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), $css_file) . '</p>';
