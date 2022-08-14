@@ -64,7 +64,7 @@ class tidyAdminBehaviour
         }
     }
 
-    public static function adminDashboardFavorites($core = null, $favs)
+    public static function adminDashboardFavorites($core, $favs)
     {
         $favs->register('tidyAdmin', [
             'title'       => __('Tidy Administration'),
