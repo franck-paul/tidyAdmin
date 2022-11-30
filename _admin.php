@@ -17,18 +17,13 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 // dead but useful code, in order to have translations
 __('Tidy Administration') . __('Customize your dotclear administration');
 
-$_menu['System']->addItem(
+dcCore::app()->menu[dcAdmin::MENU_SYSTEM]->addItem(
     __('Tidy Administration'),
     'plugin.php?p=tidyAdmin',
     urldecode(dcPage::getPF('tidyAdmin/icon.svg')),
     preg_match('/plugin.php\?p=tidyAdmin(&.*)?$/', $_SERVER['REQUEST_URI']),
     dcCore::app()->auth->isSuperAdmin()
 );
-
-/* Register favorite */
-dcCore::app()->addBehavior('adminDashboardFavorites', ['tidyAdminBehaviour', 'adminDashboardFavorites']);
-
-dcCore::app()->addBehavior('adminPageHTMLHead', ['tidyAdminBehaviour', 'adminPageHTMLHead']);
 
 class tidyAdminBehaviour
 {
@@ -64,14 +59,18 @@ class tidyAdminBehaviour
         }
     }
 
-    public static function adminDashboardFavorites($core, $favs)
+    public static function adminDashboardFavorites($favs)
     {
         $favs->register('tidyAdmin', [
-            'title'       => __('Tidy Administration'),
-            'url'         => 'plugin.php?p=tidyAdmin',
-            'small-icon'  => urldecode(dcPage::getPF('tidyAdmin/icon.svg')),
-            'large-icon'  => urldecode(dcPage::getPF('tidyAdmin/icon.svg')),
-            'permissions' => dcCore::app()->auth->isSuperAdmin(),
+            'title'      => __('Tidy Administration'),
+            'url'        => 'plugin.php?p=tidyAdmin',
+            'small-icon' => urldecode(dcPage::getPF('tidyAdmin/icon.svg')),
+            'large-icon' => urldecode(dcPage::getPF('tidyAdmin/icon.svg')),
         ]);
     }
 }
+
+/* Register favorite */
+dcCore::app()->addBehavior('adminDashboardFavoritesV2', [tidyAdminBehaviour::class, 'adminDashboardFavorites']);
+
+dcCore::app()->addBehavior('adminPageHTMLHead', [tidyAdminBehaviour::class, 'adminPageHTMLHead']);

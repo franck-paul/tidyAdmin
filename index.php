@@ -31,7 +31,7 @@ if (!empty($_POST['opts'])) {
     dcCore::app()->auth->user_prefs->interface->put('clonesearchmedia', !empty($_POST['user_ui_clonesearchmedia']), 'boolean');
 
     dcPage::addSuccessNotice(__('Options updated'));
-    http::redirect($p_url . '&part=options');
+    http::redirect(dcCore::app()->admin->getPageURL() . '&part=options');
 }
 
 // Get current content of JS file
@@ -67,7 +67,7 @@ if (!empty($_POST['js'])) {
             fclose($fp);
         }
         dcPage::addSuccessNotice(__('JS supplemental script updated'));
-        http::redirect($p_url . '&part=js-editor');
+        http::redirect(dcCore::app()->admin->getPageURL() . '&part=js-editor');
     } catch (Exception $e) {
         dcCore::app()->error->add($e->getMessage());
     }
@@ -106,7 +106,7 @@ if (!empty($_POST['css'])) {
             fclose($fp);
         }
         dcPage::addSuccessNotice(__('CSS supplemental rules updated'));
-        http::redirect($p_url . '&part=css-editor');
+        http::redirect(dcCore::app()->admin->getPageURL() . '&part=css-editor');
     } catch (Exception $e) {
         dcCore::app()->error->add($e->getMessage());
     }
@@ -145,16 +145,14 @@ if (!empty($_POST['po'])) {
             fclose($fp);
         }
         dcPage::addSuccessNotice(__('PO supplemental l10n updated'));
-        http::redirect($p_url . '&part=po-editor');
+        http::redirect(dcCore::app()->admin->getPageURL() . '&part=po-editor');
     } catch (Exception $e) {
         dcCore::app()->error->add($e->getMessage());
     }
 }
 
-if (!empty($_GET['part'])) {
-    if (in_array($_GET['part'], ['options', 'css-editor', 'js-editor', 'po-editor'])) {
-        $part = $_GET['part'];
-    }
+if (!empty($_GET['part']) && in_array($_GET['part'], ['options', 'css-editor', 'js-editor', 'po-editor'])) {
+    $part = $_GET['part'];
 }
 if ($part === '') {
     $part = 'options';
@@ -204,7 +202,7 @@ echo dcPage::notices();
 <h3 class="out-of-screen-if-js"><?php echo __('Options'); ?></h3>
 <?php
 echo
-'<form id="options" action="' . $p_url . '" method="post">' .
+'<form id="options" action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
 '<p><label for="user_ui_minidcicon" class="classic">' .
 form::checkbox('user_ui_minidcicon', 1, $user_ui_minidcicon) . ' ' . __('Use mini Dotclear icon (top left) in header') . '</label></p>' .
 '<p><label for="user_ui_movesearchmenu" class="classic">' .
@@ -223,7 +221,7 @@ dcCore::app()->formNonce() .
 <h3 class="out-of-screen-if-js"><?php echo __('Supplemental CSS editor'); ?></h3>
 <?php
 echo
-'<form id="css-form" action="' . $p_url . '" method="post">' .
+'<form id="css-form" action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
 '<p>' . form::textarea('css_content', 72, 25, html::escapeHTML($css_content), 'maximal', '', !$css_writable) . '</p>';
 if ($css_writable) {
     echo
@@ -248,7 +246,7 @@ echo
 <h3 class="out-of-screen-if-js"><?php echo __('Supplemental JS editor'); ?></h3>
 <?php
 echo
-'<form id="js-form" action="' . $p_url . '" method="post">' .
+'<form id="js-form" action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
 '<p>' . form::textarea('js_content', 72, 25, html::escapeHTML($js_content), 'maximal', '', !$js_writable) . '</p>';
 if ($js_writable) {
     echo
@@ -273,7 +271,7 @@ echo
 <h3 class="out-of-screen-if-js"><?php echo __('Supplemental PO editor'); ?></h3>
 <?php
 echo
-'<form id="po-form" action="' . $p_url . '" method="post">' .
+'<form id="po-form" action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
 '<p>' . form::textarea('po_content', 72, 25, html::escapeHTML($po_content), 'maximal', '', !$po_writable) . '</p>';
 if ($po_writable) {
     echo

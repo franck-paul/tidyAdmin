@@ -15,17 +15,17 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    'Tidy Administration',                    // Name
-    'Customize your dotclear administration', // Description
-    'Franck Paul',                            // Author
-    '1.5.1',
+    'Tidy Administration',
+    'Customize your dotclear administration',
+    'Franck Paul',
+    '2.0',
     [
-        'requires' => [['core', '2.23']],                         // Dependencies
-        'type'     => 'plugin',                                   // Type
-        'settings' => [],                                         // Settings
+        'requires' => [['core', '2.24']],
+        'type'     => 'plugin',
+        'settings' => [],
 
-        'details'    => 'https://open-time.net/?q=tidyadmin',       // Details URL
-        'support'    => 'https://github.com/franck-paul/tidyadmin', // Support URL
+        'details'    => 'https://open-time.net/?q=tidyadmin',
+        'support'    => 'https://github.com/franck-paul/tidyadmin',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/tidyadmin/master/dcstore.xml',
     ]
 );
