@@ -10,19 +10,15 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_RC_PATH')) {
-    return;
-}
-
 $this->registerModule(
     'Tidy Administration',
     'Customize your dotclear administration',
     'Franck Paul',
     '2.0',
     [
-        'requires' => [['core', '2.24']],
-        'type'     => 'plugin',
-        'settings' => [],
+        'requires'   => [['core', '2.24']],
+        'type'       => 'plugin',
+        'settings'   => [],
 
         'details'    => 'https://open-time.net/?q=tidyadmin',
         'support'    => 'https://github.com/franck-paul/tidyadmin',

@@ -23,12 +23,10 @@ files::makeDir($var_path, true);
 
 // Save options
 if (!empty($_POST['opts'])) {
-    dcCore::app()->auth->user_prefs->addWorkspace('interface');
-
     dcCore::app()->auth->user_prefs->interface->put('minidcicon', !empty($_POST['user_ui_minidcicon']), 'boolean');
-
     dcCore::app()->auth->user_prefs->interface->put('movesearchmenu', !empty($_POST['user_ui_movesearchmenu']), 'boolean');
     dcCore::app()->auth->user_prefs->interface->put('clonesearchmedia', !empty($_POST['user_ui_clonesearchmedia']), 'boolean');
+    dcCore::app()->auth->user_prefs->interface->put('hovercollapser', !empty($_POST['user_ui_hovercollapser']), 'boolean');
 
     dcPage::addSuccessNotice(__('Options updated'));
     http::redirect(dcCore::app()->admin->getPageURL() . '&part=options');
@@ -159,7 +157,6 @@ if ($part === '') {
 }
 
 # Get interface setting
-dcCore::app()->auth->user_prefs->addWorkspace('interface');
 $user_ui_colorsyntax       = dcCore::app()->auth->user_prefs->interface->colorsyntax;
 $user_ui_colorsyntax_theme = '';
 if ($user_ui_colorsyntax) {
@@ -168,6 +165,7 @@ if ($user_ui_colorsyntax) {
 $user_ui_minidcicon       = dcCore::app()->auth->user_prefs->interface->minidcicon;
 $user_ui_movesearchmenu   = dcCore::app()->auth->user_prefs->interface->movesearchmenu;
 $user_ui_clonesearchmedia = dcCore::app()->auth->user_prefs->interface->clonesearchmedia;
+$user_ui_hovercollapser   = dcCore::app()->auth->user_prefs->interface->hovercollapser;
 ?>
 
 <html>
@@ -208,7 +206,9 @@ form::checkbox('user_ui_minidcicon', 1, $user_ui_minidcicon) . ' ' . __('Use min
 '<p><label for="user_ui_movesearchmenu" class="classic">' .
 form::checkbox('user_ui_movesearchmenu', 1, $user_ui_movesearchmenu) . ' ' . __('Move the search form (main menu) in header') . '</label></p>' .
 '<p><label for="user_ui_clonesearchmedia" class="classic">' .
-form::checkbox('user_ui_clonesearchmedia', 1, $user_ui_clonesearchmedia) . ' ' . __('Clone the media manager search input in always visible area') . '</label></p>';
+form::checkbox('user_ui_clonesearchmedia', 1, $user_ui_clonesearchmedia) . ' ' . __('Clone the media manager search input in always visible area') . '</label></p>' .
+'<p><label for="user_ui_hovercollapser" class="classic">' .
+form::checkbox('user_ui_hovercollapser', 1, $user_ui_hovercollapser) . ' ' . __('Enabled mouse hover activation on collapser') . '</label></p>';
 
 echo
 '<p><input type="submit" name="opts" value="' . __('Save') . ' (s)" accesskey="s" /> ' .

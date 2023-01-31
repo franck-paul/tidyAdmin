@@ -22,6 +22,7 @@ l10n::$locales['Options'] = 'Options';
 l10n::$locales['Use mini Dotclear icon (top left) in header'] = 'Utiliser une mini-icône Dotclear (haut gauche) dans l\'entête';
 l10n::$locales['Move the search form (main menu) in header'] = 'Déplacer le formulaire de recherche (menu principal) dans l\'entête';
 l10n::$locales['Clone the media manager search input in always visible area'] = 'Cloner le champ de recherche de la médiathèque dans une partie toujours visible';
+l10n::$locales['Enabled mouse hover activation on collapser'] = 'Activer la détection du survol de la souris sur la barre de réduction du menu';
 l10n::$locales['Save'] = 'Enregistrer';
 l10n::$locales['Supplemental CSS editor'] = 'Éditeur des règles CSS supplémentaires';
 l10n::$locales['Note: this supplemental CSS rules will surcharge the default CSS rules.'] = 'Note : ces règles CSS supplémentaires viendront surcharger les règles CSS par défaut.';

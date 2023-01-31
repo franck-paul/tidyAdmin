@@ -30,7 +30,6 @@ class tidyAdminBehaviour
     public static function adminPageHTMLHead()
     {
         // Reduce home button
-        dcCore::app()->auth->user_prefs->addWorkspace('interface');
         if (dcCore::app()->auth->user_prefs->interface->minidcicon) {
             echo
                 dcPage::cssModuleLoad('tidyAdmin/css/dcicon.css', 'screen', dcCore::app()->getVersion('tidyAdmin')) . "\n" .
@@ -47,6 +46,11 @@ class tidyAdminBehaviour
             echo
                 dcPage::cssModuleLoad('tidyAdmin/css/search_media.css', 'screen', dcCore::app()->getVersion('tidyAdmin')) . "\n" .
                 dcPage::jsModuleLoad('tidyAdmin/js/search_media.js', dcCore::app()->getVersion('tidyAdmin')) . "\n";
+        }
+        // Add hover detection on collapser
+        if (dcCore::app()->auth->user_prefs->interface->hovercollapser) {
+            echo
+                dcPage::jsModuleLoad('tidyAdmin/js/hover_collapser.js', dcCore::app()->getVersion('tidyAdmin')) . "\n";
         }
 
         // User defined CSS rules
@@ -71,6 +75,8 @@ class tidyAdminBehaviour
 }
 
 /* Register favorite */
-dcCore::app()->addBehavior('adminDashboardFavoritesV2', [tidyAdminBehaviour::class, 'adminDashboardFavorites']);
+dcCore::app()->addBehaviors([
+    'adminDashboardFavoritesV2' => [tidyAdminBehaviour::class, 'adminDashboardFavorites'],
 
-dcCore::app()->addBehavior('adminPageHTMLHead', [tidyAdminBehaviour::class, 'adminPageHTMLHead']);
+    'adminPageHTMLHead'         => [tidyAdminBehaviour::class, 'adminPageHTMLHead'],
+]);
