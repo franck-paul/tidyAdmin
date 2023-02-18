@@ -10,22 +10,15 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_CONTEXT_ADMIN')) {
-    return;
-}
+declare(strict_types=1);
 
-// dead but useful code, in order to have translations
-__('Tidy Administration') . __('Customize your dotclear administration');
+namespace Dotclear\Plugin\tidyAdmin;
 
-dcCore::app()->menu[dcAdmin::MENU_SYSTEM]->addItem(
-    __('Tidy Administration'),
-    'plugin.php?p=tidyAdmin',
-    urldecode(dcPage::getPF('tidyAdmin/icon.svg')),
-    preg_match('/plugin.php\?p=tidyAdmin(&.*)?$/', $_SERVER['REQUEST_URI']),
-    dcCore::app()->auth->isSuperAdmin()
-);
+use dcCore;
+use dcPage;
+use path;
 
-class tidyAdminBehaviour
+class BackendBehaviors
 {
     public static function adminPageHTMLHead()
     {
@@ -73,10 +66,3 @@ class tidyAdminBehaviour
         ]);
     }
 }
-
-/* Register favorite */
-dcCore::app()->addBehaviors([
-    'adminDashboardFavoritesV2' => [tidyAdminBehaviour::class, 'adminDashboardFavorites'],
-
-    'adminPageHTMLHead'         => [tidyAdminBehaviour::class, 'adminPageHTMLHead'],
-]);

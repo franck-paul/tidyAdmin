@@ -14,11 +14,11 @@ $this->registerModule(
     'Tidy Administration',
     'Customize your dotclear administration',
     'Franck Paul',
-    '2.1',
+    '3.0',
     [
-        'requires'   => [['core', '2.24']],
-        'type'       => 'plugin',
-        'settings'   => [],
+        'requires' => [['core', '2.25']],
+        'type'     => 'plugin',
+        'settings' => [],
 
         'details'    => 'https://open-time.net/?q=tidyadmin',
         'support'    => 'https://github.com/franck-paul/tidyadmin',

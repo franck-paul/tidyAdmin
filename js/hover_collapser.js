@@ -12,13 +12,13 @@ window.addEventListener('load', () => {
         // Show sidebar
         objMain.classList.remove('hide-mm');
         dotclear.dropLocalData(hideMainMenu);
-        document.querySelector('input#qx').focus();
+        document.querySelector('input#qx')?.focus();
         return;
       }
       // Hide sidebar
       objMain.classList.add('hide-mm');
       dotclear.storeLocalData(hideMainMenu, true);
-      document.querySelector('#content a.go_home').focus();
+      document.querySelector('#content a.go_home')?.focus();
     }, 500);
     e.target.addEventListener('mouseleave', () => {
       clearTimeout(t);
