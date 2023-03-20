@@ -45,6 +45,11 @@ class BackendBehaviors
             echo
                 dcPage::jsModuleLoad('tidyAdmin/js/hover_collapser.js', dcCore::app()->getVersion('tidyAdmin')) . "\n";
         }
+        // Move plugin settings link to top
+        if (dcCore::app()->auth->user_prefs->interface->pluginconfig) {
+            echo
+                dcPage::jsModuleLoad('tidyAdmin/js/plugin_config.js', dcCore::app()->getVersion('tidyAdmin')) . "\n";
+        }
 
         // User defined CSS rules
         if (file_exists(path::real(DC_VAR) . '/plugins/tidyAdmin/admin.css')) {

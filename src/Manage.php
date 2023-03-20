@@ -75,9 +75,9 @@ class Manage extends dcNsProcess
         dcCore::app()->admin->po_content  = @file_get_contents(dcCore::app()->admin->po_file);
         dcCore::app()->admin->po_writable = file_exists(dcCore::app()->admin->po_file) && is_writable(dcCore::app()->admin->po_file) && is_writable(dirname(dcCore::app()->admin->po_file));
 
-        self::$init = true;
+        static::$init = true;
 
-        return self::$init;
+        return static::$init;
     }
 
     /**
@@ -85,7 +85,7 @@ class Manage extends dcNsProcess
      */
     public static function process(): bool
     {
-        if (!self::$init) {
+        if (!static::$init) {
             return false;
         }
 
@@ -96,6 +96,7 @@ class Manage extends dcNsProcess
             dcCore::app()->auth->user_prefs->interface->put('movesearchmenu', !empty($_POST['user_ui_movesearchmenu']), 'boolean');
             dcCore::app()->auth->user_prefs->interface->put('clonesearchmedia', !empty($_POST['user_ui_clonesearchmedia']), 'boolean');
             dcCore::app()->auth->user_prefs->interface->put('hovercollapser', !empty($_POST['user_ui_hovercollapser']), 'boolean');
+            dcCore::app()->auth->user_prefs->interface->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
 
             dcPage::addSuccessNotice(__('Options updated'));
             http::redirect(dcCore::app()->admin->getPageURL() . '&part=options');
@@ -188,7 +189,7 @@ class Manage extends dcNsProcess
      */
     public static function render(): void
     {
-        if (!self::$init) {
+        if (!static::$init) {
             return;
         }
 
@@ -203,6 +204,7 @@ class Manage extends dcNsProcess
         $user_ui_movesearchmenu   = dcCore::app()->auth->user_prefs->interface->movesearchmenu;
         $user_ui_clonesearchmedia = dcCore::app()->auth->user_prefs->interface->clonesearchmedia;
         $user_ui_hovercollapser   = dcCore::app()->auth->user_prefs->interface->hovercollapser;
+        $user_ui_pluginconfig     = dcCore::app()->auth->user_prefs->interface->pluginconfig;
 
         echo
         '<html>' .
@@ -244,7 +246,9 @@ class Manage extends dcNsProcess
         '<p><label for="user_ui_clonesearchmedia" class="classic">' .
         form::checkbox('user_ui_clonesearchmedia', 1, $user_ui_clonesearchmedia) . ' ' . __('Clone the media manager search input in always visible area') . '</label></p>' .
         '<p><label for="user_ui_hovercollapser" class="classic">' .
-        form::checkbox('user_ui_hovercollapser', 1, $user_ui_hovercollapser) . ' ' . __('Enabled mouse hover activation on collapser') . '</label></p>';
+        form::checkbox('user_ui_hovercollapser', 1, $user_ui_hovercollapser) . ' ' . __('Enabled mouse hover activation on collapser') . '</label></p>' .
+        '<p><label for="user_ui_pluginconfig" class="classic">' .
+        form::checkbox('user_ui_pluginconfig', 1, $user_ui_pluginconfig) . ' ' . __('Move plugin settings link to top of page') . '</label></p>';
 
         echo
         '<p><input type="submit" name="opts" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
