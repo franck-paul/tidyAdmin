@@ -18,12 +18,12 @@ use dcCore;
 use dcNsProcess;
 use dcPage;
 use dcUtils;
+use Dotclear\Helper\File\Files;
+use Dotclear\Helper\File\Path;
+use Dotclear\Helper\Html\Html;
+use Dotclear\Helper\Network\Http;
 use Exception;
-use files;
 use form;
-use html;
-use http;
-use path;
 
 class Manage extends dcNsProcess
 {
@@ -34,8 +34,8 @@ class Manage extends dcNsProcess
     {
         // Get plugin var path
 
-        dcCore::app()->admin->var_path = dcUtils::path([path::real(DC_VAR), 'plugins', 'tidyAdmin']) . DIRECTORY_SEPARATOR;
-        files::makeDir(dcCore::app()->admin->var_path, true);
+        dcCore::app()->admin->var_path = dcUtils::path([Path::real(DC_VAR), 'plugins', 'tidyAdmin']) . DIRECTORY_SEPARATOR;
+        Files::makeDir(dcCore::app()->admin->var_path, true);
 
         dcCore::app()->admin->part = '';
 
@@ -99,7 +99,7 @@ class Manage extends dcNsProcess
             dcCore::app()->auth->user_prefs->interface->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
 
             dcPage::addSuccessNotice(__('Options updated'));
-            http::redirect(dcCore::app()->admin->getPageURL() . '&part=options');
+            Http::redirect(dcCore::app()->admin->getPageURL() . '&part=options');
         }
 
         if (!empty($_POST['js'])) {
@@ -120,7 +120,7 @@ class Manage extends dcNsProcess
                     fclose($fp);
                 }
                 dcPage::addSuccessNotice(__('JS supplemental script updated'));
-                http::redirect(dcCore::app()->admin->getPageURL() . '&part=js-editor');
+                Http::redirect(dcCore::app()->admin->getPageURL() . '&part=js-editor');
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -144,7 +144,7 @@ class Manage extends dcNsProcess
                     fclose($fp);
                 }
                 dcPage::addSuccessNotice(__('CSS supplemental rules updated'));
-                http::redirect(dcCore::app()->admin->getPageURL() . '&part=css-editor');
+                Http::redirect(dcCore::app()->admin->getPageURL() . '&part=css-editor');
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -168,7 +168,7 @@ class Manage extends dcNsProcess
                     fclose($fp);
                 }
                 dcPage::addSuccessNotice(__('PO supplemental l10n updated'));
-                http::redirect(dcCore::app()->admin->getPageURL() . '&part=po-editor');
+                Http::redirect(dcCore::app()->admin->getPageURL() . '&part=po-editor');
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -263,7 +263,7 @@ class Manage extends dcNsProcess
 
         echo
         '<form id="css-form" action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
-        '<p>' . form::textarea('css_content', 72, 25, html::escapeHTML(dcCore::app()->admin->css_content), 'maximal', '', !dcCore::app()->admin->css_writable) . '</p>';
+        '<p>' . form::textarea('css_content', 72, 25, Html::escapeHTML(dcCore::app()->admin->css_content), 'maximal', '', !dcCore::app()->admin->css_writable) . '</p>';
         if (dcCore::app()->admin->css_writable) {
             echo
             '<p><input type="submit" name="css" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
@@ -277,7 +277,7 @@ class Manage extends dcNsProcess
 
         // Display demo CSS content
         '<p>' . __('Sample CSS:') . '</p>' .
-        '<p>' . form::textarea('css_demo_content', 72, 25, html::escapeHTML((string) dcCore::app()->admin->css_demo_content), 'maximal', '', false, 'readonly="true"') . '</p>' .
+        '<p>' . form::textarea('css_demo_content', 72, 25, Html::escapeHTML((string) dcCore::app()->admin->css_demo_content), 'maximal', '', false, 'readonly="true"') . '</p>' .
 
             '</form>';
 
@@ -289,7 +289,7 @@ class Manage extends dcNsProcess
 
         echo
         '<form id="js-form" action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
-        '<p>' . form::textarea('js_content', 72, 25, html::escapeHTML(dcCore::app()->admin->js_content), 'maximal', '', !dcCore::app()->admin->js_writable) . '</p>';
+        '<p>' . form::textarea('js_content', 72, 25, Html::escapeHTML(dcCore::app()->admin->js_content), 'maximal', '', !dcCore::app()->admin->js_writable) . '</p>';
         if (dcCore::app()->admin->js_writable) {
             echo
             '<p><input type="submit" name="js" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
@@ -303,7 +303,7 @@ class Manage extends dcNsProcess
 
         // Display demo JS content
         '<p>' . __('Sample JS:') . '</p>' .
-        '<p>' . form::textarea('js_demo_content', 72, 25, html::escapeHTML((string) dcCore::app()->admin->js_demo_content), 'maximal', '', false, 'readonly="true"') . '</p>' .
+        '<p>' . form::textarea('js_demo_content', 72, 25, Html::escapeHTML((string) dcCore::app()->admin->js_demo_content), 'maximal', '', false, 'readonly="true"') . '</p>' .
 
             '</form>';
 
@@ -315,7 +315,7 @@ class Manage extends dcNsProcess
 
         echo
         '<form id="po-form" action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
-        '<p>' . form::textarea('po_content', 72, 25, html::escapeHTML(dcCore::app()->admin->po_content), 'maximal', '', !dcCore::app()->admin->po_writable) . '</p>';
+        '<p>' . form::textarea('po_content', 72, 25, Html::escapeHTML(dcCore::app()->admin->po_content), 'maximal', '', !dcCore::app()->admin->po_writable) . '</p>';
         if (dcCore::app()->admin->po_writable) {
             echo
             '<p><input type="submit" name="po" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
@@ -329,7 +329,7 @@ class Manage extends dcNsProcess
 
         // Display demo PO content
         '<p>' . __('Sample PO:') . '</p>' .
-        '<p>' . form::textarea('po_demo_content', 72, 25, html::escapeHTML((string) dcCore::app()->admin->po_demo_content), 'maximal', '', false, 'readonly="true"') . '</p>' .
+        '<p>' . form::textarea('po_demo_content', 72, 25, Html::escapeHTML((string) dcCore::app()->admin->po_demo_content), 'maximal', '', false, 'readonly="true"') . '</p>' .
 
             '</form>';
 
