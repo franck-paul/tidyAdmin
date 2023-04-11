@@ -9,9 +9,11 @@
 # DOT NOT MODIFY THIS FILE !
 #
 
-l10n::$locales['Blog:'] = ' ';
-l10n::$locales['Blogs:'] = ' ';
-l10n::$locales['Go to site'] = 'Go';
-l10n::$locales['My dashboard'] = 'Home';
-l10n::$locales['My preferences'] = 'Profile';
-l10n::$locales['Logout %s'] = '%s';
+use Dotclear\Helper\L10n;
+
+L10n::$locales['Blog:'] = ' ';
+L10n::$locales['Blogs:'] = ' ';
+L10n::$locales['Go to site'] = 'Go';
+L10n::$locales['My dashboard'] = 'Home';
+L10n::$locales['My preferences'] = 'Profile';
+L10n::$locales['Logout %s'] = '%s';
