@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\tidyAdmin;
 
 use dcNsProcess;
-use l10n;
-use path;
+use Dotclear\Helper\File\Path;
+use Dotclear\Helper\L10n;
 
 class Prepend extends dcNsProcess
 {
@@ -34,8 +34,9 @@ class Prepend extends dcNsProcess
         }
 
         // User defined Locales
-        if (file_exists(path::real(DC_VAR) . '/plugins/tidyAdmin/admin.po')) {
-            l10n::set(path::real(DC_VAR) . '/plugins/tidyAdmin/admin');
+        $l10nFilename = implode(DIRECTORY_SEPARATOR, [DC_VAR, 'plugins', My::id(), 'admin']);
+        if (file_exists(Path::real($l10nFilename . '.po'))) {
+            L10n::set(Path::real($l10nFilename, false));
         }
 
         return true;

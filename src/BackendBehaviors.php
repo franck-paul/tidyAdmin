@@ -16,7 +16,7 @@ namespace Dotclear\Plugin\tidyAdmin;
 
 use dcCore;
 use dcPage;
-use path;
+use Dotclear\Helper\File\Path;
 
 class BackendBehaviors
 {
@@ -52,11 +52,11 @@ class BackendBehaviors
         }
 
         // User defined CSS rules
-        if (file_exists(path::real(DC_VAR) . '/plugins/tidyAdmin/admin.css')) {
+        if (file_exists(Path::real(DC_VAR) . '/plugins/tidyAdmin/admin.css')) {
             echo dcPage::cssLoad(urldecode(dcPage::getVF('plugins/tidyAdmin/admin.css'))) . "\n";
         }
         // User defined Javascript
-        if (file_exists(path::real(DC_VAR) . '/plugins/tidyAdmin/admin.js')) {
+        if (file_exists(Path::real(DC_VAR) . '/plugins/tidyAdmin/admin.js')) {
             echo dcPage::jsLoad(urldecode(dcPage::getVF('plugins/tidyAdmin/admin.js'))) . "\n";
         }
     }

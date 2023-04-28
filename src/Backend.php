@@ -37,18 +37,23 @@ class Backend extends dcNsProcess
             return false;
         }
 
-        dcCore::app()->menu[dcAdmin::MENU_SYSTEM]->addItem(
-            __('Tidy Administration'),
-            'plugin.php?p=tidyAdmin',
-            urldecode(dcPage::getPF('tidyAdmin/icon.svg')),
-            preg_match('/plugin.php\?p=tidyAdmin(&.*)?$/', $_SERVER['REQUEST_URI']),
-            dcCore::app()->auth->isSuperAdmin()
-        );
+        if (dcCore::app()->auth->isSuperAdmin()) {
+            // Add menu
+            dcCore::app()->menu[dcAdmin::MENU_SYSTEM]->addItem(
+                __('Tidy Administration'),
+                'plugin.php?p=tidyAdmin',
+                urldecode(dcPage::getPF('tidyAdmin/icon.svg')),
+                preg_match('/plugin.php\?p=tidyAdmin(&.*)?$/', $_SERVER['REQUEST_URI']),
+                dcCore::app()->auth->isSuperAdmin()
+            );
 
-        /* Register favorite */
+            // Register favorite
+            dcCore::app()->addBehaviors([
+                'adminDashboardFavoritesV2' => [BackendBehaviors::class, 'adminDashboardFavorites'],
+            ]);
+        }
+
         dcCore::app()->addBehaviors([
-            'adminDashboardFavoritesV2' => [BackendBehaviors::class, 'adminDashboardFavorites'],
-
             'adminPageHTMLHead' => [BackendBehaviors::class, 'adminPageHTMLHead'],
         ]);
 

@@ -18,12 +18,21 @@ use dcCore;
 use dcNsProcess;
 use dcPage;
 use dcUtils;
+use Dotclear\Helper\File\Files;
+use Dotclear\Helper\File\Path;
+use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Form;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Textarea;
+use Dotclear\Helper\Html\Html;
+use Dotclear\Helper\Network\Http;
 use Exception;
-use files;
-use form;
-use html;
-use http;
-use path;
+
+//use form;
 
 class Manage extends dcNsProcess
 {
@@ -32,10 +41,29 @@ class Manage extends dcNsProcess
      */
     public static function init(): bool
     {
+        // Manageable only by super-admin
+        static::$init = defined('DC_CONTEXT_ADMIN')
+            && dcCore::app()->auth->isSuperAdmin()
+            && My::phpCompliant();
+
+        return static::$init;
+    }
+
+    /**
+     * Processes the request(s).
+     */
+    public static function process(): bool
+    {
+        if (!static::$init) {
+            return false;
+        }
+
+        // Init stuff
+
         // Get plugin var path
 
-        dcCore::app()->admin->var_path = dcUtils::path([path::real(DC_VAR), 'plugins', 'tidyAdmin']) . DIRECTORY_SEPARATOR;
-        files::makeDir(dcCore::app()->admin->var_path, true);
+        dcCore::app()->admin->var_path = dcUtils::path([Path::real(DC_VAR), 'plugins', 'tidyAdmin']) . DIRECTORY_SEPARATOR;
+        Files::makeDir(dcCore::app()->admin->var_path, true);
 
         dcCore::app()->admin->part = '';
 
@@ -75,31 +103,20 @@ class Manage extends dcNsProcess
         dcCore::app()->admin->po_content  = @file_get_contents(dcCore::app()->admin->po_file);
         dcCore::app()->admin->po_writable = file_exists(dcCore::app()->admin->po_file) && is_writable(dcCore::app()->admin->po_file) && is_writable(dirname(dcCore::app()->admin->po_file));
 
-        static::$init = true;
-
-        return static::$init;
-    }
-
-    /**
-     * Processes the request(s).
-     */
-    public static function process(): bool
-    {
-        if (!static::$init) {
-            return false;
-        }
-
         // Save options
 
         if (!empty($_POST['opts'])) {
-            dcCore::app()->auth->user_prefs->interface->put('minidcicon', !empty($_POST['user_ui_minidcicon']), 'boolean');
-            dcCore::app()->auth->user_prefs->interface->put('movesearchmenu', !empty($_POST['user_ui_movesearchmenu']), 'boolean');
-            dcCore::app()->auth->user_prefs->interface->put('clonesearchmedia', !empty($_POST['user_ui_clonesearchmedia']), 'boolean');
-            dcCore::app()->auth->user_prefs->interface->put('hovercollapser', !empty($_POST['user_ui_hovercollapser']), 'boolean');
-            dcCore::app()->auth->user_prefs->interface->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
+            // Get interface setting
+            $interface_pref = dcCore::app()->auth->user_prefs->interface;
+
+            $interface_pref->put('minidcicon', !empty($_POST['user_ui_minidcicon']), 'boolean');
+            $interface_pref->put('movesearchmenu', !empty($_POST['user_ui_movesearchmenu']), 'boolean');
+            $interface_pref->put('clonesearchmedia', !empty($_POST['user_ui_clonesearchmedia']), 'boolean');
+            $interface_pref->put('hovercollapser', !empty($_POST['user_ui_hovercollapser']), 'boolean');
+            $interface_pref->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
 
             dcPage::addSuccessNotice(__('Options updated'));
-            http::redirect(dcCore::app()->admin->getPageURL() . '&part=options');
+            Http::redirect(dcCore::app()->admin->getPageURL() . '&part=options');
         }
 
         if (!empty($_POST['js'])) {
@@ -120,7 +137,7 @@ class Manage extends dcNsProcess
                     fclose($fp);
                 }
                 dcPage::addSuccessNotice(__('JS supplemental script updated'));
-                http::redirect(dcCore::app()->admin->getPageURL() . '&part=js-editor');
+                Http::redirect(dcCore::app()->admin->getPageURL() . '&part=js-editor');
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -144,7 +161,7 @@ class Manage extends dcNsProcess
                     fclose($fp);
                 }
                 dcPage::addSuccessNotice(__('CSS supplemental rules updated'));
-                http::redirect(dcCore::app()->admin->getPageURL() . '&part=css-editor');
+                Http::redirect(dcCore::app()->admin->getPageURL() . '&part=css-editor');
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -168,7 +185,7 @@ class Manage extends dcNsProcess
                     fclose($fp);
                 }
                 dcPage::addSuccessNotice(__('PO supplemental l10n updated'));
-                http::redirect(dcCore::app()->admin->getPageURL() . '&part=po-editor');
+                Http::redirect(dcCore::app()->admin->getPageURL() . '&part=po-editor');
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -194,37 +211,29 @@ class Manage extends dcNsProcess
         }
 
         // Get interface setting
+        $interface_pref = dcCore::app()->auth->user_prefs->interface;
 
-        $user_ui_colorsyntax       = dcCore::app()->auth->user_prefs->interface->colorsyntax;
+        $user_ui_colorsyntax       = $interface_pref->colorsyntax;
         $user_ui_colorsyntax_theme = '';
         if ($user_ui_colorsyntax) {
-            $user_ui_colorsyntax_theme = dcCore::app()->auth->user_prefs->interface->colorsyntax_theme ?: 'default';
+            $user_ui_colorsyntax_theme = $interface_pref->colorsyntax_theme ?: 'default';
         }
-        $user_ui_minidcicon       = dcCore::app()->auth->user_prefs->interface->minidcicon;
-        $user_ui_movesearchmenu   = dcCore::app()->auth->user_prefs->interface->movesearchmenu;
-        $user_ui_clonesearchmedia = dcCore::app()->auth->user_prefs->interface->clonesearchmedia;
-        $user_ui_hovercollapser   = dcCore::app()->auth->user_prefs->interface->hovercollapser;
-        $user_ui_pluginconfig     = dcCore::app()->auth->user_prefs->interface->pluginconfig;
+        $user_ui_minidcicon       = $interface_pref->minidcicon;
+        $user_ui_movesearchmenu   = $interface_pref->movesearchmenu;
+        $user_ui_clonesearchmedia = $interface_pref->clonesearchmedia;
+        $user_ui_hovercollapser   = $interface_pref->hovercollapser;
+        $user_ui_pluginconfig     = $interface_pref->pluginconfig;
 
-        echo
-        '<html>' .
-        '<head>' .
-        '    <title>' . __('Tidy administration settings') . '</title>';
-
-        echo
-        dcPage::jsModal() .
+        $head = dcPage::jsModal() .
         dcPage::jsConfirmClose('css-form') .
         dcPage::jsPageTabs(dcCore::app()->admin->part);
         if ($user_ui_colorsyntax) {
-            echo
-            dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme, false, ['css', 'javascript']);
+            $head .= dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme, false, ['css', 'javascript']);
         }
-        echo
-        dcPage::cssModuleLoad('tidyAdmin/css/style.css', 'screen', dcCore::app()->getVersion('tidyAdmin'));
+        $head .= dcPage::cssModuleLoad('tidyAdmin/css/style.css', 'screen', dcCore::app()->getVersion('tidyAdmin'));
 
-        echo
-        '</head>' .
-        '<body>';
+        dcPage::openModule(__('Tidy administration settings'), $head);
+
         echo dcPage::breadcrumb(
             [
                 __('System')                       => '',
@@ -233,108 +242,186 @@ class Manage extends dcNsProcess
         );
         echo dcPage::notices();
 
-        echo
-        '<div id="options"  class="multi-part" title="' . __('Options') . '">' .
-        '<h3 class="out-of-screen-if-js">' . __('Options') . '</h3>';
+        // First tab (options)
+        echo (new Div('options'))
+            ->class('multi-part')
+            ->title(__('Options'))
+            ->items([
+                (new Text('h3', __('Options')))
+                ->class('out-of-screen-if-js'),
+                (new Form('options-form'))
+                ->action(dcCore::app()->admin->getPageURL())
+                ->method('post')
+                ->fields([
+                    (new Para())->items([
+                        (new Checkbox('user_ui_minidcicon', $user_ui_minidcicon))
+                            ->value(1)
+                            ->label((new Label(__('Use mini Dotclear icon (top left) in header'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                    (new Para())->items([
+                        (new Checkbox('user_ui_movesearchmenu', $user_ui_movesearchmenu))
+                            ->value(1)
+                            ->label((new Label(__('Move the search form (main menu) in header'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                    (new Para())->items([
+                        (new Checkbox('user_ui_clonesearchmedia', $user_ui_clonesearchmedia))
+                            ->value(1)
+                            ->label((new Label(__('Clone the media manager search input in always visible area'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                    (new Para())->items([
+                        (new Checkbox('user_ui_hovercollapser', $user_ui_hovercollapser))
+                            ->value(1)
+                            ->label((new Label(__('Enabled mouse hover activation on collapser'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                    (new Para())->items([
+                        (new Checkbox('user_ui_pluginconfig', $user_ui_pluginconfig))
+                            ->value(1)
+                            ->label((new Label(__('Move plugin settings link to top of page'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                    (new Para())->items([
+                        (new Submit(['opts'], __('Save')))
+                            ->accesskey('s'),
+                        dcCore::app()->formNonce(false),
+                    ]),
+                ]),
+            ])
+            ->render();
 
-        echo
-        '<form id="options" action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
-        '<p><label for="user_ui_minidcicon" class="classic">' .
-        form::checkbox('user_ui_minidcicon', 1, $user_ui_minidcicon) . ' ' . __('Use mini Dotclear icon (top left) in header') . '</label></p>' .
-        '<p><label for="user_ui_movesearchmenu" class="classic">' .
-        form::checkbox('user_ui_movesearchmenu', 1, $user_ui_movesearchmenu) . ' ' . __('Move the search form (main menu) in header') . '</label></p>' .
-        '<p><label for="user_ui_clonesearchmedia" class="classic">' .
-        form::checkbox('user_ui_clonesearchmedia', 1, $user_ui_clonesearchmedia) . ' ' . __('Clone the media manager search input in always visible area') . '</label></p>' .
-        '<p><label for="user_ui_hovercollapser" class="classic">' .
-        form::checkbox('user_ui_hovercollapser', 1, $user_ui_hovercollapser) . ' ' . __('Enabled mouse hover activation on collapser') . '</label></p>' .
-        '<p><label for="user_ui_pluginconfig" class="classic">' .
-        form::checkbox('user_ui_pluginconfig', 1, $user_ui_pluginconfig) . ' ' . __('Move plugin settings link to top of page') . '</label></p>';
+        // Second tab (User-defined CSS)
+        echo (new Div('css-editor'))
+            ->class('multi-part')
+            ->title(__('Supplemental CSS editor'))
+            ->items([
+                (new Text('h3', __('Supplemental CSS editor')))
+                    ->class('out-of-screen-if-js'),
+                (new Form('css-form'))
+                    ->action(dcCore::app()->admin->getPageURL())
+                    ->method('post')
+                    ->fields([
+                        (new Para())->items([
+                            (new Textarea('css_content'))
+                                ->cols(72)
+                                ->rows(25)
+                                ->value(Html::escapeHTML(dcCore::app()->admin->css_content))
+                                ->class('maximal')
+                                ->disable(!dcCore::app()->admin->css_writable),
+                        ]),
+                        (new Para())->items([
+                            (dcCore::app()->admin->css_writable ?
+                            (new Submit(['css'], __('Save')))
+                                ->accesskey('s') :
+                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->css_file)))),
+                            dcCore::app()->formNonce(false),
+                        ]),
+                        (new Para())->items([
+                            (new Text(null, __('Note: this supplemental CSS rules will surcharge the default CSS rules.'))),
+                        ])
+                            ->class('info'),
+                        (new Para())->items([
+                            (new Text(null, __('Sample CSS:'))),
+                        ]),
+                        (new Para())->items([
+                            (new Textarea('css_demo_content'))
+                                ->cols(72)
+                                ->rows(25)
+                                ->value(Html::escapeHTML((string) dcCore::app()->admin->css_demo_content))
+                                ->class('maximal')
+                                ->readonly(true),
+                        ]),
+                    ]),
+            ])
+            ->render();
 
-        echo
-        '<p><input type="submit" name="opts" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
-        dcCore::app()->formNonce() .
-        '</p>';
+        // Second tab (User-defined JS)
+        echo (new Div('js-editor'))
+            ->class('multi-part')
+            ->title(__('Supplemental JS editor'))
+            ->items([
+                (new Text('h3', __('Supplemental JS editor')))
+                    ->class('out-of-screen-if-js'),
+                (new Form('js-form'))
+                    ->action(dcCore::app()->admin->getPageURL())
+                    ->method('post')
+                    ->fields([
+                        (new Para())->items([
+                            (new Textarea('js_content'))
+                                ->cols(72)
+                                ->rows(25)
+                                ->value(Html::escapeHTML(dcCore::app()->admin->js_content))
+                                ->class('maximal')
+                                ->disable(!dcCore::app()->admin->js_writable),
+                        ]),
+                        (new Para())->items([
+                            (dcCore::app()->admin->js_writable ?
+                            (new Submit(['js'], __('Save')))
+                                ->accesskey('s') :
+                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->js_file)))),
+                            dcCore::app()->formNonce(false),
+                        ]),
+                        (new Para())->items([
+                            (new Text(null, __('Note: this supplemental JS script will surcharge the default JS scripts.'))),
+                        ])
+                            ->class('info'),
+                        (new Para())->items([
+                            (new Text(null, __('Sample JS:'))),
+                        ]),
+                        (new Para())->items([
+                            (new Textarea('js_demo_content'))
+                                ->cols(72)
+                                ->rows(25)
+                                ->value(Html::escapeHTML((string) dcCore::app()->admin->js_demo_content))
+                                ->class('maximal')
+                                ->readonly(true),
+                        ]),
+                    ]),
+            ])
+            ->render();
 
-        echo
-        '</div>' .
-
-        '<div id="css-editor"  class="multi-part" title="' . __('Supplemental CSS editor') . '">' .
-        '<h3 class="out-of-screen-if-js">' . __('Supplemental CSS editor') . '</h3>';
-
-        echo
-        '<form id="css-form" action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
-        '<p>' . form::textarea('css_content', 72, 25, html::escapeHTML(dcCore::app()->admin->css_content), 'maximal', '', !dcCore::app()->admin->css_writable) . '</p>';
-        if (dcCore::app()->admin->css_writable) {
-            echo
-            '<p><input type="submit" name="css" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
-            dcCore::app()->formNonce() .
-                '</p>';
-        } else {
-            echo '<p>' . sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->css_file) . '</p>';
-        }
-        echo
-        '<p class="info">' . __('Note: this supplemental CSS rules will surcharge the default CSS rules.') . '</p>' .
-
-        // Display demo CSS content
-        '<p>' . __('Sample CSS:') . '</p>' .
-        '<p>' . form::textarea('css_demo_content', 72, 25, html::escapeHTML((string) dcCore::app()->admin->css_demo_content), 'maximal', '', false, 'readonly="true"') . '</p>' .
-
-            '</form>';
-
-        echo
-        '</div>' .
-
-        '<div id="js-editor"  class="multi-part" title="' . __('Supplemental JS editor') . '">' .
-        '<h3 class="out-of-screen-if-js">' . __('Supplemental JS editor') . '</h3>';
-
-        echo
-        '<form id="js-form" action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
-        '<p>' . form::textarea('js_content', 72, 25, html::escapeHTML(dcCore::app()->admin->js_content), 'maximal', '', !dcCore::app()->admin->js_writable) . '</p>';
-        if (dcCore::app()->admin->js_writable) {
-            echo
-            '<p><input type="submit" name="js" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
-            dcCore::app()->formNonce() .
-                '</p>';
-        } else {
-            echo '<p>' . sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->js_file) . '</p>';
-        }
-        echo
-        '<p class="info">' . __('Note: this supplemental JS script will surcharge the default JS scripts.') . '</p>' .
-
-        // Display demo JS content
-        '<p>' . __('Sample JS:') . '</p>' .
-        '<p>' . form::textarea('js_demo_content', 72, 25, html::escapeHTML((string) dcCore::app()->admin->js_demo_content), 'maximal', '', false, 'readonly="true"') . '</p>' .
-
-            '</form>';
-
-        echo
-        '</div>' .
-
-        '<div id="po-editor"  class="multi-part" title="' . __('Supplemental PO editor') . '">' .
-        '<h3 class="out-of-screen-if-js">' . __('Supplemental PO editor') . '</h3>';
-
-        echo
-        '<form id="po-form" action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
-        '<p>' . form::textarea('po_content', 72, 25, html::escapeHTML(dcCore::app()->admin->po_content), 'maximal', '', !dcCore::app()->admin->po_writable) . '</p>';
-        if (dcCore::app()->admin->po_writable) {
-            echo
-            '<p><input type="submit" name="po" value="' . __('Save') . ' (s)" accesskey="s" /> ' .
-            dcCore::app()->formNonce() .
-                '</p>';
-        } else {
-            echo '<p>' . sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->css_file) . '</p>';
-        }
-        echo
-        '<p class="info">' . __('Note: this supplemental PO l10n will surcharge the default l10n.') . '</p>' .
-
-        // Display demo PO content
-        '<p>' . __('Sample PO:') . '</p>' .
-        '<p>' . form::textarea('po_demo_content', 72, 25, html::escapeHTML((string) dcCore::app()->admin->po_demo_content), 'maximal', '', false, 'readonly="true"') . '</p>' .
-
-            '</form>';
-
-        echo
-        '</div>';
+        // THIRD tab (User-defined PO)
+        echo (new Div('po-editor'))
+            ->class('multi-part')
+            ->title(__('Supplemental PO editor'))
+            ->items([
+                (new Text('h3', __('Supplemental PO editor')))
+                    ->class('out-of-screen-if-js'),
+                (new Div(null, 'hr')),
+                (new Form('po-form'))
+                    ->action(dcCore::app()->admin->getPageURL())
+                    ->method('post')
+                    ->fields([
+                        (new Para())->items([
+                            (new Textarea('po_content'))
+                                ->cols(72)
+                                ->rows(25)
+                                ->value(Html::escapeHTML(dcCore::app()->admin->po_content))
+                                ->class('maximal')
+                                ->disable(!dcCore::app()->admin->po_writable),
+                        ]),
+                        (new Para())->items([
+                            (dcCore::app()->admin->po_writable ?
+                            (new Submit(['js'], __('Save')))
+                                ->accesskey('s') :
+                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->po_file)))),
+                            dcCore::app()->formNonce(false),
+                        ]),
+                        (new Para())->items([
+                            (new Text(null, __('Note: this supplemental PO l10n will surcharge the default l10n.'))),
+                        ])
+                            ->class('info'),
+                        (new Para())->items([
+                            (new Text(null, __('Sample PO:'))),
+                        ]),
+                        (new Para())->items([
+                            (new Textarea('po_demo_content'))
+                                ->cols(72)
+                                ->rows(25)
+                                ->value(Html::escapeHTML((string) dcCore::app()->admin->po_demo_content))
+                                ->class('maximal')
+                                ->readonly(true),
+                        ]),
+                    ]),
+            ])
+            ->render();
 
         if ($user_ui_colorsyntax) {
             echo
@@ -362,8 +449,6 @@ class Manage extends dcNsProcess
             );
         }
 
-        echo
-    '</body>' .
-'</html>';
+        dcPage::closeModule();
     }
 }
