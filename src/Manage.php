@@ -359,7 +359,7 @@ class Manage extends dcNsProcess
                             dcCore::app()->formNonce(false),
                         ]),
                         (new Para())->items([
-                            (new Text(null, __('Note: this supplemental JS rules will surcharge the default JS scripts.'))),
+                            (new Text(null, __('Note: this supplemental JS script will surcharge the default JS scripts.'))),
                         ])
                             ->class('info'),
                         (new Para())->items([
