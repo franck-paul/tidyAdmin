@@ -34,8 +34,9 @@ class Prepend extends dcNsProcess
         }
 
         // User defined Locales
-        if (file_exists(Path::real(DC_VAR) . '/plugins/tidyAdmin/admin.po')) {
-            L10n::set(Path::real(DC_VAR) . '/plugins/tidyAdmin/admin');
+        $l10nFilename = implode(DIRECTORY_SEPARATOR, [DC_VAR, 'plugins', My::id(), 'admin']);
+        if (file_exists(Path::real($l10nFilename . '.po'))) {
+            L10n::set(Path::real($l10nFilename, false));
         }
 
         return true;
