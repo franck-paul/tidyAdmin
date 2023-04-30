@@ -32,8 +32,6 @@ use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Network\Http;
 use Exception;
 
-//use form;
-
 class Manage extends dcNsProcess
 {
     /**
