@@ -42,7 +42,7 @@ class Backend extends dcNsProcess
             dcCore::app()->menu[dcAdmin::MENU_SYSTEM]->addItem(
                 __('Tidy Administration'),
                 'plugin.php?p=tidyAdmin',
-                urldecode(dcPage::getPF('tidyAdmin/icon.svg')),
+                urldecode(dcPage::getPF(My::id() . '/icon.svg')),
                 preg_match('/plugin.php\?p=tidyAdmin(&.*)?$/', $_SERVER['REQUEST_URI']),
                 dcCore::app()->auth->isSuperAdmin()
             );

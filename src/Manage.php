@@ -60,7 +60,7 @@ class Manage extends dcNsProcess
 
         // Get plugin var path
 
-        dcCore::app()->admin->var_path = dcUtils::path([Path::real(DC_VAR), 'plugins', 'tidyAdmin']) . DIRECTORY_SEPARATOR;
+        dcCore::app()->admin->var_path = dcUtils::path([Path::real(DC_VAR), 'plugins', My::id()]) . DIRECTORY_SEPARATOR;
         Files::makeDir(dcCore::app()->admin->var_path, true);
 
         dcCore::app()->admin->part = '';
@@ -228,7 +228,7 @@ class Manage extends dcNsProcess
         if ($user_ui_colorsyntax) {
             $head .= dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme, false, ['css', 'javascript']);
         }
-        $head .= dcPage::cssModuleLoad('tidyAdmin/css/style.css', 'screen', dcCore::app()->getVersion('tidyAdmin'));
+        $head .= dcPage::cssModuleLoad(My::id() . '/css/style.css', 'screen', dcCore::app()->getVersion(My::id()));
 
         dcPage::openModule(__('Tidy administration settings'), $head);
 
