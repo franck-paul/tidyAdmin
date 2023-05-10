@@ -17,13 +17,12 @@ namespace Dotclear\Plugin\tidyAdmin;
 use dcAdmin;
 use dcCore;
 use dcNsProcess;
-use dcPage;
 
 class Backend extends dcNsProcess
 {
     public static function init(): bool
     {
-        static::$init = defined('DC_CONTEXT_ADMIN');
+        static::$init = My::checkContext(My::BACKEND);
 
         // dead but useful code, in order to have translations
         __('Tidy Administration') . __('Customize your dotclear administration');
@@ -37,14 +36,14 @@ class Backend extends dcNsProcess
             return false;
         }
 
-        if (dcCore::app()->auth->isSuperAdmin()) {
+        if (My::checkContext(My::MENU)) {
             // Add menu
             dcCore::app()->menu[dcAdmin::MENU_SYSTEM]->addItem(
                 __('Tidy Administration'),
-                'plugin.php?p=tidyAdmin',
-                urldecode(dcPage::getPF(My::id() . '/icon.svg')),
-                preg_match('/plugin.php\?p=tidyAdmin(&.*)?$/', $_SERVER['REQUEST_URI']),
-                dcCore::app()->auth->isSuperAdmin()
+                My::makeUrl(),
+                My::icons(),
+                preg_match(My::urlScheme(), $_SERVER['REQUEST_URI']),
+                My::checkContext(My::MENU)
             );
 
             // Register favorite

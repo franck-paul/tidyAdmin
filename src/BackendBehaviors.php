@@ -66,9 +66,9 @@ class BackendBehaviors
     {
         $favs->register(My::id(), [
             'title'      => __('Tidy Administration'),
-            'url'        => 'plugin.php?p=' . My::id(),
-            'small-icon' => urldecode(dcPage::getPF(My::id() . '/icon.svg')),
-            'large-icon' => urldecode(dcPage::getPF(My::id() . '/icon.svg')),
+            'url'        => My::makeUrl(),
+            'small-icon' => My::icons(),
+            'large-icon' => My::icons(),
         ]);
     }
 }
