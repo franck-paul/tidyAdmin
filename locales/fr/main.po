@@ -1,10 +1,10 @@
 # SOME DESCRIPTIVE TITLE.
 # This file is put in the public domain.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
 # Franck Paul <carnet.franck.paul@gmail.com>, 2023
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -14,10 +14,10 @@ msgstr ""
 "PO-Revision-Date: 2023-04-11 10:30+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: French (https://app.transifex.com/open-time/teams/109573/fr/)\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Customize your dotclear administration"
@@ -30,8 +30,10 @@ msgid "Options updated"
 msgstr "Les options ont été mises à jour"
 
 #, php-format
-msgid "Unable to write file %s. Please check the dotclear var folder permissions."
-msgstr "Impossible d'écrire le fichier %s. Vérifiez les permissions du dossier var."
+msgid ""
+"Unable to write file %s. Please check the dotclear var folder permissions."
+msgstr ""
+"Impossible d'écrire le fichier %s. Vérifiez les permissions du dossier var."
 
 msgid "JS supplemental script updated"
 msgstr "Le script JS supplémentaire a été mis à jour"
@@ -42,9 +44,8 @@ msgstr "Les règles CSS supplémentaires ont été mises à jour"
 msgid "PO supplemental l10n updated"
 msgstr "Les traductions supplémentaires ont été mises à jour"
 
-#, fuzzy
 msgid "HTML head supplemental directives updated"
-msgstr "Les règles CSS supplémentaires ont été mises à jour"
+msgstr "Directives supplémentaires pour la partie HTML head"
 
 msgid "Tidy administration settings"
 msgstr "Personnalisation de l'administration"
@@ -62,10 +63,14 @@ msgid "Move the search form (main menu) in header"
 msgstr "Déplacer le formulaire de recherche (menu principal) dans l'entête"
 
 msgid "Clone the media manager search input in always visible area"
-msgstr "Cloner le champ de recherche de la médiathèque dans une partie toujours visible"
+msgstr ""
+"Cloner le champ de recherche de la médiathèque dans une partie toujours "
+"visible"
 
 msgid "Enabled mouse hover activation on collapser"
-msgstr "Activer la détection du survol de la souris sur la barre de réduction du menu"
+msgstr ""
+"Activer la détection du survol de la souris sur la barre de réduction du "
+"menu"
 
 msgid "Move plugin settings link to top of page"
 msgstr "Remonter le lien vers les réglages de plugin en haut de la page"
@@ -73,36 +78,40 @@ msgstr "Remonter le lien vers les réglages de plugin en haut de la page"
 msgid "Save"
 msgstr "Enregistrer"
 
-#, fuzzy
 msgid "Supplemental CSS"
-msgstr "Éditeur des règles CSS supplémentaires"
+msgstr "CSS supplémentaire"
 
-msgid "Note: this supplemental CSS rules will surcharge the default CSS rules."
-msgstr "Note : ces règles CSS supplémentaires viendront surcharger les règles CSS par défaut."
+msgid ""
+"Note: this supplemental CSS rules will surcharge the default CSS rules."
+msgstr ""
+"Note : ces règles CSS supplémentaires viendront surcharger les règles CSS "
+"par défaut."
 
 msgid "Sample CSS:"
 msgstr "Exemple de CSS :"
 
-#, fuzzy
 msgid "Supplemental JS"
-msgstr "Éditeur de script JS supplémentaire"
+msgstr "JS supplémentaire"
 
-msgid "Note: this supplemental JS script will surcharge the default JS scripts."
-msgstr "Note : ce script JS supplémentaire viendra compléter les scripts JS par défaut."
+msgid ""
+"Note: this supplemental JS script will surcharge the default JS scripts."
+msgstr ""
+"Note : ce script JS supplémentaire viendra compléter les scripts JS par "
+"défaut."
 
 msgid "Sample JS:"
 msgstr "Exemple de JS :"
 
-#, fuzzy
 msgid "Supplemental PO"
-msgstr "Éditeur des traductions supplémentaires"
+msgstr "PO supplémentaire"
 
 msgid "Note: this supplemental PO l10n will surcharge the default l10n."
-msgstr "Note : ces traductions supplémentaires viendront surcharger les traductions par défaut, indépendamment de la langue choisie."
+msgstr ""
+"Note : ces traductions supplémentaires viendront surcharger les traductions "
+"par défaut, indépendamment de la langue choisie."
 
 msgid "Sample PO:"
 msgstr "Exemple de traductions :"
 
-#, fuzzy
 msgid "Supplemental HTML head directives"
-msgstr "Éditeur de script JS supplémentaire"
+msgstr "HTML head supplémentaire"
