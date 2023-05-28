@@ -99,6 +99,16 @@ class Manage extends dcNsProcess
         dcCore::app()->admin->po_content  = @file_get_contents(dcCore::app()->admin->po_file);
         dcCore::app()->admin->po_writable = file_exists(dcCore::app()->admin->po_file) && is_writable(dcCore::app()->admin->po_file) && is_writable(dirname(dcCore::app()->admin->po_file));
 
+        // Get current content of HTML file
+
+        dcCore::app()->admin->html_file        = dcCore::app()->admin->var_path . 'admin.html';
+        dcCore::app()->admin->html_backup_file = dcCore::app()->admin->var_path . 'admin-backup.html';
+        if (!file_exists(dcCore::app()->admin->html_file)) {
+            touch(dcCore::app()->admin->html_file);
+        }
+        dcCore::app()->admin->html_content  = @file_get_contents(dcCore::app()->admin->html_file);
+        dcCore::app()->admin->html_writable = file_exists(dcCore::app()->admin->html_file) && is_writable(dcCore::app()->admin->html_file) && is_writable(dirname(dcCore::app()->admin->html_file));
+
         // Save options
 
         if (!empty($_POST['opts'])) {
@@ -187,7 +197,31 @@ class Manage extends dcNsProcess
             }
         }
 
-        if (!empty($_GET['part']) && in_array($_GET['part'], ['options', 'css-editor', 'js-editor', 'po-editor'])) {
+        if (!empty($_POST['html'])) {
+            // Try to write PO content
+            try {
+                # Write file
+                $html_old_content                  = dcCore::app()->admin->html_content;
+                dcCore::app()->admin->html_content = $_POST['html_content'] . "\n";
+                $fp                                = @fopen(dcCore::app()->admin->html_file, 'wb');
+                if (!$fp) {
+                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->html_file));
+                }
+                fwrite($fp, dcCore::app()->admin->html_content);
+                fclose($fp);
+                if ($fp = @fopen(dcCore::app()->admin->html_backup_file, 'wb')) {
+                    // Backup file
+                    fwrite($fp, $html_old_content);
+                    fclose($fp);
+                }
+                dcPage::addSuccessNotice(__('HTML head supplemental directives updated'));
+                Http::redirect(dcCore::app()->admin->getPageURL() . '&part=html-editor');
+            } catch (Exception $e) {
+                dcCore::app()->error->add($e->getMessage());
+            }
+        }
+
+        if (!empty($_GET['part']) && in_array($_GET['part'], ['options', 'css-editor', 'js-editor', 'po-editor', 'html-editor'])) {
             dcCore::app()->admin->part = $_GET['part'];
         }
         if (dcCore::app()->admin->part === '') {
@@ -286,9 +320,9 @@ class Manage extends dcNsProcess
         // Second tab (User-defined CSS)
         echo (new Div('css-editor'))
             ->class('multi-part')
-            ->title(__('Supplemental CSS editor'))
+            ->title(__('Supplemental CSS'))
             ->items([
-                (new Text('h3', __('Supplemental CSS editor')))
+                (new Text('h3', __('Supplemental CSS')))
                     ->class('out-of-screen-if-js'),
                 (new Form('css-form'))
                     ->action(dcCore::app()->admin->getPageURL())
@@ -328,12 +362,12 @@ class Manage extends dcNsProcess
             ])
             ->render();
 
-        // Second tab (User-defined JS)
+        // Third tab (User-defined JS)
         echo (new Div('js-editor'))
             ->class('multi-part')
-            ->title(__('Supplemental JS editor'))
+            ->title(__('Supplemental JS'))
             ->items([
-                (new Text('h3', __('Supplemental JS editor')))
+                (new Text('h3', __('Supplemental JS')))
                     ->class('out-of-screen-if-js'),
                 (new Form('js-form'))
                     ->action(dcCore::app()->admin->getPageURL())
@@ -373,12 +407,12 @@ class Manage extends dcNsProcess
             ])
             ->render();
 
-        // THIRD tab (User-defined PO)
+        // Frouth tab (User-defined PO)
         echo (new Div('po-editor'))
             ->class('multi-part')
-            ->title(__('Supplemental PO editor'))
+            ->title(__('Supplemental PO'))
             ->items([
-                (new Text('h3', __('Supplemental PO editor')))
+                (new Text('h3', __('Supplemental PO')))
                     ->class('out-of-screen-if-js'),
                 (new Div(null, 'hr')),
                 (new Form('po-form'))
@@ -419,6 +453,37 @@ class Manage extends dcNsProcess
             ])
             ->render();
 
+        // Frouth tab (User-defined HTML head)
+        echo (new Div('html-editor'))
+            ->class('multi-part')
+            ->title(__('Supplemental HTML head directives'))
+            ->items([
+                (new Text('h3', __('Supplemental HTML head directives')))
+                    ->class('out-of-screen-if-js'),
+                (new Div(null, 'hr')),
+                (new Form('html-form'))
+                    ->action(dcCore::app()->admin->getPageURL())
+                    ->method('post')
+                    ->fields([
+                        (new Para())->items([
+                            (new Textarea('html_content'))
+                                ->cols(72)
+                                ->rows(25)
+                                ->value(Html::escapeHTML(dcCore::app()->admin->html_content))
+                                ->class('maximal')
+                                ->disable(!dcCore::app()->admin->html_writable),
+                        ]),
+                        (new Para())->items([
+                            (dcCore::app()->admin->html_writable ?
+                            (new Submit(['html'], __('Save')))
+                                ->accesskey('s') :
+                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->html_file)))),
+                            dcCore::app()->formNonce(false),
+                        ]),
+                    ]),
+            ])
+            ->render();
+
         if ($user_ui_colorsyntax) {
             echo
             dcPage::jsRunCodeMirror(
@@ -439,6 +504,12 @@ class Manage extends dcNsProcess
                         'name'  => 'editor_po',
                         'id'    => 'po_content',
                         'mode'  => 'text/plain',
+                        'theme' => $user_ui_colorsyntax_theme,
+                    ],
+                    [
+                        'name'  => 'editor_html',
+                        'id'    => 'html_content',
+                        'mode'  => 'text/html',
                         'theme' => $user_ui_colorsyntax_theme,
                     ],
                 ]

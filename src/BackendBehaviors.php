@@ -52,6 +52,10 @@ class BackendBehaviors
                 dcPage::jsModuleLoad(My::id() . '/js/plugin_config.js', dcCore::app()->getVersion(My::id() . '')) . "\n";
         }
 
+        // User defined head directives
+        if (file_exists(Path::real(DC_VAR) . '/plugins/' . My::id() . '/admin.html')) {
+            echo file_get_contents(Path::real(DC_VAR) . '/plugins/' . My::id() . '/admin.html') . "\n";
+        }
         // User defined CSS rules
         if (file_exists(Path::real(DC_VAR) . '/plugins/' . My::id() . '/admin.css')) {
             echo dcPage::cssLoad(urldecode(dcPage::getVF('plugins/' . My::id() . '/admin.css'))) . "\n";
