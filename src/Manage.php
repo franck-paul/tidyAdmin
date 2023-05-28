@@ -65,9 +65,10 @@ class Manage extends dcNsProcess
 
         // Get demo content (js, css, po)
 
-        dcCore::app()->admin->js_demo_content  = @file_get_contents(dcUtils::path([__DIR__,'..','js','admin-demo.js']));
-        dcCore::app()->admin->css_demo_content = @file_get_contents(dcUtils::path([__DIR__,'..','css','admin-demo.css']));
-        dcCore::app()->admin->po_demo_content  = @file_get_contents(dcUtils::path([__DIR__,'..','po','admin-demo.po']));
+        dcCore::app()->admin->js_demo_content   = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.js']));
+        dcCore::app()->admin->css_demo_content  = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.css']));
+        dcCore::app()->admin->po_demo_content   = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.po']));
+        dcCore::app()->admin->html_demo_content = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.html']));
 
         // Get current content of JS file
 
@@ -258,7 +259,7 @@ class Manage extends dcNsProcess
         dcPage::jsConfirmClose('css-form') .
         dcPage::jsPageTabs(dcCore::app()->admin->part);
         if ($user_ui_colorsyntax) {
-            $head .= dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme, false, ['css', 'javascript']);
+            $head .= dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme);
         }
         $head .= dcPage::cssModuleLoad(My::id() . '/css/style.css', 'screen', dcCore::app()->getVersion(My::id()));
 
@@ -479,6 +480,21 @@ class Manage extends dcNsProcess
                                 ->accesskey('s') :
                             (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->html_file)))),
                             dcCore::app()->formNonce(false),
+                        ]),
+                        (new Para())->items([
+                            (new Text(null, __('Note: this supplemental HTML head directives will added to the default HTML head.'))),
+                        ])
+                            ->class('info'),
+                        (new Para())->items([
+                            (new Text(null, __('Sample HTML head:'))),
+                        ]),
+                        (new Para())->items([
+                            (new Textarea('html_demo_content'))
+                                ->cols(72)
+                                ->rows(25)
+                                ->value(Html::escapeHTML((string) dcCore::app()->admin->html_demo_content))
+                                ->class('maximal')
+                                ->readonly(true),
                         ]),
                     ]),
             ])

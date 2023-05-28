@@ -38,3 +38,5 @@ L10n::$locales['Supplemental PO'] = 'PO supplémentaire';
 L10n::$locales['Note: this supplemental PO l10n will surcharge the default l10n.'] = 'Note : ces traductions supplémentaires viendront surcharger les traductions par défaut, indépendamment de la langue choisie.';
 L10n::$locales['Sample PO:'] = 'Exemple de traductions :';
 L10n::$locales['Supplemental HTML head directives'] = 'HTML head supplémentaire';
+L10n::$locales['Note: this supplemental HTML head directives will added to the default HTML head.'] = 'Note : ces règles CSS supplémentaires viendront surcharger les règles CSS par défaut.';
+L10n::$locales['Sample HTML head:'] = '';

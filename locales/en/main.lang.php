@@ -38,3 +38,5 @@ L10n::$locales['Supplemental PO'] = '';
 L10n::$locales['Note: this supplemental PO l10n will surcharge the default l10n.'] = '';
 L10n::$locales['Sample PO:'] = '';
 L10n::$locales['Supplemental HTML head directives'] = '';
+L10n::$locales['Note: this supplemental HTML head directives will added to the default HTML head.'] = '';
+L10n::$locales['Sample HTML head:'] = '';
