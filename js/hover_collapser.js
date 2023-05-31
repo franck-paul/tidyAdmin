@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
   const hideMainMenu = 'hide_main_menu';
 
   // Sidebar separator
-  document.getElementById('collapser').addEventListener('mouseover', (e) => {
+  document.getElementById('collapser')?.addEventListener('mouseover', (e) => {
     const t = setTimeout(() => {
       e.preventDefault();
       if (objMain.classList.contains('hide-mm')) {
