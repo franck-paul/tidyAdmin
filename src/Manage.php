@@ -199,7 +199,7 @@ class Manage extends dcNsProcess
         }
 
         if (!empty($_POST['html'])) {
-            // Try to write PO content
+            // Try to write HTML head directives content
             try {
                 # Write file
                 $html_old_content                  = dcCore::app()->admin->html_content;
@@ -430,7 +430,7 @@ class Manage extends dcNsProcess
                         ]),
                         (new Para())->items([
                             (dcCore::app()->admin->po_writable ?
-                            (new Submit(['js'], __('Save')))
+                            (new Submit(['po'], __('Save')))
                                 ->accesskey('s') :
                             (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->po_file)))),
                             dcCore::app()->formNonce(false),
