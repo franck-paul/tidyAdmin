@@ -29,7 +29,6 @@ use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Textarea;
 use Dotclear\Helper\Html\Html;
-use Dotclear\Helper\Network\Http;
 use Exception;
 
 class Manage extends dcNsProcess
@@ -123,7 +122,9 @@ class Manage extends dcNsProcess
             $interface_pref->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
 
             dcPage::addSuccessNotice(__('Options updated'));
-            Http::redirect(dcCore::app()->admin->getPageURL() . '&part=options');
+            dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                'part' => 'options',
+            ]);
         }
 
         if (!empty($_POST['js'])) {
@@ -144,7 +145,9 @@ class Manage extends dcNsProcess
                     fclose($fp);
                 }
                 dcPage::addSuccessNotice(__('JS supplemental script updated'));
-                Http::redirect(dcCore::app()->admin->getPageURL() . '&part=js-editor');
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                    'part' => 'js-editor',
+                ]);
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -168,7 +171,9 @@ class Manage extends dcNsProcess
                     fclose($fp);
                 }
                 dcPage::addSuccessNotice(__('CSS supplemental rules updated'));
-                Http::redirect(dcCore::app()->admin->getPageURL() . '&part=css-editor');
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                    'part' => 'css-editor',
+                ]);
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -192,7 +197,9 @@ class Manage extends dcNsProcess
                     fclose($fp);
                 }
                 dcPage::addSuccessNotice(__('PO supplemental l10n updated'));
-                Http::redirect(dcCore::app()->admin->getPageURL() . '&part=po-editor');
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                    'part' => 'po-editor',
+                ]);
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -216,7 +223,9 @@ class Manage extends dcNsProcess
                     fclose($fp);
                 }
                 dcPage::addSuccessNotice(__('HTML head supplemental directives updated'));
-                Http::redirect(dcCore::app()->admin->getPageURL() . '&part=html-editor');
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                    'part' => 'html-editor',
+                ]);
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
