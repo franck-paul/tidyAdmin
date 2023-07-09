@@ -33,7 +33,29 @@ use Exception;
 
 class Manage extends dcNsProcess
 {
-    protected static $init = false; /** @deprecated since 2.27 */
+    private static string $var_path          = '';
+    private static string $part              = '';
+    private static string $js_demo_content   = '';
+    private static string $css_demo_content  = '';
+    private static string $po_demo_content   = '';
+    private static string $html_demo_content = '';
+    private static string $js_file           = '';
+    private static string $js_backup_file    = '';
+    private static string $js_content        = '';
+    private static bool $js_writable         = false;
+    private static string $css_file          = '';
+    private static string $css_backup_file   = '';
+    private static string $css_content       = '';
+    private static bool $css_writable        = false;
+    private static string $po_file           = '';
+    private static string $po_backup_file    = '';
+    private static string $po_content        = '';
+    private static bool $po_writable         = false;
+    private static string $html_file         = '';
+    private static string $html_backup_file  = '';
+    private static string $html_content      = '';
+    private static bool $html_writable       = false;
+    protected static $init                   = false; /** @deprecated since 2.27 */
     /**
      * Initializes the page.
      */
@@ -58,57 +80,57 @@ class Manage extends dcNsProcess
 
         // Get plugin var path
 
-        dcCore::app()->admin->var_path = dcUtils::path([Path::real(DC_VAR), 'plugins', My::id()]) . DIRECTORY_SEPARATOR;
-        Files::makeDir(dcCore::app()->admin->var_path, true);
+        self::$var_path = dcUtils::path([Path::real(DC_VAR), 'plugins', My::id()]) . DIRECTORY_SEPARATOR;
+        Files::makeDir(self::$var_path, true);
 
-        dcCore::app()->admin->part = '';
+        self::$part = '';
 
         // Get demo content (js, css, po)
 
-        dcCore::app()->admin->js_demo_content   = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.js']));
-        dcCore::app()->admin->css_demo_content  = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.css']));
-        dcCore::app()->admin->po_demo_content   = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.po']));
-        dcCore::app()->admin->html_demo_content = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.html']));
+        self::$js_demo_content   = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.js']));
+        self::$css_demo_content  = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.css']));
+        self::$po_demo_content   = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.po']));
+        self::$html_demo_content = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.html']));
 
         // Get current content of JS file
 
-        dcCore::app()->admin->js_file        = dcCore::app()->admin->var_path . 'admin.js';
-        dcCore::app()->admin->js_backup_file = dcCore::app()->admin->var_path . 'admin-backup.js';
-        if (!file_exists(dcCore::app()->admin->js_file)) {
-            @touch(dcCore::app()->admin->js_file);
+        self::$js_file        = self::$var_path . 'admin.js';
+        self::$js_backup_file = self::$var_path . 'admin-backup.js';
+        if (!file_exists(self::$js_file)) {
+            @touch(self::$js_file);
         }
-        dcCore::app()->admin->js_content  = @file_get_contents(dcCore::app()->admin->js_file);
-        dcCore::app()->admin->js_writable = file_exists(dcCore::app()->admin->js_file) && is_writable(dcCore::app()->admin->js_file) && is_writable(dirname(dcCore::app()->admin->js_file));
+        self::$js_content  = @file_get_contents(self::$js_file);
+        self::$js_writable = file_exists(self::$js_file) && is_writable(self::$js_file) && is_writable(dirname(self::$js_file));
 
         // Get current content of CSS file
 
-        dcCore::app()->admin->css_file        = dcCore::app()->admin->var_path . 'admin.css';
-        dcCore::app()->admin->css_backup_file = dcCore::app()->admin->var_path . 'admin-backup.css';
-        if (!file_exists(dcCore::app()->admin->css_file)) {
-            touch(dcCore::app()->admin->css_file);
+        self::$css_file        = self::$var_path . 'admin.css';
+        self::$css_backup_file = self::$var_path . 'admin-backup.css';
+        if (!file_exists(self::$css_file)) {
+            touch(self::$css_file);
         }
-        dcCore::app()->admin->css_content  = @file_get_contents(dcCore::app()->admin->css_file);
-        dcCore::app()->admin->css_writable = file_exists(dcCore::app()->admin->css_file) && is_writable(dcCore::app()->admin->css_file) && is_writable(dirname(dcCore::app()->admin->css_file));
+        self::$css_content  = @file_get_contents(self::$css_file);
+        self::$css_writable = file_exists(self::$css_file) && is_writable(self::$css_file) && is_writable(dirname(self::$css_file));
 
         // Get current content of PO file
 
-        dcCore::app()->admin->po_file        = dcCore::app()->admin->var_path . 'admin.po';
-        dcCore::app()->admin->po_backup_file = dcCore::app()->admin->var_path . 'admin-backup.po';
-        if (!file_exists(dcCore::app()->admin->po_file)) {
-            touch(dcCore::app()->admin->po_file);
+        self::$po_file        = self::$var_path . 'admin.po';
+        self::$po_backup_file = self::$var_path . 'admin-backup.po';
+        if (!file_exists(self::$po_file)) {
+            touch(self::$po_file);
         }
-        dcCore::app()->admin->po_content  = @file_get_contents(dcCore::app()->admin->po_file);
-        dcCore::app()->admin->po_writable = file_exists(dcCore::app()->admin->po_file) && is_writable(dcCore::app()->admin->po_file) && is_writable(dirname(dcCore::app()->admin->po_file));
+        self::$po_content  = @file_get_contents(self::$po_file);
+        self::$po_writable = file_exists(self::$po_file) && is_writable(self::$po_file) && is_writable(dirname(self::$po_file));
 
         // Get current content of HTML file
 
-        dcCore::app()->admin->html_file        = dcCore::app()->admin->var_path . 'admin.html';
-        dcCore::app()->admin->html_backup_file = dcCore::app()->admin->var_path . 'admin-backup.html';
-        if (!file_exists(dcCore::app()->admin->html_file)) {
-            touch(dcCore::app()->admin->html_file);
+        self::$html_file        = self::$var_path . 'admin.html';
+        self::$html_backup_file = self::$var_path . 'admin-backup.html';
+        if (!file_exists(self::$html_file)) {
+            touch(self::$html_file);
         }
-        dcCore::app()->admin->html_content  = @file_get_contents(dcCore::app()->admin->html_file);
-        dcCore::app()->admin->html_writable = file_exists(dcCore::app()->admin->html_file) && is_writable(dcCore::app()->admin->html_file) && is_writable(dirname(dcCore::app()->admin->html_file));
+        self::$html_content  = @file_get_contents(self::$html_file);
+        self::$html_writable = file_exists(self::$html_file) && is_writable(self::$html_file) && is_writable(dirname(self::$html_file));
 
         // Save options
 
@@ -132,15 +154,15 @@ class Manage extends dcNsProcess
             // Try to write JS file
             try {
                 # Write file
-                $js_old_content                  = dcCore::app()->admin->js_content;
-                dcCore::app()->admin->js_content = $_POST['js_content'] . "\n";
-                $fp                              = @fopen(dcCore::app()->admin->js_file, 'wb');
+                $js_old_content   = self::$js_content;
+                self::$js_content = $_POST['js_content'] . "\n";
+                $fp               = @fopen(self::$js_file, 'wb');
                 if (!$fp) {
-                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->js_file));
+                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$js_file));
                 }
-                fwrite($fp, dcCore::app()->admin->js_content);
+                fwrite($fp, self::$js_content);
                 fclose($fp);
-                if ($fp = @fopen(dcCore::app()->admin->js_backup_file, 'wb')) {
+                if ($fp = @fopen(self::$js_backup_file, 'wb')) {
                     // Backup file
                     fwrite($fp, $js_old_content);
                     fclose($fp);
@@ -158,15 +180,15 @@ class Manage extends dcNsProcess
             // Try to write CSS rule
             try {
                 # Write file
-                $css_old_content                  = dcCore::app()->admin->css_content;
-                dcCore::app()->admin->css_content = $_POST['css_content'] . "\n";
-                $fp                               = @fopen(dcCore::app()->admin->css_file, 'wb');
+                $css_old_content   = self::$css_content;
+                self::$css_content = $_POST['css_content'] . "\n";
+                $fp                = @fopen(self::$css_file, 'wb');
                 if (!$fp) {
-                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->css_file));
+                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$css_file));
                 }
-                fwrite($fp, dcCore::app()->admin->css_content);
+                fwrite($fp, self::$css_content);
                 fclose($fp);
-                if ($fp = @fopen(dcCore::app()->admin->css_backup_file, 'wb')) {
+                if ($fp = @fopen(self::$css_backup_file, 'wb')) {
                     // Backup file
                     fwrite($fp, $css_old_content);
                     fclose($fp);
@@ -184,15 +206,15 @@ class Manage extends dcNsProcess
             // Try to write PO content
             try {
                 # Write file
-                $po_old_content                  = dcCore::app()->admin->po_content;
-                dcCore::app()->admin->po_content = $_POST['po_content'] . "\n";
-                $fp                              = @fopen(dcCore::app()->admin->po_file, 'wb');
+                $po_old_content   = self::$po_content;
+                self::$po_content = $_POST['po_content'] . "\n";
+                $fp               = @fopen(self::$po_file, 'wb');
                 if (!$fp) {
-                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->po_file));
+                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$po_file));
                 }
-                fwrite($fp, dcCore::app()->admin->po_content);
+                fwrite($fp, self::$po_content);
                 fclose($fp);
-                if ($fp = @fopen(dcCore::app()->admin->po_backup_file, 'wb')) {
+                if ($fp = @fopen(self::$po_backup_file, 'wb')) {
                     // Backup file
                     fwrite($fp, $po_old_content);
                     fclose($fp);
@@ -210,15 +232,15 @@ class Manage extends dcNsProcess
             // Try to write HTML head directives content
             try {
                 # Write file
-                $html_old_content                  = dcCore::app()->admin->html_content;
-                dcCore::app()->admin->html_content = $_POST['html_content'] . "\n";
-                $fp                                = @fopen(dcCore::app()->admin->html_file, 'wb');
+                $html_old_content   = self::$html_content;
+                self::$html_content = $_POST['html_content'] . "\n";
+                $fp                 = @fopen(self::$html_file, 'wb');
                 if (!$fp) {
-                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->html_file));
+                    throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$html_file));
                 }
-                fwrite($fp, dcCore::app()->admin->html_content);
+                fwrite($fp, self::$html_content);
                 fclose($fp);
-                if ($fp = @fopen(dcCore::app()->admin->html_backup_file, 'wb')) {
+                if ($fp = @fopen(self::$html_backup_file, 'wb')) {
                     // Backup file
                     fwrite($fp, $html_old_content);
                     fclose($fp);
@@ -233,10 +255,10 @@ class Manage extends dcNsProcess
         }
 
         if (!empty($_GET['part']) && in_array($_GET['part'], ['options', 'css-editor', 'js-editor', 'po-editor', 'html-editor'])) {
-            dcCore::app()->admin->part = $_GET['part'];
+            self::$part = $_GET['part'];
         }
-        if (dcCore::app()->admin->part === '') {
-            dcCore::app()->admin->part = 'options';
+        if (self::$part === '') {
+            self::$part = 'options';
         }
 
         return true;
@@ -267,7 +289,7 @@ class Manage extends dcNsProcess
 
         $head = dcPage::jsModal() .
         dcPage::jsConfirmClose('css-form') .
-        dcPage::jsPageTabs(dcCore::app()->admin->part);
+        dcPage::jsPageTabs(self::$part);
         if ($user_ui_colorsyntax) {
             $head .= dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme);
         }
@@ -343,15 +365,15 @@ class Manage extends dcNsProcess
                             (new Textarea('css_content'))
                                 ->cols(72)
                                 ->rows(25)
-                                ->value(Html::escapeHTML(dcCore::app()->admin->css_content))
+                                ->value(Html::escapeHTML(self::$css_content))
                                 ->class('maximal')
-                                ->disable(!dcCore::app()->admin->css_writable),
+                                ->disable(!self::$css_writable),
                         ]),
                         (new Para())->items([
-                            (dcCore::app()->admin->css_writable ?
+                            (self::$css_writable ?
                             (new Submit(['css'], __('Save')))
                                 ->accesskey('s') :
-                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->css_file)))),
+                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$css_file)))),
                             dcCore::app()->formNonce(false),
                         ]),
                         (new Para())->items([
@@ -365,7 +387,7 @@ class Manage extends dcNsProcess
                             (new Textarea('css_demo_content'))
                                 ->cols(72)
                                 ->rows(25)
-                                ->value(Html::escapeHTML((string) dcCore::app()->admin->css_demo_content))
+                                ->value(Html::escapeHTML((string) self::$css_demo_content))
                                 ->class('maximal')
                                 ->readonly(true),
                         ]),
@@ -388,15 +410,15 @@ class Manage extends dcNsProcess
                             (new Textarea('js_content'))
                                 ->cols(72)
                                 ->rows(25)
-                                ->value(Html::escapeHTML(dcCore::app()->admin->js_content))
+                                ->value(Html::escapeHTML(self::$js_content))
                                 ->class('maximal')
-                                ->disable(!dcCore::app()->admin->js_writable),
+                                ->disable(!self::$js_writable),
                         ]),
                         (new Para())->items([
-                            (dcCore::app()->admin->js_writable ?
+                            (self::$js_writable ?
                             (new Submit(['js'], __('Save')))
                                 ->accesskey('s') :
-                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->js_file)))),
+                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$js_file)))),
                             dcCore::app()->formNonce(false),
                         ]),
                         (new Para())->items([
@@ -410,7 +432,7 @@ class Manage extends dcNsProcess
                             (new Textarea('js_demo_content'))
                                 ->cols(72)
                                 ->rows(25)
-                                ->value(Html::escapeHTML((string) dcCore::app()->admin->js_demo_content))
+                                ->value(Html::escapeHTML((string) self::$js_demo_content))
                                 ->class('maximal')
                                 ->readonly(true),
                         ]),
@@ -434,15 +456,15 @@ class Manage extends dcNsProcess
                             (new Textarea('po_content'))
                                 ->cols(72)
                                 ->rows(25)
-                                ->value(Html::escapeHTML(dcCore::app()->admin->po_content))
+                                ->value(Html::escapeHTML(self::$po_content))
                                 ->class('maximal')
-                                ->disable(!dcCore::app()->admin->po_writable),
+                                ->disable(!self::$po_writable),
                         ]),
                         (new Para())->items([
-                            (dcCore::app()->admin->po_writable ?
+                            (self::$po_writable ?
                             (new Submit(['po'], __('Save')))
                                 ->accesskey('s') :
-                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->po_file)))),
+                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$po_file)))),
                             dcCore::app()->formNonce(false),
                         ]),
                         (new Para())->items([
@@ -456,7 +478,7 @@ class Manage extends dcNsProcess
                             (new Textarea('po_demo_content'))
                                 ->cols(72)
                                 ->rows(25)
-                                ->value(Html::escapeHTML((string) dcCore::app()->admin->po_demo_content))
+                                ->value(Html::escapeHTML((string) self::$po_demo_content))
                                 ->class('maximal')
                                 ->readonly(true),
                         ]),
@@ -480,15 +502,15 @@ class Manage extends dcNsProcess
                             (new Textarea('html_content'))
                                 ->cols(72)
                                 ->rows(25)
-                                ->value(Html::escapeHTML(dcCore::app()->admin->html_content))
+                                ->value(Html::escapeHTML(self::$html_content))
                                 ->class('maximal')
-                                ->disable(!dcCore::app()->admin->html_writable),
+                                ->disable(!self::$html_writable),
                         ]),
                         (new Para())->items([
-                            (dcCore::app()->admin->html_writable ?
+                            (self::$html_writable ?
                             (new Submit(['html'], __('Save')))
                                 ->accesskey('s') :
-                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), dcCore::app()->admin->html_file)))),
+                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$html_file)))),
                             dcCore::app()->formNonce(false),
                         ]),
                         (new Para())->items([
@@ -502,7 +524,7 @@ class Manage extends dcNsProcess
                             (new Textarea('html_demo_content'))
                                 ->cols(72)
                                 ->rows(25)
-                                ->value(Html::escapeHTML((string) dcCore::app()->admin->html_demo_content))
+                                ->value(Html::escapeHTML((string) self::$html_demo_content))
                                 ->class('maximal')
                                 ->readonly(true),
                         ]),
