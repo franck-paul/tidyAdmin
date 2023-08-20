@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\tidyAdmin;
 
 use dcCore;
-use dcFavorites;
-use dcPage;
+use Dotclear\Core\Backend\Favorites;
+use Dotclear\Core\Backend\Page;
 use Dotclear\Helper\File\Path;
 
 class BackendBehaviors
@@ -26,30 +26,30 @@ class BackendBehaviors
         // Reduce home button
         if (dcCore::app()->auth->user_prefs->interface->minidcicon) {
             echo
-                dcPage::cssModuleLoad(My::id() . '/css/dcicon.css', 'screen', dcCore::app()->getVersion(My::id() . '')) . "\n" .
-                dcPage::jsModuleLoad(My::id() . '/js/dcicon.js', dcCore::app()->getVersion(My::id() . '')) . "\n";
+                My::cssLoad('dcicon.css') .
+                My::jsLoad('dcicon.js');
         }
         // Load search form (menu) repositioning helper
         if (dcCore::app()->auth->user_prefs->interface->movesearchmenu) {
             echo
-                dcPage::cssModuleLoad(My::id() . '/css/search_menu.css', 'screen', dcCore::app()->getVersion(My::id() . '')) . "\n" .
-                dcPage::jsModuleLoad(My::id() . '/js/search_menu.js', dcCore::app()->getVersion(My::id() . '')) . "\n";
+                My::cssLoad('search_menu.css') .
+                My::jsLoad('search_menu.js');
         }
         // Load search form (media) repositioning helper
         if (dcCore::app()->auth->user_prefs->interface->clonesearchmedia) {
             echo
-                dcPage::cssModuleLoad(My::id() . '/css/search_media.css', 'screen', dcCore::app()->getVersion(My::id() . '')) . "\n" .
-                dcPage::jsModuleLoad(My::id() . '/js/search_media.js', dcCore::app()->getVersion(My::id() . '')) . "\n";
+                My::cssLoad('search_media.css') .
+                My::jsLoad('search_media.js');
         }
         // Add hover detection on collapser
         if (dcCore::app()->auth->user_prefs->interface->hovercollapser) {
             echo
-                dcPage::jsModuleLoad(My::id() . '/js/hover_collapser.js', dcCore::app()->getVersion(My::id() . '')) . "\n";
+                My::jsLoad('hover_collapser.js');
         }
         // Move plugin settings link to top
         if (dcCore::app()->auth->user_prefs->interface->pluginconfig) {
             echo
-                dcPage::jsModuleLoad(My::id() . '/js/plugin_config.js', dcCore::app()->getVersion(My::id() . '')) . "\n";
+                My::jsLoad('plugin_config.js');
         }
 
         // User defined head directives
@@ -58,19 +58,19 @@ class BackendBehaviors
         }
         // User defined CSS rules
         if (file_exists(Path::real(DC_VAR) . '/plugins/' . My::id() . '/admin.css')) {
-            echo dcPage::cssLoad(urldecode(dcPage::getVF('plugins/' . My::id() . '/admin.css'))) . "\n";
+            echo Page::cssLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.css'))) . "\n";
         }
         // User defined Javascript
         if (file_exists(Path::real(DC_VAR) . '/plugins/' . My::id() . '/admin.js')) {
-            echo dcPage::jsLoad(urldecode(dcPage::getVF('plugins/' . My::id() . '/admin.js'))) . "\n";
+            echo Page::jsLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.js'))) . "\n";
         }
     }
 
-    public static function adminDashboardFavorites(dcFavorites $favs)
+    public static function adminDashboardFavorites(Favorites $favs)
     {
         $favs->register(My::id(), [
             'title'      => __('Tidy Administration'),
-            'url'        => My::makeUrl(),
+            'url'        => My::manageUrl(),
             'small-icon' => My::icons(),
             'large-icon' => My::icons(),
         ]);

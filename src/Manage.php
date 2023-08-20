@@ -15,9 +15,10 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\tidyAdmin;
 
 use dcCore;
-use dcNsProcess;
-use dcPage;
 use dcUtils;
+use Dotclear\Core\Backend\Notices;
+use Dotclear\Core\Backend\Page;
+use Dotclear\Core\Process;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Checkbox;
@@ -31,7 +32,7 @@ use Dotclear\Helper\Html\Form\Textarea;
 use Dotclear\Helper\Html\Html;
 use Exception;
 
-class Manage extends dcNsProcess
+class Manage extends Process
 {
     private static string $var_path          = '';
     private static string $part              = '';
@@ -55,16 +56,13 @@ class Manage extends dcNsProcess
     private static string $html_backup_file  = '';
     private static string $html_content      = '';
     private static bool $html_writable       = false;
-    protected static $init                   = false; /** @deprecated since 2.27 */
     /**
      * Initializes the page.
      */
     public static function init(): bool
     {
         // Manageable only by super-admin
-        static::$init = My::checkContext(My::MANAGE);
-
-        return static::$init;
+        return self::status(My::checkContext(My::MANAGE));
     }
 
     /**
@@ -72,7 +70,7 @@ class Manage extends dcNsProcess
      */
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
@@ -144,8 +142,8 @@ class Manage extends dcNsProcess
             $interface_pref->put('hovercollapser', !empty($_POST['user_ui_hovercollapser']), 'boolean');
             $interface_pref->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
 
-            dcPage::addSuccessNotice(__('Options updated'));
-            dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+            Notices::addSuccessNotice(__('Options updated'));
+            dcCore::app()->admin->url->redirect('admin.plugin.' . My::id(), [
                 'part' => 'options',
             ]);
         }
@@ -167,8 +165,8 @@ class Manage extends dcNsProcess
                     fwrite($fp, $js_old_content);
                     fclose($fp);
                 }
-                dcPage::addSuccessNotice(__('JS supplemental script updated'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                Notices::addSuccessNotice(__('JS supplemental script updated'));
+                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id(), [
                     'part' => 'js-editor',
                 ]);
             } catch (Exception $e) {
@@ -193,8 +191,8 @@ class Manage extends dcNsProcess
                     fwrite($fp, $css_old_content);
                     fclose($fp);
                 }
-                dcPage::addSuccessNotice(__('CSS supplemental rules updated'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                Notices::addSuccessNotice(__('CSS supplemental rules updated'));
+                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id(), [
                     'part' => 'css-editor',
                 ]);
             } catch (Exception $e) {
@@ -219,8 +217,8 @@ class Manage extends dcNsProcess
                     fwrite($fp, $po_old_content);
                     fclose($fp);
                 }
-                dcPage::addSuccessNotice(__('PO supplemental l10n updated'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                Notices::addSuccessNotice(__('PO supplemental l10n updated'));
+                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id(), [
                     'part' => 'po-editor',
                 ]);
             } catch (Exception $e) {
@@ -245,8 +243,8 @@ class Manage extends dcNsProcess
                     fwrite($fp, $html_old_content);
                     fclose($fp);
                 }
-                dcPage::addSuccessNotice(__('HTML head supplemental directives updated'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                Notices::addSuccessNotice(__('HTML head supplemental directives updated'));
+                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id(), [
                     'part' => 'html-editor',
                 ]);
             } catch (Exception $e) {
@@ -269,7 +267,7 @@ class Manage extends dcNsProcess
      */
     public static function render(): void
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return;
         }
 
@@ -287,23 +285,23 @@ class Manage extends dcNsProcess
         $user_ui_hovercollapser   = $interface_pref->hovercollapser;
         $user_ui_pluginconfig     = $interface_pref->pluginconfig;
 
-        $head = dcPage::jsModal() .
-        dcPage::jsConfirmClose('css-form') .
-        dcPage::jsPageTabs(self::$part);
+        $head = Page::jsModal() .
+        Page::jsConfirmClose('css-form') .
+        Page::jsPageTabs(self::$part);
         if ($user_ui_colorsyntax) {
-            $head .= dcPage::jsLoadCodeMirror($user_ui_colorsyntax_theme);
+            $head .= Page::jsLoadCodeMirror($user_ui_colorsyntax_theme);
         }
-        $head .= dcPage::cssModuleLoad(My::id() . '/css/style.css', 'screen', dcCore::app()->getVersion(My::id()));
+        $head .= My::cssLoad('style.css');
 
-        dcPage::openModule(__('Tidy administration settings'), $head);
+        Page::openModule(__('Tidy administration settings'), $head);
 
-        echo dcPage::breadcrumb(
+        echo Page::breadcrumb(
             [
                 __('System')                       => '',
                 __('Tidy administration settings') => '',
             ]
         );
-        echo dcPage::notices();
+        echo Notices::getNotices();
 
         // First tab (options)
         echo (new Div('options'))
@@ -534,7 +532,7 @@ class Manage extends dcNsProcess
 
         if ($user_ui_colorsyntax) {
             echo
-            dcPage::jsRunCodeMirror(
+            Page::jsRunCodeMirror(
                 [
                     [
                         'name'  => 'editor_css',
@@ -564,6 +562,6 @@ class Manage extends dcNsProcess
             );
         }
 
-        dcPage::closeModule();
+        Page::closeModule();
     }
 }
