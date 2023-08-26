@@ -293,7 +293,7 @@ class Manage extends Process
         }
         $head .= My::cssLoad('style.css');
 
-        Page::openModule(__('Tidy administration settings'), $head);
+        Page::openModule(My::name(), $head);
 
         echo Page::breadcrumb(
             [
@@ -342,7 +342,7 @@ class Manage extends Process
                     (new Para())->items([
                         (new Submit(['opts'], __('Save')))
                             ->accesskey('s'),
-                        dcCore::app()->formNonce(false),
+                        ... My::hiddenFields(),
                     ]),
                 ]),
             ])
@@ -372,7 +372,7 @@ class Manage extends Process
                             (new Submit(['css'], __('Save')))
                                 ->accesskey('s') :
                             (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$css_file)))),
-                            dcCore::app()->formNonce(false),
+                            ... My::hiddenFields(),
                         ]),
                         (new Para())->items([
                             (new Text(null, __('Note: this supplemental CSS rules will surcharge the default CSS rules.'))),
@@ -417,7 +417,7 @@ class Manage extends Process
                             (new Submit(['js'], __('Save')))
                                 ->accesskey('s') :
                             (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$js_file)))),
-                            dcCore::app()->formNonce(false),
+                            ... My::hiddenFields(),
                         ]),
                         (new Para())->items([
                             (new Text(null, __('Note: this supplemental JS script will surcharge the default JS scripts.'))),
@@ -463,7 +463,7 @@ class Manage extends Process
                             (new Submit(['po'], __('Save')))
                                 ->accesskey('s') :
                             (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$po_file)))),
-                            dcCore::app()->formNonce(false),
+                            ... My::hiddenFields(),
                         ]),
                         (new Para())->items([
                             (new Text(null, __('Note: this supplemental PO l10n will surcharge the default l10n.'))),
@@ -509,7 +509,7 @@ class Manage extends Process
                             (new Submit(['html'], __('Save')))
                                 ->accesskey('s') :
                             (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$html_file)))),
-                            dcCore::app()->formNonce(false),
+                            ... My::hiddenFields(),
                         ]),
                         (new Para())->items([
                             (new Text(null, __('Note: this supplemental HTML head directives will added to the default HTML head.'))),

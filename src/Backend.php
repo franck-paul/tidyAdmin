@@ -36,13 +36,7 @@ class Backend extends Process
 
         if (My::checkContext(My::MENU)) {
             // Add menu
-            dcCore::app()->admin->menus[Menus::MENU_SYSTEM]->addItem(
-                __('Tidy Administration'),
-                My::manageUrl(),
-                My::icons(),
-                preg_match(My::urlScheme(), $_SERVER['REQUEST_URI']),
-                My::checkContext(My::MENU)
-            );
+            My::addBackendMenuItem(Menus::MENU_SYSTEM);
 
             // Register favorite
             dcCore::app()->addBehaviors([
