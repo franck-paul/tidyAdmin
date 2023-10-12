@@ -21,7 +21,7 @@ use Dotclear\Helper\File\Path;
 
 class BackendBehaviors
 {
-    public static function adminPageHTMLHead()
+    public static function adminPageHTMLHead(): string
     {
         // Reduce home button
         if (dcCore::app()->auth->user_prefs->interface->minidcicon) {
@@ -64,9 +64,11 @@ class BackendBehaviors
         if (file_exists(Path::real(DC_VAR) . '/plugins/' . My::id() . '/admin.js')) {
             echo Page::jsLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.js'))) . "\n";
         }
+
+        return '';
     }
 
-    public static function adminDashboardFavorites(Favorites $favs)
+    public static function adminDashboardFavorites(Favorites $favs): string
     {
         $favs->register(My::id(), [
             'title'      => __('Tidy Administration'),
@@ -74,5 +76,7 @@ class BackendBehaviors
             'small-icon' => My::icons(),
             'large-icon' => My::icons(),
         ]);
+
+        return '';
     }
 }
