@@ -33,8 +33,12 @@ class Prepend extends Process
 
         // User defined Locales
         $l10nFilename = implode(DIRECTORY_SEPARATOR, [DC_VAR, 'plugins', My::id(), 'admin']);
-        if (file_exists(Path::real($l10nFilename . '.po'))) {
-            L10n::set(Path::real($l10nFilename, false));
+        if ($file = Path::real($l10nFilename . '.po')) {
+            if (file_exists($file)) {
+                if ($file = Path::real($l10nFilename, false)) {
+                    L10n::set($file);
+                }
+            }
         }
 
         return true;

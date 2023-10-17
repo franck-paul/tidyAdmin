@@ -78,17 +78,17 @@ class Manage extends Process
 
         // Get plugin var path
 
-        self::$var_path = dcUtils::path([Path::real(DC_VAR), 'plugins', My::id()]) . DIRECTORY_SEPARATOR;
+        self::$var_path = Path::reduce([(string) Path::real(DC_VAR), 'plugins', My::id()]) . DIRECTORY_SEPARATOR;
         Files::makeDir(self::$var_path, true);
 
         self::$part = '';
 
         // Get demo content (js, css, po)
 
-        self::$js_demo_content   = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.js']));
-        self::$css_demo_content  = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.css']));
-        self::$po_demo_content   = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.po']));
-        self::$html_demo_content = @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.html']));
+        self::$js_demo_content   = (string) @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.js']));
+        self::$css_demo_content  = (string) @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.css']));
+        self::$po_demo_content   = (string) @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.po']));
+        self::$html_demo_content = (string) @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.html']));
 
         // Get current content of JS file
 
@@ -97,7 +97,7 @@ class Manage extends Process
         if (!file_exists(self::$js_file)) {
             @touch(self::$js_file);
         }
-        self::$js_content  = @file_get_contents(self::$js_file);
+        self::$js_content  = (string) @file_get_contents(self::$js_file);
         self::$js_writable = file_exists(self::$js_file) && is_writable(self::$js_file) && is_writable(dirname(self::$js_file));
 
         // Get current content of CSS file
@@ -107,7 +107,7 @@ class Manage extends Process
         if (!file_exists(self::$css_file)) {
             touch(self::$css_file);
         }
-        self::$css_content  = @file_get_contents(self::$css_file);
+        self::$css_content  = (string) @file_get_contents(self::$css_file);
         self::$css_writable = file_exists(self::$css_file) && is_writable(self::$css_file) && is_writable(dirname(self::$css_file));
 
         // Get current content of PO file
@@ -117,7 +117,7 @@ class Manage extends Process
         if (!file_exists(self::$po_file)) {
             touch(self::$po_file);
         }
-        self::$po_content  = @file_get_contents(self::$po_file);
+        self::$po_content  = (string) @file_get_contents(self::$po_file);
         self::$po_writable = file_exists(self::$po_file) && is_writable(self::$po_file) && is_writable(dirname(self::$po_file));
 
         // Get current content of HTML file
@@ -127,7 +127,7 @@ class Manage extends Process
         if (!file_exists(self::$html_file)) {
             touch(self::$html_file);
         }
-        self::$html_content  = @file_get_contents(self::$html_file);
+        self::$html_content  = (string) @file_get_contents(self::$html_file);
         self::$html_writable = file_exists(self::$html_file) && is_writable(self::$html_file) && is_writable(dirname(self::$html_file));
 
         // Save options
@@ -143,7 +143,7 @@ class Manage extends Process
             $interface_pref->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
 
             Notices::addSuccessNotice(__('Options updated'));
-            dcCore::app()->admin->url->redirect('admin.plugin.' . My::id(), [
+            dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
                 'part' => 'options',
             ]);
         }
@@ -162,11 +162,11 @@ class Manage extends Process
                 fclose($fp);
                 if ($fp = @fopen(self::$js_backup_file, 'wb')) {
                     // Backup file
-                    fwrite($fp, $js_old_content);
+                    fwrite($fp, (string) $js_old_content);
                     fclose($fp);
                 }
                 Notices::addSuccessNotice(__('JS supplemental script updated'));
-                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id(), [
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
                     'part' => 'js-editor',
                 ]);
             } catch (Exception $e) {
@@ -188,11 +188,11 @@ class Manage extends Process
                 fclose($fp);
                 if ($fp = @fopen(self::$css_backup_file, 'wb')) {
                     // Backup file
-                    fwrite($fp, $css_old_content);
+                    fwrite($fp, (string) $css_old_content);
                     fclose($fp);
                 }
                 Notices::addSuccessNotice(__('CSS supplemental rules updated'));
-                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id(), [
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
                     'part' => 'css-editor',
                 ]);
             } catch (Exception $e) {
@@ -214,11 +214,11 @@ class Manage extends Process
                 fclose($fp);
                 if ($fp = @fopen(self::$po_backup_file, 'wb')) {
                     // Backup file
-                    fwrite($fp, $po_old_content);
+                    fwrite($fp, (string) $po_old_content);
                     fclose($fp);
                 }
                 Notices::addSuccessNotice(__('PO supplemental l10n updated'));
-                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id(), [
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
                     'part' => 'po-editor',
                 ]);
             } catch (Exception $e) {
@@ -238,13 +238,13 @@ class Manage extends Process
                 }
                 fwrite($fp, self::$html_content);
                 fclose($fp);
-                if ($fp = @fopen(self::$html_backup_file, 'wb')) {
+                if ($fp = fopen(self::$html_backup_file, 'wb')) {
                     // Backup file
-                    fwrite($fp, $html_old_content);
+                    fwrite($fp, (string) $html_old_content);
                     fclose($fp);
                 }
                 Notices::addSuccessNotice(__('HTML head supplemental directives updated'));
-                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id(), [
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
                     'part' => 'html-editor',
                 ]);
             } catch (Exception $e) {
