@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\tidyAdmin;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Menus;
 use Dotclear\Core\Process;
 
@@ -39,12 +39,12 @@ class Backend extends Process
             My::addBackendMenuItem(Menus::MENU_SYSTEM);
 
             // Register favorite
-            dcCore::app()->addBehaviors([
+            App::behavior()->addBehaviors([
                 'adminDashboardFavoritesV2' => BackendBehaviors::adminDashboardFavorites(...),
             ]);
         }
 
-        dcCore::app()->addBehaviors([
+        App::behavior()->addBehaviors([
             'adminPageHTMLHead' => BackendBehaviors::adminPageHTMLHead(...),
         ]);
 

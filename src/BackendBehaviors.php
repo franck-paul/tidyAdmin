@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\tidyAdmin;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Favorites;
 use Dotclear\Core\Backend\Page;
 use Dotclear\Helper\File\Path;
@@ -24,30 +24,30 @@ class BackendBehaviors
     public static function adminPageHTMLHead(): string
     {
         // Reduce home button
-        if (dcCore::app()->auth->user_prefs->interface->minidcicon) {
+        if (App::auth()->prefs()->interface->minidcicon) {
             echo
                 My::cssLoad('dcicon.css') .
                 My::jsLoad('dcicon.js');
         }
         // Load search form (menu) repositioning helper
-        if (dcCore::app()->auth->user_prefs->interface->movesearchmenu) {
+        if (App::auth()->prefs()->interface->movesearchmenu) {
             echo
                 My::cssLoad('search_menu.css') .
                 My::jsLoad('search_menu.js');
         }
         // Load search form (media) repositioning helper
-        if (dcCore::app()->auth->user_prefs->interface->clonesearchmedia) {
+        if (App::auth()->prefs()->interface->clonesearchmedia) {
             echo
                 My::cssLoad('search_media.css') .
                 My::jsLoad('search_media.js');
         }
         // Add hover detection on collapser
-        if (dcCore::app()->auth->user_prefs->interface->hovercollapser) {
+        if (App::auth()->prefs()->interface->hovercollapser) {
             echo
                 My::jsLoad('hover_collapser.js');
         }
         // Move plugin settings link to top
-        if (dcCore::app()->auth->user_prefs->interface->pluginconfig) {
+        if (App::auth()->prefs()->interface->pluginconfig) {
             echo
                 My::jsLoad('plugin_config.js');
         }

@@ -14,8 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\tidyAdmin;
 
-use dcCore;
-use dcUtils;
+use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Process;
@@ -85,10 +84,10 @@ class Manage extends Process
 
         // Get demo content (js, css, po)
 
-        self::$js_demo_content   = (string) @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.js']));
-        self::$css_demo_content  = (string) @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.css']));
-        self::$po_demo_content   = (string) @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.po']));
-        self::$html_demo_content = (string) @file_get_contents(dcUtils::path([__DIR__,'..','demo','admin.html']));
+        self::$js_demo_content   = (string) @file_get_contents(Path::reduce([__DIR__,'..','demo','admin.js']));
+        self::$css_demo_content  = (string) @file_get_contents(Path::reduce([__DIR__,'..','demo','admin.css']));
+        self::$po_demo_content   = (string) @file_get_contents(Path::reduce([__DIR__,'..','demo','admin.po']));
+        self::$html_demo_content = (string) @file_get_contents(Path::reduce([__DIR__,'..','demo','admin.html']));
 
         // Get current content of JS file
 
@@ -134,7 +133,7 @@ class Manage extends Process
 
         if (!empty($_POST['opts'])) {
             // Get interface setting
-            $interface_pref = dcCore::app()->auth->user_prefs->interface;
+            $interface_pref = App::auth()->prefs()->interface;
 
             $interface_pref->put('minidcicon', !empty($_POST['user_ui_minidcicon']), 'boolean');
             $interface_pref->put('movesearchmenu', !empty($_POST['user_ui_movesearchmenu']), 'boolean');
@@ -143,7 +142,7 @@ class Manage extends Process
             $interface_pref->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
 
             Notices::addSuccessNotice(__('Options updated'));
-            dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+            My::redirect([
                 'part' => 'options',
             ]);
         }
@@ -166,11 +165,11 @@ class Manage extends Process
                     fclose($fp);
                 }
                 Notices::addSuccessNotice(__('JS supplemental script updated'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                My::redirect([
                     'part' => 'js-editor',
                 ]);
             } catch (Exception $e) {
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
         }
 
@@ -192,11 +191,11 @@ class Manage extends Process
                     fclose($fp);
                 }
                 Notices::addSuccessNotice(__('CSS supplemental rules updated'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                My::redirect([
                     'part' => 'css-editor',
                 ]);
             } catch (Exception $e) {
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
         }
 
@@ -218,11 +217,11 @@ class Manage extends Process
                     fclose($fp);
                 }
                 Notices::addSuccessNotice(__('PO supplemental l10n updated'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                My::redirect([
                     'part' => 'po-editor',
                 ]);
             } catch (Exception $e) {
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
         }
 
@@ -244,11 +243,11 @@ class Manage extends Process
                     fclose($fp);
                 }
                 Notices::addSuccessNotice(__('HTML head supplemental directives updated'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id(), [
+                My::redirect([
                     'part' => 'html-editor',
                 ]);
             } catch (Exception $e) {
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
         }
 
@@ -272,7 +271,7 @@ class Manage extends Process
         }
 
         // Get interface setting
-        $interface_pref = dcCore::app()->auth->user_prefs->interface;
+        $interface_pref = App::auth()->prefs()->interface;
 
         $user_ui_colorsyntax       = $interface_pref->colorsyntax;
         $user_ui_colorsyntax_theme = '';
@@ -311,7 +310,7 @@ class Manage extends Process
                 (new Text('h3', __('Options')))
                 ->class('out-of-screen-if-js'),
                 (new Form('options-form'))
-                ->action(dcCore::app()->admin->getPageURL())
+                ->action(App::backend()->getPageURL())
                 ->method('post')
                 ->fields([
                     (new Para())->items([
@@ -356,7 +355,7 @@ class Manage extends Process
                 (new Text('h3', __('Supplemental CSS')))
                     ->class('out-of-screen-if-js'),
                 (new Form('css-form'))
-                    ->action(dcCore::app()->admin->getPageURL())
+                    ->action(App::backend()->getPageURL())
                     ->method('post')
                     ->fields([
                         (new Para())->items([
@@ -401,7 +400,7 @@ class Manage extends Process
                 (new Text('h3', __('Supplemental JS')))
                     ->class('out-of-screen-if-js'),
                 (new Form('js-form'))
-                    ->action(dcCore::app()->admin->getPageURL())
+                    ->action(App::backend()->getPageURL())
                     ->method('post')
                     ->fields([
                         (new Para())->items([
@@ -447,7 +446,7 @@ class Manage extends Process
                     ->class('out-of-screen-if-js'),
                 (new Div(null, 'hr')),
                 (new Form('po-form'))
-                    ->action(dcCore::app()->admin->getPageURL())
+                    ->action(App::backend()->getPageURL())
                     ->method('post')
                     ->fields([
                         (new Para())->items([
@@ -493,7 +492,7 @@ class Manage extends Process
                     ->class('out-of-screen-if-js'),
                 (new Div(null, 'hr')),
                 (new Form('html-form'))
-                    ->action(dcCore::app()->admin->getPageURL())
+                    ->action(App::backend()->getPageURL())
                     ->method('post')
                     ->fields([
                         (new Para())->items([
