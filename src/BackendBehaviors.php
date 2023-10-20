@@ -53,15 +53,15 @@ class BackendBehaviors
         }
 
         // User defined head directives
-        if (file_exists(Path::real(DC_VAR) . '/plugins/' . My::id() . '/admin.html')) {
-            echo file_get_contents(Path::real(DC_VAR) . '/plugins/' . My::id() . '/admin.html') . "\n";
+        if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html')) {
+            echo file_get_contents(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html') . "\n";
         }
         // User defined CSS rules
-        if (file_exists(Path::real(DC_VAR) . '/plugins/' . My::id() . '/admin.css')) {
+        if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.css')) {
             echo Page::cssLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.css'))) . "\n";
         }
         // User defined Javascript
-        if (file_exists(Path::real(DC_VAR) . '/plugins/' . My::id() . '/admin.js')) {
+        if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.js')) {
             echo Page::jsLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.js'))) . "\n";
         }
 

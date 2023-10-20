@@ -77,7 +77,7 @@ class Manage extends Process
 
         // Get plugin var path
 
-        self::$var_path = Path::reduce([(string) Path::real(DC_VAR), 'plugins', My::id()]) . DIRECTORY_SEPARATOR;
+        self::$var_path = Path::reduce([(string) Path::real(App::config()->varRoot()), 'plugins', My::id()]) . DIRECTORY_SEPARATOR;
         Files::makeDir(self::$var_path, true);
 
         self::$part = '';
