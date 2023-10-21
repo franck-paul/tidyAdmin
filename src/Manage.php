@@ -364,7 +364,7 @@ class Manage extends Process
                                 ->rows(25)
                                 ->value(Html::escapeHTML(self::$css_content))
                                 ->class('maximal')
-                                ->disable(!self::$css_writable),
+                                ->disabled(!self::$css_writable),
                         ]),
                         (new Para())->items([
                             (self::$css_writable ?
@@ -409,7 +409,7 @@ class Manage extends Process
                                 ->rows(25)
                                 ->value(Html::escapeHTML(self::$js_content))
                                 ->class('maximal')
-                                ->disable(!self::$js_writable),
+                                ->disabled(!self::$js_writable),
                         ]),
                         (new Para())->items([
                             (self::$js_writable ?
@@ -455,7 +455,7 @@ class Manage extends Process
                                 ->rows(25)
                                 ->value(Html::escapeHTML(self::$po_content))
                                 ->class('maximal')
-                                ->disable(!self::$po_writable),
+                                ->disabled(!self::$po_writable),
                         ]),
                         (new Para())->items([
                             (self::$po_writable ?
@@ -501,7 +501,7 @@ class Manage extends Process
                                 ->rows(25)
                                 ->value(Html::escapeHTML(self::$html_content))
                                 ->class('maximal')
-                                ->disable(!self::$html_writable),
+                                ->disabled(!self::$html_writable),
                         ]),
                         (new Para())->items([
                             (self::$html_writable ?
