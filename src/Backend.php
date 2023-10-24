@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\tidyAdmin;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Menus;
 use Dotclear\Core\Process;
 
 class Backend extends Process
@@ -36,7 +35,7 @@ class Backend extends Process
 
         if (My::checkContext(My::MENU)) {
             // Add menu
-            My::addBackendMenuItem(Menus::MENU_SYSTEM);
+            My::addBackendMenuItem(App::backend()->menus()::MENU_SYSTEM);
 
             // Register favorite
             App::behavior()->addBehaviors([
