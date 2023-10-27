@@ -34,27 +34,49 @@ use Exception;
 class Manage extends Process
 {
     private static string $var_path          = '';
+
     private static string $part              = '';
+
     private static string $js_demo_content   = '';
+
     private static string $css_demo_content  = '';
+
     private static string $po_demo_content   = '';
+
     private static string $html_demo_content = '';
+
     private static string $js_file           = '';
+
     private static string $js_backup_file    = '';
+
     private static string $js_content        = '';
+
     private static bool $js_writable         = false;
+
     private static string $css_file          = '';
+
     private static string $css_backup_file   = '';
+
     private static string $css_content       = '';
+
     private static bool $css_writable        = false;
+
     private static string $po_file           = '';
+
     private static string $po_backup_file    = '';
+
     private static string $po_content        = '';
+
     private static bool $po_writable         = false;
+
     private static string $html_file         = '';
+
     private static string $html_backup_file  = '';
+
     private static string $html_content      = '';
+
     private static bool $html_writable       = false;
+
     /**
      * Initializes the page.
      */
@@ -96,6 +118,7 @@ class Manage extends Process
         if (!file_exists(self::$js_file)) {
             @touch(self::$js_file);
         }
+
         self::$js_content  = (string) @file_get_contents(self::$js_file);
         self::$js_writable = file_exists(self::$js_file) && is_writable(self::$js_file) && is_writable(dirname(self::$js_file));
 
@@ -106,6 +129,7 @@ class Manage extends Process
         if (!file_exists(self::$css_file)) {
             touch(self::$css_file);
         }
+
         self::$css_content  = (string) @file_get_contents(self::$css_file);
         self::$css_writable = file_exists(self::$css_file) && is_writable(self::$css_file) && is_writable(dirname(self::$css_file));
 
@@ -116,6 +140,7 @@ class Manage extends Process
         if (!file_exists(self::$po_file)) {
             touch(self::$po_file);
         }
+
         self::$po_content  = (string) @file_get_contents(self::$po_file);
         self::$po_writable = file_exists(self::$po_file) && is_writable(self::$po_file) && is_writable(dirname(self::$po_file));
 
@@ -126,6 +151,7 @@ class Manage extends Process
         if (!file_exists(self::$html_file)) {
             touch(self::$html_file);
         }
+
         self::$html_content  = (string) @file_get_contents(self::$html_file);
         self::$html_writable = file_exists(self::$html_file) && is_writable(self::$html_file) && is_writable(dirname(self::$html_file));
 
@@ -157,6 +183,7 @@ class Manage extends Process
                 if (!$fp) {
                     throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$js_file));
                 }
+
                 fwrite($fp, self::$js_content);
                 fclose($fp);
                 if ($fp = @fopen(self::$js_backup_file, 'wb')) {
@@ -164,6 +191,7 @@ class Manage extends Process
                     fwrite($fp, (string) $js_old_content);
                     fclose($fp);
                 }
+
                 Notices::addSuccessNotice(__('JS supplemental script updated'));
                 My::redirect([
                     'part' => 'js-editor',
@@ -183,6 +211,7 @@ class Manage extends Process
                 if (!$fp) {
                     throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$css_file));
                 }
+
                 fwrite($fp, self::$css_content);
                 fclose($fp);
                 if ($fp = @fopen(self::$css_backup_file, 'wb')) {
@@ -190,6 +219,7 @@ class Manage extends Process
                     fwrite($fp, (string) $css_old_content);
                     fclose($fp);
                 }
+
                 Notices::addSuccessNotice(__('CSS supplemental rules updated'));
                 My::redirect([
                     'part' => 'css-editor',
@@ -209,6 +239,7 @@ class Manage extends Process
                 if (!$fp) {
                     throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$po_file));
                 }
+
                 fwrite($fp, self::$po_content);
                 fclose($fp);
                 if ($fp = @fopen(self::$po_backup_file, 'wb')) {
@@ -216,6 +247,7 @@ class Manage extends Process
                     fwrite($fp, (string) $po_old_content);
                     fclose($fp);
                 }
+
                 Notices::addSuccessNotice(__('PO supplemental l10n updated'));
                 My::redirect([
                     'part' => 'po-editor',
@@ -235,6 +267,7 @@ class Manage extends Process
                 if (!$fp) {
                     throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$html_file));
                 }
+
                 fwrite($fp, self::$html_content);
                 fclose($fp);
                 if ($fp = fopen(self::$html_backup_file, 'wb')) {
@@ -242,6 +275,7 @@ class Manage extends Process
                     fwrite($fp, (string) $html_old_content);
                     fclose($fp);
                 }
+
                 Notices::addSuccessNotice(__('HTML head supplemental directives updated'));
                 My::redirect([
                     'part' => 'html-editor',
@@ -254,6 +288,7 @@ class Manage extends Process
         if (!empty($_GET['part']) && in_array($_GET['part'], ['options', 'css-editor', 'js-editor', 'po-editor', 'html-editor'])) {
             self::$part = $_GET['part'];
         }
+
         if (self::$part === '') {
             self::$part = 'options';
         }
@@ -278,6 +313,7 @@ class Manage extends Process
         if ($user_ui_colorsyntax) {
             $user_ui_colorsyntax_theme = $interface_pref->colorsyntax_theme ?: 'default';
         }
+
         $user_ui_minidcicon       = $interface_pref->minidcicon;
         $user_ui_movesearchmenu   = $interface_pref->movesearchmenu;
         $user_ui_clonesearchmedia = $interface_pref->clonesearchmedia;
@@ -290,6 +326,7 @@ class Manage extends Process
         if ($user_ui_colorsyntax) {
             $head .= Page::jsLoadCodeMirror($user_ui_colorsyntax_theme);
         }
+
         $head .= My::cssLoad('style.css');
 
         Page::openModule(My::name(), $head);

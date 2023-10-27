@@ -34,11 +34,9 @@ class Prepend extends Process
 
         // User defined Locales
         $l10nFilename = implode(DIRECTORY_SEPARATOR, [App::config()->varRoot(), 'plugins', My::id(), 'admin']);
-        if ($file = Path::real($l10nFilename . '.po')) {
-            if (file_exists($file)) {
-                if ($file = Path::real($l10nFilename, false)) {
-                    L10n::set($file);
-                }
+        if (($file = Path::real($l10nFilename . '.po')) && file_exists($file)) {
+            if ($file = Path::real($l10nFilename, false)) {
+                L10n::set($file);
             }
         }
 

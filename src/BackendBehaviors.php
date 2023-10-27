@@ -29,23 +29,27 @@ class BackendBehaviors
                 My::cssLoad('dcicon.css') .
                 My::jsLoad('dcicon.js');
         }
+
         // Load search form (menu) repositioning helper
         if (App::auth()->prefs()->interface->movesearchmenu) {
             echo
                 My::cssLoad('search_menu.css') .
                 My::jsLoad('search_menu.js');
         }
+
         // Load search form (media) repositioning helper
         if (App::auth()->prefs()->interface->clonesearchmedia) {
             echo
                 My::cssLoad('search_media.css') .
                 My::jsLoad('search_media.js');
         }
+
         // Add hover detection on collapser
         if (App::auth()->prefs()->interface->hovercollapser) {
             echo
                 My::jsLoad('hover_collapser.js');
         }
+
         // Move plugin settings link to top
         if (App::auth()->prefs()->interface->pluginconfig) {
             echo
@@ -56,10 +60,12 @@ class BackendBehaviors
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html')) {
             echo file_get_contents(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html') . "\n";
         }
+
         // User defined CSS rules
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.css')) {
             echo Page::cssLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.css'))) . "\n";
         }
+
         // User defined Javascript
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.js')) {
             echo Page::jsLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.js'))) . "\n";
