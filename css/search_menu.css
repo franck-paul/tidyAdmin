@@ -20,4 +20,9 @@
 }
 #search-menu.tidy_moved input[type='submit'] {
   float: inherit;
+  border: 1px solid var(--submit-color);
+}
+#search-menu.tidy_moved input[type='submit']:hover {
+  color: var(--submit-background);
+  background-color: var(--submit-color);
 }

@@ -2,7 +2,7 @@
 'use strict';
 
 $(() => {
-  // Find <hr … /><p class="right modules">…</p>
+  // Find <hr …><p class="right modules">…</p>
   const $plugin_config = $('hr + p.right.modules');
   if ($plugin_config !== undefined) {
     const $plugin_title = $('#content h2');
