@@ -21,8 +21,10 @@
 #search-menu.tidy_moved input[type='submit'] {
   float: inherit;
   border: 1px solid var(--submit-color);
+  color: var(--submit-color);
+  background: var(--submit-background);
 }
 #search-menu.tidy_moved input[type='submit']:hover {
   color: var(--submit-background);
-  background-color: var(--submit-color);
+  background: var(--submit-color);
 }
