@@ -56,6 +56,12 @@ class BackendBehaviors
                 My::jsLoad('plugin_config.js');
         }
 
+        // Allow double click on header to switch theme
+        if (App::auth()->prefs()->interface->switchtheme) {
+            echo
+                My::jsLoad('switch_theme.js');
+        }
+
         // User defined head directives
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html')) {
             echo file_get_contents(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html') . "\n";

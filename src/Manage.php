@@ -24,6 +24,7 @@ use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Div;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Form\Text;
@@ -33,49 +34,49 @@ use Exception;
 
 class Manage extends Process
 {
-    private static string $var_path          = '';
+    private static string $var_path = '';
 
-    private static string $part              = '';
+    private static string $part = '';
 
-    private static string $js_demo_content   = '';
+    private static string $js_demo_content = '';
 
-    private static string $css_demo_content  = '';
+    private static string $css_demo_content = '';
 
-    private static string $po_demo_content   = '';
+    private static string $po_demo_content = '';
 
     private static string $html_demo_content = '';
 
-    private static string $js_file           = '';
+    private static string $js_file = '';
 
-    private static string $js_backup_file    = '';
+    private static string $js_backup_file = '';
 
-    private static string $js_content        = '';
+    private static string $js_content = '';
 
-    private static bool $js_writable         = false;
+    private static bool $js_writable = false;
 
-    private static string $css_file          = '';
+    private static string $css_file = '';
 
-    private static string $css_backup_file   = '';
+    private static string $css_backup_file = '';
 
-    private static string $css_content       = '';
+    private static string $css_content = '';
 
-    private static bool $css_writable        = false;
+    private static bool $css_writable = false;
 
-    private static string $po_file           = '';
+    private static string $po_file = '';
 
-    private static string $po_backup_file    = '';
+    private static string $po_backup_file = '';
 
-    private static string $po_content        = '';
+    private static string $po_content = '';
 
-    private static bool $po_writable         = false;
+    private static bool $po_writable = false;
 
-    private static string $html_file         = '';
+    private static string $html_file = '';
 
-    private static string $html_backup_file  = '';
+    private static string $html_backup_file = '';
 
-    private static string $html_content      = '';
+    private static string $html_content = '';
 
-    private static bool $html_writable       = false;
+    private static bool $html_writable = false;
 
     /**
      * Initializes the page.
@@ -166,6 +167,7 @@ class Manage extends Process
             $interface_pref->put('clonesearchmedia', !empty($_POST['user_ui_clonesearchmedia']), 'boolean');
             $interface_pref->put('hovercollapser', !empty($_POST['user_ui_hovercollapser']), 'boolean');
             $interface_pref->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
+            $interface_pref->put('switchtheme', !empty($_POST['user_ui_switchtheme']), 'boolean');
 
             Notices::addSuccessNotice(__('Options updated'));
             My::redirect([
@@ -319,6 +321,7 @@ class Manage extends Process
         $user_ui_clonesearchmedia = $interface_pref->clonesearchmedia;
         $user_ui_hovercollapser   = $interface_pref->hovercollapser;
         $user_ui_pluginconfig     = $interface_pref->pluginconfig;
+        $user_ui_switchtheme      = $interface_pref->switchtheme;
 
         $head = Page::jsModal() .
         Page::jsConfirmClose('css-form') .
@@ -360,6 +363,14 @@ class Manage extends Process
                             ->value(1)
                             ->label((new Label(__('Move the search form (main menu) in header'), Label::INSIDE_TEXT_AFTER))),
                     ]),
+                    (new Para())->items([
+                        (new Checkbox('user_ui_switchtheme', $user_ui_switchtheme))
+                            ->value(1)
+                            ->label((new Label(__('Double click on header to switch theme (not permanent)'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                    (new Note())
+                        ->class(['form-note','info'])
+                        ->text(__('To permanently change theme go the your user preferences')),
                     (new Para())->items([
                         (new Checkbox('user_ui_clonesearchmedia', $user_ui_clonesearchmedia))
                             ->value(1)
