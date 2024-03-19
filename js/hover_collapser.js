@@ -1,13 +1,15 @@
+/*global dotclear */
 'use strict';
-window.addEventListener('load', () => {
+
+dotclear.ready(() => {
   // Main menu collapser
   const objMain = document.getElementById('wrapper');
   const hideMainMenu = 'hide_main_menu';
 
   // Sidebar separator
-  document.getElementById('collapser')?.addEventListener('mouseover', (e) => {
+  document.getElementById('collapser')?.addEventListener('mouseover', (event) => {
     const t = setTimeout(() => {
-      e.preventDefault();
+      event.preventDefault();
       if (objMain.classList.contains('hide-mm')) {
         // Show sidebar
         objMain.classList.remove('hide-mm');
@@ -20,7 +22,7 @@ window.addEventListener('load', () => {
       dotclear.storeLocalData(hideMainMenu, true);
       document.querySelector('#content a.go_home')?.focus();
     }, 500);
-    e.target.addEventListener('mouseleave', () => {
+    event.target.addEventListener('mouseleave', () => {
       clearTimeout(t);
     });
   });

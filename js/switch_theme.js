@@ -1,7 +1,7 @@
-/*global $, dotclear */
+/*global dotclear */
 'use strict';
 
-$(() => {
+dotclear.ready(() => {
   // double click on header switch current theme (only if dotclear.debug is not set)
   if (!dotclear.debug) {
     const header = document.querySelector('#header') ? document.querySelector('#header') : document.querySelector('h1');
@@ -10,7 +10,7 @@ $(() => {
       if (theme == null || theme === '') {
         theme = window.matchMedia('(prefers-color-scheme: dark)') ? 'dark' : 'light';
       }
-      // Set new theme, the application will be cope by the mutation observer (see above)
+      // Set new theme, the application will be cope by the mutation observer
       document.documentElement.dataset.theme = theme === 'dark' ? 'light' : 'dark';
     });
   }

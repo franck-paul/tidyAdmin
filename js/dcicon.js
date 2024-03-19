@@ -1,10 +1,6 @@
-/*global $, jQuery, dotclear */
+/*global dotclear */
 'use strict';
 
-$(() => {
-  // 0. Set tidy_moved class to header
-  const $header = $('#header');
-  if ($header.length) {
-    $header.addClass('tidy_dcicon');
-  }
+dotclear.ready(() => {
+  document.getElementById('header')?.classList.add('tidy_dcicon');
 });

@@ -1,7 +1,18 @@
 /* Search form in main menu moved in header */
+#header.tidy_moved {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5em;
+}
+#header.tidy_moved #top-info-user {
+  margin-left: auto;
+}
 #search-menu.tidy_moved {
-  display: inline-block;
   padding: 0.5em 0.5em 0.5em 0;
+  margin-left: auto;
 }
 #search-menu.tidy_moved p {
   display: flex;
