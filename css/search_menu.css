@@ -24,7 +24,7 @@
 }
 #search-menu.tidy_moved #qx {
   color: var(--body-color);
-  background-color: var(--body-background);
+  background-color: field;
   background-image: none;
   text-indent: 0;
   width: inherit;
