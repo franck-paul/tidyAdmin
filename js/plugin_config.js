@@ -11,6 +11,8 @@ dotclear.ready(() => {
       plugin_title.insertAdjacentElement('afterend', plugin_config);
       // Float right
       plugin_config.style.float = 'right';
+      // Margin inline start
+      plugin_config.style.marginInlineStart = '1em';
       // Make settings link looks like a button
       const plugin_config_link = plugin_config.querySelector('a');
       if (plugin_config_link) {
