@@ -28,6 +28,7 @@ L10n::$locales['To permanently change theme go the your user preferences'] = '';
 L10n::$locales['Clone the media manager search input in always visible area'] = '';
 L10n::$locales['Enabled mouse hover activation on collapser'] = '';
 L10n::$locales['Move plugin settings link to top of page'] = '';
+L10n::$locales['Always display legacy editor toolbar during edition'] = '';
 L10n::$locales['Save'] = '';
 L10n::$locales['Supplemental CSS'] = '';
 L10n::$locales['Note: this supplemental CSS rules will surcharge the default CSS rules.'] = '';
