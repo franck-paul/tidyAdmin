@@ -168,6 +168,7 @@ class Manage extends Process
             $interface_pref->put('hovercollapser', !empty($_POST['user_ui_hovercollapser']), 'boolean');
             $interface_pref->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
             $interface_pref->put('switchtheme', !empty($_POST['user_ui_switchtheme']), 'boolean');
+            $interface_pref->put('stickytoolbar', !empty($_POST['user_ui_stickytoolbar']), 'boolean');
 
             Notices::addSuccessNotice(__('Options updated'));
             My::redirect([
@@ -322,6 +323,7 @@ class Manage extends Process
         $user_ui_hovercollapser   = $interface_pref->hovercollapser;
         $user_ui_pluginconfig     = $interface_pref->pluginconfig;
         $user_ui_switchtheme      = $interface_pref->switchtheme;
+        $user_ui_stickytoolbar    = $interface_pref->stickytoolbar;
 
         $head = Page::jsModal() .
         Page::jsConfirmClose('css-form') .
@@ -385,6 +387,11 @@ class Manage extends Process
                         (new Checkbox('user_ui_pluginconfig', $user_ui_pluginconfig))
                             ->value(1)
                             ->label((new Label(__('Move plugin settings link to top of page'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                    (new Para())->items([
+                        (new Checkbox('user_ui_stickytoolbar', $user_ui_stickytoolbar))
+                            ->value(1)
+                            ->label((new Label(__('Always display legacy editor toolbar during edition'), Label::INSIDE_TEXT_AFTER))),
                     ]),
                     (new Para())->items([
                         (new Submit(['opts'], __('Save')))

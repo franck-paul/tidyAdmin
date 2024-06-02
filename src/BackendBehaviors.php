@@ -62,6 +62,12 @@ class BackendBehaviors
                 My::jsLoad('switch_theme.js');
         }
 
+        // Always display legacy editor toolbar
+        if (App::auth()->prefs()->interface->stickytoolbar) {
+            echo
+                My::cssLoad('sticky_toolbar.css');
+        }
+
         // User defined head directives
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html')) {
             echo file_get_contents(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html') . "\n";
