@@ -1,8 +1,9 @@
 .jstElements {
-    position: sticky;
-    top: 0;
+  position: sticky;
+  top: 0;
 }
+
 .toolbar_bottom .jstElements {
-    top: inherit;
-    bottom: 0;
+  top: inherit;
+  bottom: 0;
 }
