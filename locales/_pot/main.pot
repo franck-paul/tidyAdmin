@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 10:26+0200\n"
+"POT-Creation-Date: 2024-06-24 22:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,7 +99,7 @@ msgid "Move plugin settings link to top of page"
 msgstr ""
 
 #: ../git-plugins/tidyAdmin/src/Manage.php:394
-msgid "Always display legacy editor toolbar during edition"
+msgid "Always display editor toolbar during edition"
 msgstr ""
 
 #: ../git-plugins/tidyAdmin/src/Manage.php:397

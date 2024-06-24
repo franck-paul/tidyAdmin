@@ -1,4 +1,5 @@
-.jstElements {
+.jstElements,
+.cke_top {
   position: sticky;
   top: 0;
 }

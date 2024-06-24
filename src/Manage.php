@@ -391,7 +391,7 @@ class Manage extends Process
                     (new Para())->items([
                         (new Checkbox('user_ui_stickytoolbar', $user_ui_stickytoolbar))
                             ->value(1)
-                            ->label((new Label(__('Always display legacy editor toolbar during edition'), Label::INSIDE_TEXT_AFTER))),
+                            ->label((new Label(__('Always display editor toolbar during edition'), Label::INSIDE_TEXT_AFTER))),
                     ]),
                     (new Para())->items([
                         (new Submit(['opts'], __('Save')))
