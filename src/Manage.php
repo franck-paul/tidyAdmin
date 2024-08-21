@@ -26,6 +26,7 @@ use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Single;
 use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Textarea;
@@ -499,7 +500,7 @@ class Manage extends Process
             ->items([
                 (new Text('h3', __('Supplemental PO')))
                     ->class('out-of-screen-if-js'),
-                (new Div(null, 'hr')),
+                (new Single('hr')),
                 (new Form('po-form'))
                     ->action(App::backend()->getPageURL())
                     ->method('post')
@@ -545,7 +546,7 @@ class Manage extends Process
             ->items([
                 (new Text('h3', __('Supplemental HTML head directives')))
                     ->class('out-of-screen-if-js'),
-                (new Div(null, 'hr')),
+                (new Single('hr')),
                 (new Form('html-form'))
                     ->action(App::backend()->getPageURL())
                     ->method('post')
