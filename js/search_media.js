@@ -6,7 +6,8 @@ dotclear.ready(() => {
   const search_media = document.querySelector('#filters-form #q')?.parentNode;
   if (search_media) {
     const recent_media = document.querySelector('p.media-recent');
-    if (recent_media) {
+    const filters = document.querySelector('#filter-details');
+    if (recent_media || filters) {
       // Clone search input (and its label)
       const cloned = search_media.cloneNode(true);
       if (cloned) {
@@ -19,10 +20,15 @@ dotclear.ready(() => {
         if (cloned_label) {
           cloned_label.setAttribute('for', 'qq');
         }
-        // Insert cloned input and its label
-        recent_media.insertAdjacentElement('afterend', cloned);
-        cloned.classList.add('tidy_moved');
-        recent_media.classList.add('tidy_moved');
+        // Insert cloned input and its label before filters
+        if (recent_media) {
+          // Next to recent folders selector
+          recent_media.insertAdjacentElement('afterend', cloned);
+          cloned.classList.add('tidy_moved');
+          recent_media.classList.add('tidy_moved');
+        } else {
+          filters.insertAdjacentElement('beforebegin', cloned);
+        }
         // Simulate form submit on enter key in input cloned field
         const filtersform = document.getElementById('filters-form');
         if (filtersform) {
