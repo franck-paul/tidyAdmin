@@ -1,0 +1,16 @@
+/* The 82em limit (see below) should be reviewed if change in default Dotclear CSS */
+/* The --tidy-header-background variable will be user defined in plugin settings */
+#header,
+.popup h1 {
+  background-color: var(--tidy-header-background, var(--header-background));
+}
+@media screen and (width <= 82em) {
+  #header,
+  h1 {
+    background-color: var(--tidy-header-background, var(--header-background-alt));
+  }
+
+  #top-info-user {
+    background-color: var(--tidy-header-background, var(--header-background));
+  }
+}

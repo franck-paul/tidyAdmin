@@ -68,6 +68,16 @@ class BackendBehaviors
                 My::cssLoad('sticky_toolbar.css');
         }
 
+        // Header color
+        if (App::auth()->prefs()->interface->userheadercolor) {
+            echo
+                Page::jsJson('tidyadmin', [
+                    'header_color' => (string) App::auth()->prefs()->interface->headercolor,
+                ]) .
+                My::cssLoad('header_color.css') .
+                My::jsLoad('header_color.js');
+        }
+
         // User defined head directives
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html')) {
             echo file_get_contents(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html') . "\n";

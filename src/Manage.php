@@ -17,10 +17,12 @@ namespace Dotclear\Plugin\tidyAdmin;
 use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
+use Dotclear\Core\Backend\ThemeConfig;
 use Dotclear\Core\Process;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Color;
 use Dotclear\Helper\Html\Form\Div;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Label;
@@ -170,6 +172,8 @@ class Manage extends Process
             $interface_pref->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
             $interface_pref->put('switchtheme', !empty($_POST['user_ui_switchtheme']), 'boolean');
             $interface_pref->put('stickytoolbar', !empty($_POST['user_ui_stickytoolbar']), 'boolean');
+            $interface_pref->put('userheadercolor', !empty($_POST['user_ui_userheadercolor']), 'boolean');
+            $interface_pref->put('headercolor', ThemeConfig::adjustColor($_POST['user_ui_headercolor']), 'string');
 
             Notices::addSuccessNotice(__('Options updated'));
             My::redirect([
@@ -325,6 +329,8 @@ class Manage extends Process
         $user_ui_pluginconfig     = $interface_pref->pluginconfig;
         $user_ui_switchtheme      = $interface_pref->switchtheme;
         $user_ui_stickytoolbar    = $interface_pref->stickytoolbar;
+        $user_ui_userheadercolor  = $interface_pref->userheadercolor;
+        $user_ui_headercolor      = $interface_pref->headercolor;
 
         $head = Page::jsModal() .
         Page::jsConfirmClose('css-form') .
@@ -393,6 +399,13 @@ class Manage extends Process
                         (new Checkbox('user_ui_stickytoolbar', $user_ui_stickytoolbar))
                             ->value(1)
                             ->label((new Label(__('Always display editor toolbar during edition'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                    (new Para())->items([
+                        (new Checkbox('user_ui_userheadercolor', $user_ui_userheadercolor))
+                            ->value(1)
+                            ->label((new Label(__('Use an user-defined background color for header'), Label::INSIDE_TEXT_AFTER))),
+                        (new Color('user_ui_headercolor', $user_ui_headercolor))
+                            ->label((new Label(__('Backgound color for header:'), Label::INSIDE_TEXT_BEFORE))),
                     ]),
                     (new Para())->items([
                         (new Submit(['opts'], __('Save')))
