@@ -3,7 +3,7 @@
 
 /* User-defined JS script */
 // Hide and Show menubar on collapser mouseover event
-$(() => {
+dotclear.ready(() => {
   // Main menu collapser
   const objMain = $('#wrapper');
   const hideMainMenu = 'hide_main_menu';

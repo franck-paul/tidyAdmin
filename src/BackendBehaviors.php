@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief tidyAdmin, a plugin for Dotclear 2
  *
@@ -80,17 +81,17 @@ class BackendBehaviors
 
         // User defined head directives
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html')) {
-            echo file_get_contents(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html') . "\n";
+            echo trim(file_get_contents(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html')) . "\n";
         }
 
         // User defined CSS rules
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.css')) {
-            echo Page::cssLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.css'))) . "\n";
+            echo Page::cssLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.css')));
         }
 
         // User defined Javascript
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.js')) {
-            echo Page::jsLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.js'))) . "\n";
+            echo Page::jsLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.js')));
         }
 
         return '';
