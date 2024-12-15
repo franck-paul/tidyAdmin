@@ -24,6 +24,7 @@ L10n::$locales['Options'] = '';
 L10n::$locales['Use mini Dotclear icon (top left) in header'] = '';
 L10n::$locales['Move the search form (main menu) in header'] = '';
 L10n::$locales['Double click on header to switch theme (not permanent)'] = '';
+L10n::$locales['Add a button in header to stop or run Javascript fetch requests (not permanent)'] = '';
 L10n::$locales['To permanently change theme go the your user preferences'] = '';
 L10n::$locales['Clone the media manager search input in always visible area'] = '';
 L10n::$locales['Enabled mouse hover activation on collapser'] = '';

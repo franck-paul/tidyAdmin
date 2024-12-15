@@ -24,6 +24,7 @@ L10n::$locales['Options'] = 'Options';
 L10n::$locales['Use mini Dotclear icon (top left) in header'] = 'Utiliser une mini-icône Dotclear (haut gauche) dans l\'entête';
 L10n::$locales['Move the search form (main menu) in header'] = 'Déplacer le formulaire de recherche (menu principal) dans l\'entête';
 L10n::$locales['Double click on header to switch theme (not permanent)'] = 'Double clic sur l\'en-tête pour changer de thème (non permanent)';
+L10n::$locales['Add a button in header to stop or run Javascript fetch requests (not permanent)'] = 'Ajouter un bouton dans l\'en-tête pour stopper ou autoriser les requêtes Javascript fetch (non permanent)';
 L10n::$locales['To permanently change theme go the your user preferences'] = 'Pour changer de thème de façon permanente, allez dans vos préférences utilisateur';
 L10n::$locales['Clone the media manager search input in always visible area'] = 'Cloner le champ de recherche de la médiathèque dans une partie toujours visible';
 L10n::$locales['Enabled mouse hover activation on collapser'] = 'Activer la détection du survol de la souris sur la barre de réduction du menu';
