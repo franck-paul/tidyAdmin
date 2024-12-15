@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief tidyAdmin, a plugin for Dotclear 2
  *
@@ -171,6 +172,7 @@ class Manage extends Process
             $interface_pref->put('hovercollapser', !empty($_POST['user_ui_hovercollapser']), 'boolean');
             $interface_pref->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
             $interface_pref->put('switchtheme', !empty($_POST['user_ui_switchtheme']), 'boolean');
+            $interface_pref->put('switchfetch', !empty($_POST['user_ui_switchfetch']), 'boolean');
             $interface_pref->put('stickytoolbar', !empty($_POST['user_ui_stickytoolbar']), 'boolean');
             $interface_pref->put('userheadercolor', !empty($_POST['user_ui_userheadercolor']), 'boolean');
             $interface_pref->put('headercolor', ThemeConfig::adjustColor($_POST['user_ui_headercolor']), 'string');
@@ -328,6 +330,7 @@ class Manage extends Process
         $user_ui_hovercollapser   = $interface_pref->hovercollapser;
         $user_ui_pluginconfig     = $interface_pref->pluginconfig;
         $user_ui_switchtheme      = $interface_pref->switchtheme;
+        $user_ui_switchfetch      = $interface_pref->switchfetch;
         $user_ui_stickytoolbar    = $interface_pref->stickytoolbar;
         $user_ui_userheadercolor  = $interface_pref->userheadercolor;
         $user_ui_headercolor      = $interface_pref->headercolor;
@@ -376,6 +379,11 @@ class Manage extends Process
                         (new Checkbox('user_ui_switchtheme', $user_ui_switchtheme))
                             ->value(1)
                             ->label((new Label(__('Double click on header to switch theme (not permanent)'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                    (new Para())->items([
+                        (new Checkbox('user_ui_switchfetch', $user_ui_switchfetch))
+                            ->value(1)
+                            ->label((new Label(__('Add a button in header to stop or run Javascript fetch requests (not permanent)'), Label::INSIDE_TEXT_AFTER))),
                     ]),
                     (new Note())
                         ->class(['form-note','info'])

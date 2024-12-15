@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-11 16:19+0200\n"
+"POT-Creation-Date: 2024-12-15 12:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,6 +57,9 @@ msgid "Move the search form (main menu) in header"
 msgstr ""
 
 msgid "Double click on header to switch theme (not permanent)"
+msgstr ""
+
+msgid "Add a button in header to stop or run Javascript fetch requests (not permanent)"
 msgstr ""
 
 msgid "To permanently change theme go the your user preferences"

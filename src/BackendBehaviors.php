@@ -63,6 +63,13 @@ class BackendBehaviors
                 My::jsLoad('switch_theme.js');
         }
 
+        // Switch fetch requests
+        if (App::auth()->prefs()->interface->switchfetch) {
+            echo
+                My::cssLoad('switch_fetch.css') .
+                My::jsLoad('switch_fetch.js');
+        }
+
         // Always display legacy editor toolbar
         if (App::auth()->prefs()->interface->stickytoolbar) {
             echo
