@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief tidyAdmin, a plugin for Dotclear 2
  *
@@ -34,8 +35,10 @@ class Prepend extends Process
 
         // User defined Locales
         $l10nFilename = implode(DIRECTORY_SEPARATOR, [App::config()->varRoot(), 'plugins', My::id(), 'admin']);
-        if (($file = Path::real($l10nFilename . '.po')) && file_exists($file)) {
-            if ($file = Path::real($l10nFilename, false)) {
+        $file         = Path::real($l10nFilename . '.po');
+        if ($file !== false && file_exists($file)) {
+            $file = Path::real($l10nFilename, false);
+            if ($file !== false) {
                 L10n::set($file);
             }
         }

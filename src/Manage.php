@@ -198,7 +198,7 @@ class Manage extends Process
                 fclose($fp);
                 if ($fp = @fopen(self::$js_backup_file, 'wb')) {
                     // Backup file
-                    fwrite($fp, (string) $js_old_content);
+                    fwrite($fp, $js_old_content);
                     fclose($fp);
                 }
 
@@ -226,7 +226,7 @@ class Manage extends Process
                 fclose($fp);
                 if ($fp = @fopen(self::$css_backup_file, 'wb')) {
                     // Backup file
-                    fwrite($fp, (string) $css_old_content);
+                    fwrite($fp, $css_old_content);
                     fclose($fp);
                 }
 
@@ -254,7 +254,7 @@ class Manage extends Process
                 fclose($fp);
                 if ($fp = @fopen(self::$po_backup_file, 'wb')) {
                     // Backup file
-                    fwrite($fp, (string) $po_old_content);
+                    fwrite($fp, $po_old_content);
                     fclose($fp);
                 }
 
@@ -282,7 +282,7 @@ class Manage extends Process
                 fclose($fp);
                 if ($fp = fopen(self::$html_backup_file, 'wb')) {
                     // Backup file
-                    fwrite($fp, (string) $html_old_content);
+                    fwrite($fp, $html_old_content);
                     fclose($fp);
                 }
 
@@ -461,7 +461,7 @@ class Manage extends Process
                             (new Textarea('css_demo_content'))
                                 ->cols(72)
                                 ->rows(25)
-                                ->value(Html::escapeHTML((string) self::$css_demo_content))
+                                ->value(Html::escapeHTML(self::$css_demo_content))
                                 ->class('maximal')
                                 ->readonly(true),
                         ]),
@@ -506,7 +506,7 @@ class Manage extends Process
                             (new Textarea('js_demo_content'))
                                 ->cols(72)
                                 ->rows(25)
-                                ->value(Html::escapeHTML((string) self::$js_demo_content))
+                                ->value(Html::escapeHTML(self::$js_demo_content))
                                 ->class('maximal')
                                 ->readonly(true),
                         ]),
@@ -552,7 +552,7 @@ class Manage extends Process
                             (new Textarea('po_demo_content'))
                                 ->cols(72)
                                 ->rows(25)
-                                ->value(Html::escapeHTML((string) self::$po_demo_content))
+                                ->value(Html::escapeHTML(self::$po_demo_content))
                                 ->class('maximal')
                                 ->readonly(true),
                         ]),
@@ -598,7 +598,7 @@ class Manage extends Process
                             (new Textarea('html_demo_content'))
                                 ->cols(72)
                                 ->rows(25)
-                                ->value(Html::escapeHTML((string) self::$html_demo_content))
+                                ->value(Html::escapeHTML(self::$html_demo_content))
                                 ->class('maximal')
                                 ->readonly(true),
                         ]),
