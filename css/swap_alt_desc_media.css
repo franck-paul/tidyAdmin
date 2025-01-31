@@ -1,0 +1,12 @@
+.tidy_swap {
+  margin-block-end: 0.5em;
+  padding: 0.125em;
+
+  color: var(--submit-color);
+  background: var(--submit-background);
+
+  &:is(:hover, :focus) {
+    color: var(--submit-background);
+    background: var(--submit-color);
+  }
+}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-15 12:09+0100\n"
+"POT-Creation-Date: 2025-01-31 10:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Customize your dotclear administration"
+msgid "Tidy Administration"
 msgstr ""
 
-msgid "Tidy Administration"
+msgid "Customize your dotclear administration"
 msgstr ""
 
 msgid "Options updated"
@@ -81,6 +81,9 @@ msgid "Use an user-defined background color for header"
 msgstr ""
 
 msgid "Backgound color for header:"
+msgstr ""
+
+msgid "Add an exchange button between alternative text and media description"
 msgstr ""
 
 msgid "Save"

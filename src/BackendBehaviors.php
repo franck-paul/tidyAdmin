@@ -86,6 +86,13 @@ class BackendBehaviors
                 My::jsLoad('header_color.js');
         }
 
+        // Swap alt/desc of media details
+        if (App::auth()->prefs()->interface->swapaltdescmedia) {
+            echo
+                My::cssLoad('swap_alt_desc_media.css') .
+                My::jsLoad('swap_alt_desc_media.js');
+        }
+
         // User defined head directives
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html')) {
             echo trim((string) file_get_contents(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html')) . "\n";

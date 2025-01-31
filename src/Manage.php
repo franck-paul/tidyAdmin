@@ -176,6 +176,7 @@ class Manage extends Process
             $interface_pref->put('stickytoolbar', !empty($_POST['user_ui_stickytoolbar']), 'boolean');
             $interface_pref->put('userheadercolor', !empty($_POST['user_ui_userheadercolor']), 'boolean');
             $interface_pref->put('headercolor', ThemeConfig::adjustColor($_POST['user_ui_headercolor']), 'string');
+            $interface_pref->put('swapaltdescmedia', !empty($_POST['user_ui_swapaltdescmedia']), 'boolean');
 
             Notices::addSuccessNotice(__('Options updated'));
             My::redirect([
@@ -334,6 +335,7 @@ class Manage extends Process
         $user_ui_stickytoolbar    = $interface_pref->stickytoolbar;
         $user_ui_userheadercolor  = $interface_pref->userheadercolor;
         $user_ui_headercolor      = $interface_pref->headercolor;
+        $user_ui_swapaltdescmedia = $interface_pref->swapaltdescmedia;
 
         $head = Page::jsModal() .
         Page::jsConfirmClose('css-form') .
@@ -414,6 +416,11 @@ class Manage extends Process
                             ->label((new Label(__('Use an user-defined background color for header'), Label::INSIDE_TEXT_AFTER))),
                         (new Color('user_ui_headercolor', $user_ui_headercolor))
                             ->label((new Label(__('Backgound color for header:'), Label::INSIDE_TEXT_BEFORE))),
+                    ]),
+                    (new Para())->items([
+                        (new Checkbox('user_ui_swapaltdescmedia', $user_ui_swapaltdescmedia))
+                            ->value(1)
+                            ->label((new Label(__('Add an exchange button between alternative text and media description'), Label::INSIDE_TEXT_AFTER))),
                     ]),
                     (new Para())->items([
                         (new Submit(['opts'], __('Save')))
