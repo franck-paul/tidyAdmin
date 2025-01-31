@@ -10,8 +10,8 @@
 
 use Dotclear\Helper\L10n;
 
-L10n::$locales['Customize your dotclear administration'] = '';
 L10n::$locales['Tidy Administration'] = '';
+L10n::$locales['Customize your dotclear administration'] = '';
 L10n::$locales['Options updated'] = '';
 L10n::$locales['Unable to write file %s. Please check the dotclear var folder permissions.'] = '';
 L10n::$locales['JS supplemental script updated'] = '';
@@ -32,6 +32,7 @@ L10n::$locales['Move plugin settings link to top of page'] = '';
 L10n::$locales['Always display editor toolbar during edition'] = '';
 L10n::$locales['Use an user-defined background color for header'] = '';
 L10n::$locales['Backgound color for header:'] = '';
+L10n::$locales['Add an exchange button between alternative text and media description'] = '';
 L10n::$locales['Save'] = '';
 L10n::$locales['Supplemental CSS'] = '';
 L10n::$locales['Note: this supplemental CSS rules will surcharge the default CSS rules.'] = '';
