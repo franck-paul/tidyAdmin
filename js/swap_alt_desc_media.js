@@ -22,8 +22,6 @@ dotclear.ready(() => {
   // Cope with click event
   button.addEventListener('click', () => {
     // Swap two fields contents
-    const swap = media_desc.value;
-    media_desc.value = media_alt.value;
-    media_alt.value = swap;
+    [media_alt.value, media_desc.value] = [media_desc.value, media_alt.value];
   });
 });
