@@ -2,11 +2,15 @@
 'use strict';
 
 dotclear.ready(() => {
-  const media_alt = document.querySelector('#change-properties-form #media_alt');
+  const media_alt =
+    document.querySelector('#change-properties-form #media_alt') ?? // 2.33+
+    document.querySelector('#media-details #media_alt'); // older
   if (!media_alt) {
     return;
   }
-  const media_desc = document.querySelector('#change-properties-form #media_desc');
+  const media_desc =
+    document.querySelector('#change-properties-form #media_desc') ?? // 2.33+
+    document.querySelector('#media-details #media_desc'); // older
   if (!media_desc) {
     return;
   }
