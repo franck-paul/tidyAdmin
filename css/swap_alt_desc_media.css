@@ -4,8 +4,9 @@
 
   color: var(--submit-color);
   background: var(--submit-background);
-}
-.tidy_swap:is(:hover, :focus) {
-  color: var(--submit-background);
-  background: var(--submit-color);
+
+  &:is(:hover, :focus) {
+    color: var(--submit-background);
+    background: var(--submit-color);
+  }
 }
