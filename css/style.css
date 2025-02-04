@@ -1,19 +1,7 @@
-textarea {
-  font: 1em Monaco, "Courier New", Courier, monospace;
+textarea[name$='_demo_content'] {
+  font: 1em monospace;
 }
 
-div.readme {
-  margin: 1em auto;
-  line-height: 1.2em;
-  padding: 1em;
-  border: 1px solid #fff;
-}
-
-div.readme h3,
-div.readme p {
-  color: #fff;
-}
-
-.CodeMirror {
+textarea[name$='_content'] + .CodeMirror {
   height: 30em;
 }
