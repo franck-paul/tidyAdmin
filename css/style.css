@@ -1,5 +1,5 @@
 textarea[name$='_demo_content'] {
-  font: 1em monospace;
+  font: 1em var(--monospace);
 }
 
 textarea[name$='_content'] + .CodeMirror {
