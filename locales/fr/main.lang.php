@@ -21,6 +21,7 @@ L10n::$locales['HTML head supplemental directives updated'] = 'Directives suppl�
 L10n::$locales['System'] = 'Système';
 L10n::$locales['Tidy administration settings'] = 'Personnalisation de l\'administration';
 L10n::$locales['Options'] = 'Options';
+L10n::$locales['These options will be set only for the current user'] = 'Ces options ne seront définies que pour l\'utilisateur actuel.';
 L10n::$locales['Use mini Dotclear icon (top left) in header'] = 'Utiliser une mini-icône Dotclear (haut gauche) dans l\'entête';
 L10n::$locales['Move the search form (main menu) in header'] = 'Déplacer le formulaire de recherche (menu principal) dans l\'entête';
 L10n::$locales['Double click on header to switch theme (not permanent)'] = 'Double clic sur l\'en-tête pour changer de thème (non permanent)';
