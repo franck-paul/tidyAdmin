@@ -367,6 +367,9 @@ class Manage extends Process
                 ->action(App::backend()->getPageURL())
                 ->method('post')
                 ->fields([
+                    (new Note())
+                        ->class('warning')
+                        ->text(__('These options will be set only for the current user')),
                     (new Para())->items([
                         (new Checkbox('user_ui_minidcicon', $user_ui_minidcicon))
                             ->value(1)
