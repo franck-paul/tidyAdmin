@@ -385,14 +385,14 @@ class Manage extends Process
                             ->value(1)
                             ->label((new Label(__('Double click on header to switch theme (not permanent)'), Label::INSIDE_TEXT_AFTER))),
                     ]),
+                    (new Note())
+                        ->class(['form-note','info'])
+                        ->text(__('To permanently change theme go the your user preferences')),
                     (new Para())->items([
                         (new Checkbox('user_ui_switchfetch', $user_ui_switchfetch))
                             ->value(1)
                             ->label((new Label(__('Add a button in header to stop or run Javascript fetch requests (not permanent)'), Label::INSIDE_TEXT_AFTER))),
                     ]),
-                    (new Note())
-                        ->class(['form-note','info'])
-                        ->text(__('To permanently change theme go the your user preferences')),
                     (new Para())->items([
                         (new Checkbox('user_ui_clonesearchmedia', $user_ui_clonesearchmedia))
                             ->value(1)
