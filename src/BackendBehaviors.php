@@ -145,33 +145,31 @@ class BackendBehaviors
         $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
 
         // 2. Reduce multiple whitespaces
-        $css = preg_replace('/\s+/', ' ', $css);
+        $css = preg_replace('/\s+/', ' ', (string) $css);
 
         // 2. Remove newlines
-        $css = str_replace(["\r\n", "\r", "\n", "\t"], '', $css);
+        $css = str_replace(["\r\n", "\r", "\n", "\t"], '', (string) $css);
 
-        return trim($css);
+        return trim((string) $css);
     }
 
     public static function themeEditorWriteFile(string $file, string $type): string
     {
-        if (App::auth()->prefs()->interface->minifythemeresources) {
-            if ($type === 'js' || $type === 'css') {
-                try {
-                    $minified_file = self::getMinifiedFile($file);
+        if (App::auth()->prefs()->interface->minifythemeresources && ($type === 'js' || $type === 'css')) {
+            try {
+                $minified_file = self::getMinifiedFile($file);
 
-                    // First delete existing minified version
-                    if ($minified_file !== '' && file_exists($minified_file) && is_writable($minified_file)) {
-                        unlink($minified_file);
-                    }
+                // First delete existing minified version
+                if ($minified_file !== '' && file_exists($minified_file) && is_writable($minified_file)) {
+                    unlink($minified_file);
+                }
 
-                    // Then try to minify it
-                    $content = file_get_contents($file);
-
+                // Then try to minify it
+                $content = file_get_contents($file);
+                if ($content) {
                     $minified = match ($type) {
-                        'js'    => Minifier::minify($content, ['flaggedComments' => false]),
-                        'css'   => self::basicCSSMinify($content),
-                        default => '',
+                        'js'  => (string) Minifier::minify($content, ['flaggedComments' => false]),
+                        'css' => self::basicCSSMinify($content),
                     };
 
                     if ($content !== $minified && $minified !== '') {
@@ -181,10 +179,12 @@ class BackendBehaviors
                         }
                         fwrite($fp, $minified);
                         fclose($fp);
+                    } else {
+                        throw new Exception(sprintf('Unable to read file %s', $file));
                     }
-                } catch (Exception) {
-                    // Ignore exception, the minified version is not mandatory
                 }
+            } catch (Exception) {
+                // Ignore exception, the minified version is not mandatory
             }
         }
 
@@ -193,18 +193,16 @@ class BackendBehaviors
 
     public static function themeEditorDeleteFile(string $file, string $type): string
     {
-        if (App::auth()->prefs()->interface->minifythemeresources) {
-            if ($type === 'js' || $type === 'css') {
-                try {
-                    $minified_file = self::getMinifiedFile($file);
+        if (App::auth()->prefs()->interface->minifythemeresources && ($type === 'js' || $type === 'css')) {
+            try {
+                $minified_file = self::getMinifiedFile($file);
 
-                    // First delete existing minified version
-                    if ($minified_file !== '' && file_exists($minified_file) && is_writable($minified_file)) {
-                        unlink($minified_file);
-                    }
-                } catch (Exception) {
-                    // Ignore exception, the minified version is not mandatory
+                // First delete existing minified version
+                if ($minified_file !== '' && file_exists($minified_file) && is_writable($minified_file)) {
+                    unlink($minified_file);
                 }
+            } catch (Exception) {
+                // Ignore exception, the minified version is not mandatory
             }
         }
 
