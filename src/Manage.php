@@ -177,6 +177,7 @@ class Manage extends Process
             $interface_pref->put('userheadercolor', !empty($_POST['user_ui_userheadercolor']), 'boolean');
             $interface_pref->put('headercolor', ThemeConfig::adjustColor($_POST['user_ui_headercolor']), 'string');
             $interface_pref->put('swapaltdescmedia', !empty($_POST['user_ui_swapaltdescmedia']), 'boolean');
+            $interface_pref->put('minifythemeresources', !empty($_POST['user_ui_minifythemeresources']), 'boolean');
 
             Notices::addSuccessNotice(__('Options updated'));
             My::redirect([
@@ -325,17 +326,18 @@ class Manage extends Process
             $user_ui_colorsyntax_theme = $interface_pref->colorsyntax_theme ?: 'default';
         }
 
-        $user_ui_minidcicon       = $interface_pref->minidcicon;
-        $user_ui_movesearchmenu   = $interface_pref->movesearchmenu;
-        $user_ui_clonesearchmedia = $interface_pref->clonesearchmedia;
-        $user_ui_hovercollapser   = $interface_pref->hovercollapser;
-        $user_ui_pluginconfig     = $interface_pref->pluginconfig;
-        $user_ui_switchtheme      = $interface_pref->switchtheme;
-        $user_ui_switchfetch      = $interface_pref->switchfetch;
-        $user_ui_stickytoolbar    = $interface_pref->stickytoolbar;
-        $user_ui_userheadercolor  = $interface_pref->userheadercolor;
-        $user_ui_headercolor      = $interface_pref->headercolor;
-        $user_ui_swapaltdescmedia = $interface_pref->swapaltdescmedia;
+        $user_ui_minidcicon           = $interface_pref->minidcicon;
+        $user_ui_movesearchmenu       = $interface_pref->movesearchmenu;
+        $user_ui_clonesearchmedia     = $interface_pref->clonesearchmedia;
+        $user_ui_hovercollapser       = $interface_pref->hovercollapser;
+        $user_ui_pluginconfig         = $interface_pref->pluginconfig;
+        $user_ui_switchtheme          = $interface_pref->switchtheme;
+        $user_ui_switchfetch          = $interface_pref->switchfetch;
+        $user_ui_stickytoolbar        = $interface_pref->stickytoolbar;
+        $user_ui_userheadercolor      = $interface_pref->userheadercolor;
+        $user_ui_headercolor          = $interface_pref->headercolor;
+        $user_ui_swapaltdescmedia     = $interface_pref->swapaltdescmedia;
+        $user_ui_minifythemeresources = $interface_pref->minifythemeresources;
 
         $head = Page::jsModal() .
         Page::jsConfirmClose('css-form') .
@@ -424,6 +426,11 @@ class Manage extends Process
                         (new Checkbox('user_ui_swapaltdescmedia', $user_ui_swapaltdescmedia))
                             ->value(1)
                             ->label((new Label(__('Add an exchange button between alternative text and media description'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                    (new Para())->items([
+                        (new Checkbox('user_ui_minifythemeresources', $user_ui_minifythemeresources))
+                            ->value(1)
+                            ->label((new Label(__('Minify theme resources modified by the theme editor'), Label::INSIDE_TEXT_AFTER))),
                     ]),
                     (new Para())->items([
                         (new Submit(['opts'], __('Save')))

@@ -18,7 +18,10 @@ namespace Dotclear\Plugin\tidyAdmin;
 use Dotclear\App;
 use Dotclear\Core\Backend\Favorites;
 use Dotclear\Core\Backend\Page;
+use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
+use Exception;
+use JShrink\Minifier;
 
 class BackendBehaviors
 {
@@ -119,6 +122,91 @@ class BackendBehaviors
             'small-icon' => My::icons(),
             'large-icon' => My::icons(),
         ]);
+
+        return '';
+    }
+
+    protected static function getMinifiedFile(string $file): string
+    {
+        if ($file !== '') {
+            $extension     = Files::getExtension($file);
+            $minified_base = substr($file, 0, strlen($file) - strlen($extension) - 1);
+            if (Files::getExtension($minified_base) !== 'min') {
+                return $minified_base . '.min.' . $extension;
+            }
+        }
+
+        return '';
+    }
+
+    protected static function basicCSSMinify(string $css): string
+    {
+        // 1. Remove comments
+        $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
+
+        // 2. Reduce multiple whitespaces
+        $css = preg_replace('/\s+/', ' ', $css);
+
+        // 2. Remove newlines
+        $css = str_replace(["\r\n", "\r", "\n", "\t"], '', $css);
+
+        return trim($css);
+    }
+
+    public static function themeEditorWriteFile(string $file, string $type): string
+    {
+        if (App::auth()->prefs()->interface->minifythemeresources) {
+            if ($type === 'js' || $type === 'css') {
+                try {
+                    $minified_file = self::getMinifiedFile($file);
+
+                    // First delete existing minified version
+                    if ($minified_file !== '' && file_exists($minified_file) && is_writable($minified_file)) {
+                        unlink($minified_file);
+                    }
+
+                    // Then try to minify it
+                    $content = file_get_contents($file);
+
+                    $minified = match ($type) {
+                        'js'    => Minifier::minify($content, ['flaggedComments' => false]),
+                        'css'   => self::basicCSSMinify($content),
+                        default => '',
+                    };
+
+                    if ($content !== $minified && $minified !== '') {
+                        // Write the minified script
+                        if (($fp = fopen($minified_file, 'wb')) === false) {
+                            throw new Exception(sprintf('Unable to open file %s', $minified_file));
+                        }
+                        fwrite($fp, $minified);
+                        fclose($fp);
+                    }
+                } catch (Exception) {
+                    // Ignore exception, the minified version is not mandatory
+                }
+            }
+        }
+
+        return '';
+    }
+
+    public static function themeEditorDeleteFile(string $file, string $type): string
+    {
+        if (App::auth()->prefs()->interface->minifythemeresources) {
+            if ($type === 'js' || $type === 'css') {
+                try {
+                    $minified_file = self::getMinifiedFile($file);
+
+                    // First delete existing minified version
+                    if ($minified_file !== '' && file_exists($minified_file) && is_writable($minified_file)) {
+                        unlink($minified_file);
+                    }
+                } catch (Exception) {
+                    // Ignore exception, the minified version is not mandatory
+                }
+            }
+        }
 
         return '';
     }

@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\tidyAdmin;
 
+use Autoloader;
 use Dotclear\App;
 use Dotclear\Core\Process;
 use Dotclear\Helper\File\Path;
@@ -32,6 +33,16 @@ class Prepend extends Process
         if (!self::status()) {
             return false;
         }
+
+        // JS/CSS Minifier
+        Autoloader::me()->addNamespace('JShrink', implode(DIRECTORY_SEPARATOR, [
+            My::path(),
+            'libs',
+            'tedious',
+            'JShrink',
+            'src',
+            'JShrink',
+        ]));
 
         // User defined Locales
         $l10nFilename = implode(DIRECTORY_SEPARATOR, [App::config()->varRoot(), 'plugins', My::id(), 'admin']);

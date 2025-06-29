@@ -46,7 +46,9 @@ class Backend extends Process
         }
 
         App::behavior()->addBehaviors([
-            'adminPageHTMLHead' => BackendBehaviors::adminPageHTMLHead(...),
+            'adminPageHTMLHead'     => BackendBehaviors::adminPageHTMLHead(...),
+            'themeEditorWriteFile'  => BackendBehaviors::themeEditorWriteFile(...),
+            'themeEditorDeleteFile' => BackendBehaviors::themeEditorDeleteFile(...),
         ]);
 
         return true;

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-29 14:46+0100\n"
+"POT-Creation-Date: 2025-06-29 10:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,10 +62,10 @@ msgstr ""
 msgid "Double click on header to switch theme (not permanent)"
 msgstr ""
 
-msgid "Add a button in header to stop or run Javascript fetch requests (not permanent)"
+msgid "To permanently change theme go the your user preferences"
 msgstr ""
 
-msgid "To permanently change theme go the your user preferences"
+msgid "Add a button in header to stop or run Javascript fetch requests (not permanent)"
 msgstr ""
 
 msgid "Clone the media manager search input in always visible area"
@@ -87,6 +87,9 @@ msgid "Backgound color for header:"
 msgstr ""
 
 msgid "Add an exchange button between alternative text and media description"
+msgstr ""
+
+msgid "Minify theme resources modified by the theme editor"
 msgstr ""
 
 msgid "Save"
