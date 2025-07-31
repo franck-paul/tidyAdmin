@@ -81,9 +81,18 @@ class BackendBehaviors
 
         // Header color
         if (App::auth()->prefs()->interface->userheadercolor) {
+            // Prepare header color
+            $light        = App::auth()->prefs()->interface->headercolor;
+            $dark         = App::auth()->prefs()->interface->headercolor_dark ?? App::auth()->prefs()->interface->headercolor;
+            $header_color = sprintf(
+                'light-dark(%s, %s)',
+                (string) $light,
+                (string) $dark
+            );
+
             echo
                 Page::jsJson('tidyadmin', [
-                    'header_color' => (string) App::auth()->prefs()->interface->headercolor,
+                    'header_color' => $header_color,
                 ]) .
                 My::cssLoad('header_color.css') .
                 My::jsLoad('header_color.js');

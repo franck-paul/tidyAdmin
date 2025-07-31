@@ -33,6 +33,7 @@ L10n::$locales['Move plugin settings link to top of page'] = '';
 L10n::$locales['Always display editor toolbar during edition'] = '';
 L10n::$locales['Use an user-defined background color for header'] = '';
 L10n::$locales['Backgound color for header:'] = '';
+L10n::$locales['Backgound color for header (dark mode):'] = '';
 L10n::$locales['Add an exchange button between alternative text and media description'] = '';
 L10n::$locales['Minify theme resources modified by the theme editor'] = '';
 L10n::$locales['Save'] = '';

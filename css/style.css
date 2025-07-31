@@ -5,3 +5,7 @@ textarea[name$='_demo_content'] {
 textarea[name$='_content'] + .CodeMirror {
   height: 30em;
 }
+
+table.fitcontent {
+  width: fit-content;
+}

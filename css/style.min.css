@@ -1,1 +1,1 @@
-textarea[name$=_demo_content]{font:1em var(--monospace)}textarea[name$=_content]+.CodeMirror{height:30em}
+textarea[name$=_demo_content]{font:1em var(--monospace)}textarea[name$=_content]+.CodeMirror{height:30em}table.fitcontent{width:fit-content}

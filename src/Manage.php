@@ -31,8 +31,12 @@ use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Single;
 use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
 use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Textarea;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Helper\Html\Html;
 use Exception;
 
@@ -176,6 +180,7 @@ class Manage extends Process
             $interface_pref->put('stickytoolbar', !empty($_POST['user_ui_stickytoolbar']), 'boolean');
             $interface_pref->put('userheadercolor', !empty($_POST['user_ui_userheadercolor']), 'boolean');
             $interface_pref->put('headercolor', ThemeConfig::adjustColor($_POST['user_ui_headercolor']), 'string');
+            $interface_pref->put('headercolor_dark', ThemeConfig::adjustColor($_POST['user_ui_headercolor_dark']), 'string');
             $interface_pref->put('swapaltdescmedia', !empty($_POST['user_ui_swapaltdescmedia']), 'boolean');
             $interface_pref->put('minifythemeresources', !empty($_POST['user_ui_minifythemeresources']), 'boolean');
 
@@ -336,6 +341,7 @@ class Manage extends Process
         $user_ui_stickytoolbar        = $interface_pref->stickytoolbar;
         $user_ui_userheadercolor      = $interface_pref->userheadercolor;
         $user_ui_headercolor          = $interface_pref->headercolor;
+        $user_ui_headercolor_dark     = $interface_pref->headercolor_dark;
         $user_ui_swapaltdescmedia     = $interface_pref->swapaltdescmedia;
         $user_ui_minifythemeresources = $interface_pref->minifythemeresources;
 
@@ -372,71 +378,112 @@ class Manage extends Process
                     (new Note())
                         ->class('warning')
                         ->text(__('These options will be set only for the current user')),
-                    (new Para())->items([
-                        (new Checkbox('user_ui_minidcicon', $user_ui_minidcicon))
-                            ->value(1)
-                            ->label((new Label(__('Use mini Dotclear icon (top left) in header'), Label::INSIDE_TEXT_AFTER))),
-                    ]),
-                    (new Para())->items([
-                        (new Checkbox('user_ui_movesearchmenu', $user_ui_movesearchmenu))
-                            ->value(1)
-                            ->label((new Label(__('Move the search form (main menu) in header'), Label::INSIDE_TEXT_AFTER))),
-                    ]),
-                    (new Para())->items([
-                        (new Checkbox('user_ui_switchtheme', $user_ui_switchtheme))
-                            ->value(1)
-                            ->label((new Label(__('Double click on header to switch theme (not permanent)'), Label::INSIDE_TEXT_AFTER))),
-                    ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_minidcicon', $user_ui_minidcicon))
+                                ->value(1)
+                                ->label((new Label(__('Use mini Dotclear icon (top left) in header'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_movesearchmenu', $user_ui_movesearchmenu))
+                                ->value(1)
+                                ->label((new Label(__('Move the search form (main menu) in header'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_switchtheme', $user_ui_switchtheme))
+                                ->value(1)
+                                ->label((new Label(__('Double click on header to switch theme (not permanent)'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
                     (new Note())
                         ->class(['form-note','info'])
                         ->text(__('To permanently change theme go the your user preferences')),
-                    (new Para())->items([
-                        (new Checkbox('user_ui_switchfetch', $user_ui_switchfetch))
-                            ->value(1)
-                            ->label((new Label(__('Add a button in header to stop or run Javascript fetch requests (not permanent)'), Label::INSIDE_TEXT_AFTER))),
-                    ]),
-                    (new Para())->items([
-                        (new Checkbox('user_ui_clonesearchmedia', $user_ui_clonesearchmedia))
-                            ->value(1)
-                            ->label((new Label(__('Clone the media manager search input in always visible area'), Label::INSIDE_TEXT_AFTER))),
-                    ]),
-                    (new Para())->items([
-                        (new Checkbox('user_ui_hovercollapser', $user_ui_hovercollapser))
-                            ->value(1)
-                            ->label((new Label(__('Enabled mouse hover activation on collapser'), Label::INSIDE_TEXT_AFTER))),
-                    ]),
-                    (new Para())->items([
-                        (new Checkbox('user_ui_pluginconfig', $user_ui_pluginconfig))
-                            ->value(1)
-                            ->label((new Label(__('Move plugin settings link to top of page'), Label::INSIDE_TEXT_AFTER))),
-                    ]),
-                    (new Para())->items([
-                        (new Checkbox('user_ui_stickytoolbar', $user_ui_stickytoolbar))
-                            ->value(1)
-                            ->label((new Label(__('Always display editor toolbar during edition'), Label::INSIDE_TEXT_AFTER))),
-                    ]),
-                    (new Para())->items([
-                        (new Checkbox('user_ui_userheadercolor', $user_ui_userheadercolor))
-                            ->value(1)
-                            ->label((new Label(__('Use an user-defined background color for header'), Label::INSIDE_TEXT_AFTER))),
-                        (new Color('user_ui_headercolor', $user_ui_headercolor))
-                            ->label((new Label(__('Backgound color for header:'), Label::INSIDE_TEXT_BEFORE))),
-                    ]),
-                    (new Para())->items([
-                        (new Checkbox('user_ui_swapaltdescmedia', $user_ui_swapaltdescmedia))
-                            ->value(1)
-                            ->label((new Label(__('Add an exchange button between alternative text and media description'), Label::INSIDE_TEXT_AFTER))),
-                    ]),
-                    (new Para())->items([
-                        (new Checkbox('user_ui_minifythemeresources', $user_ui_minifythemeresources))
-                            ->value(1)
-                            ->label((new Label(__('Minify theme resources modified by the theme editor'), Label::INSIDE_TEXT_AFTER))),
-                    ]),
-                    (new Para())->items([
-                        (new Submit(['opts'], __('Save')))
-                            ->accesskey('s'),
-                        ... My::hiddenFields(),
-                    ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_switchfetch', $user_ui_switchfetch))
+                                ->value(1)
+                                ->label((new Label(__('Add a button in header to stop or run Javascript fetch requests (not permanent)'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_clonesearchmedia', $user_ui_clonesearchmedia))
+                                ->value(1)
+                                ->label((new Label(__('Clone the media manager search input in always visible area'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_hovercollapser', $user_ui_hovercollapser))
+                                ->value(1)
+                                ->label((new Label(__('Enabled mouse hover activation on collapser'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_pluginconfig', $user_ui_pluginconfig))
+                                ->value(1)
+                                ->label((new Label(__('Move plugin settings link to top of page'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_stickytoolbar', $user_ui_stickytoolbar))
+                                ->value(1)
+                                ->label((new Label(__('Always display editor toolbar during edition'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_userheadercolor', $user_ui_userheadercolor))
+                                ->value(1)
+                                ->label((new Label(__('Use an user-defined background color for header'), Label::INSIDE_TEXT_AFTER))),
+                            (new Table())
+                                ->class('fitcontent')
+                                ->tbody(
+                                    (new Tbody())
+                                    ->rows([
+                                        (new Tr())
+                                            ->items([
+                                                (new Td())
+                                                    ->items([
+                                                        (new Label(__('Backgound color for header:'), Label::OL_TF))
+                                                            ->for('user_ui_headercolor'),
+                                                    ]),
+                                                (new Td())
+                                                    ->items([
+                                                        (new Color('user_ui_headercolor', $user_ui_headercolor)),
+                                                    ]),
+                                            ]),
+                                        (new Tr())
+                                            ->items([
+                                                (new Td())
+                                                    ->items([
+                                                        (new Label(__('Backgound color for header (dark mode):'), Label::OL_TF))
+                                                            ->for('user_ui_headercolor_dark'),
+                                                    ]),
+                                                (new Td())
+                                                    ->items([
+                                                        (new Color('user_ui_headercolor_dark', $user_ui_headercolor_dark)),
+                                                    ]),
+                                            ]),
+                                    ])
+                                ),
+                        ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_swapaltdescmedia', $user_ui_swapaltdescmedia))
+                                ->value(1)
+                                ->label((new Label(__('Add an exchange button between alternative text and media description'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_minifythemeresources', $user_ui_minifythemeresources))
+                                ->value(1)
+                                ->label((new Label(__('Minify theme resources modified by the theme editor'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Para())
+                        ->items([
+                            (new Submit(['opts'], __('Save')))
+                                ->accesskey('s'),
+                            ... My::hiddenFields(),
+                        ]),
                 ]),
             ])
             ->render();
@@ -452,36 +499,41 @@ class Manage extends Process
                     ->action(App::backend()->getPageURL())
                     ->method('post')
                     ->fields([
-                        (new Para())->items([
-                            (new Textarea('css_content'))
-                                ->cols(72)
-                                ->rows(25)
-                                ->value(Html::escapeHTML(self::$css_content))
-                                ->class('maximal')
-                                ->disabled(!self::$css_writable),
-                        ]),
-                        (new Para())->items([
-                            (self::$css_writable ?
-                            (new Submit(['css'], __('Save')))
-                                ->accesskey('s') :
-                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$css_file)))),
-                            ... My::hiddenFields(),
-                        ]),
-                        (new Para())->items([
-                            (new Text(null, __('Note: this supplemental CSS rules will surcharge the default CSS rules.'))),
-                        ])
+                        (new Para())
+                            ->items([
+                                (new Textarea('css_content'))
+                                    ->cols(72)
+                                    ->rows(25)
+                                    ->value(Html::escapeHTML(self::$css_content))
+                                    ->class('maximal')
+                                    ->disabled(!self::$css_writable),
+                            ]),
+                        (new Para())
+                            ->items([
+                                (self::$css_writable ?
+                                (new Submit(['css'], __('Save')))
+                                    ->accesskey('s') :
+                                (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$css_file)))),
+                                ... My::hiddenFields(),
+                            ]),
+                        (new Para())
+                            ->items([
+                                (new Text(null, __('Note: this supplemental CSS rules will surcharge the default CSS rules.'))),
+                            ])
                             ->class('info'),
-                        (new Para())->items([
-                            (new Text(null, __('Sample CSS:'))),
-                        ]),
-                        (new Para())->items([
-                            (new Textarea('css_demo_content'))
-                                ->cols(72)
-                                ->rows(25)
-                                ->value(Html::escapeHTML(self::$css_demo_content))
-                                ->class('maximal')
-                                ->readonly(true),
-                        ]),
+                        (new Para())
+                            ->items([
+                                (new Text(null, __('Sample CSS:'))),
+                            ]),
+                        (new Para())
+                            ->items([
+                                (new Textarea('css_demo_content'))
+                                    ->cols(72)
+                                    ->rows(25)
+                                    ->value(Html::escapeHTML(self::$css_demo_content))
+                                    ->class('maximal')
+                                    ->readonly(true),
+                            ]),
                     ]),
             ])
             ->render();
@@ -497,36 +549,41 @@ class Manage extends Process
                     ->action(App::backend()->getPageURL())
                     ->method('post')
                     ->fields([
-                        (new Para())->items([
-                            (new Textarea('js_content'))
-                                ->cols(72)
-                                ->rows(25)
-                                ->value(Html::escapeHTML(self::$js_content))
-                                ->class('maximal')
-                                ->disabled(!self::$js_writable),
-                        ]),
-                        (new Para())->items([
-                            (self::$js_writable ?
-                            (new Submit(['js'], __('Save')))
-                                ->accesskey('s') :
-                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$js_file)))),
-                            ... My::hiddenFields(),
-                        ]),
-                        (new Para())->items([
-                            (new Text(null, __('Note: this supplemental JS script will surcharge the default JS scripts.'))),
-                        ])
+                        (new Para())
+                            ->items([
+                                (new Textarea('js_content'))
+                                    ->cols(72)
+                                    ->rows(25)
+                                    ->value(Html::escapeHTML(self::$js_content))
+                                    ->class('maximal')
+                                    ->disabled(!self::$js_writable),
+                            ]),
+                        (new Para())
+                            ->items([
+                                (self::$js_writable ?
+                                (new Submit(['js'], __('Save')))
+                                    ->accesskey('s') :
+                                (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$js_file)))),
+                                ... My::hiddenFields(),
+                            ]),
+                        (new Para())
+                            ->items([
+                                (new Text(null, __('Note: this supplemental JS script will surcharge the default JS scripts.'))),
+                            ])
                             ->class('info'),
-                        (new Para())->items([
-                            (new Text(null, __('Sample JS:'))),
-                        ]),
-                        (new Para())->items([
-                            (new Textarea('js_demo_content'))
-                                ->cols(72)
-                                ->rows(25)
-                                ->value(Html::escapeHTML(self::$js_demo_content))
-                                ->class('maximal')
-                                ->readonly(true),
-                        ]),
+                        (new Para())
+                            ->items([
+                                (new Text(null, __('Sample JS:'))),
+                            ]),
+                        (new Para())
+                            ->items([
+                                (new Textarea('js_demo_content'))
+                                    ->cols(72)
+                                    ->rows(25)
+                                    ->value(Html::escapeHTML(self::$js_demo_content))
+                                    ->class('maximal')
+                                    ->readonly(true),
+                            ]),
                     ]),
             ])
             ->render();
@@ -543,36 +600,41 @@ class Manage extends Process
                     ->action(App::backend()->getPageURL())
                     ->method('post')
                     ->fields([
-                        (new Para())->items([
-                            (new Textarea('po_content'))
-                                ->cols(72)
-                                ->rows(25)
-                                ->value(Html::escapeHTML(self::$po_content))
-                                ->class('maximal')
-                                ->disabled(!self::$po_writable),
-                        ]),
-                        (new Para())->items([
-                            (self::$po_writable ?
-                            (new Submit(['po'], __('Save')))
-                                ->accesskey('s') :
-                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$po_file)))),
-                            ... My::hiddenFields(),
-                        ]),
-                        (new Para())->items([
-                            (new Text(null, __('Note: this supplemental PO l10n will surcharge the default l10n.'))),
-                        ])
+                        (new Para())
+                            ->items([
+                                (new Textarea('po_content'))
+                                    ->cols(72)
+                                    ->rows(25)
+                                    ->value(Html::escapeHTML(self::$po_content))
+                                    ->class('maximal')
+                                    ->disabled(!self::$po_writable),
+                            ]),
+                        (new Para())
+                            ->items([
+                                (self::$po_writable ?
+                                (new Submit(['po'], __('Save')))
+                                    ->accesskey('s') :
+                                (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$po_file)))),
+                                ... My::hiddenFields(),
+                            ]),
+                        (new Para())
+                            ->items([
+                                (new Text(null, __('Note: this supplemental PO l10n will surcharge the default l10n.'))),
+                            ])
                             ->class('info'),
-                        (new Para())->items([
-                            (new Text(null, __('Sample PO:'))),
-                        ]),
-                        (new Para())->items([
-                            (new Textarea('po_demo_content'))
-                                ->cols(72)
-                                ->rows(25)
-                                ->value(Html::escapeHTML(self::$po_demo_content))
-                                ->class('maximal')
-                                ->readonly(true),
-                        ]),
+                        (new Para())
+                            ->items([
+                                (new Text(null, __('Sample PO:'))),
+                            ]),
+                        (new Para())
+                            ->items([
+                                (new Textarea('po_demo_content'))
+                                    ->cols(72)
+                                    ->rows(25)
+                                    ->value(Html::escapeHTML(self::$po_demo_content))
+                                    ->class('maximal')
+                                    ->readonly(true),
+                            ]),
                     ]),
             ])
             ->render();
@@ -589,36 +651,41 @@ class Manage extends Process
                     ->action(App::backend()->getPageURL())
                     ->method('post')
                     ->fields([
-                        (new Para())->items([
-                            (new Textarea('html_content'))
-                                ->cols(72)
-                                ->rows(25)
-                                ->value(Html::escapeHTML(self::$html_content))
-                                ->class('maximal')
-                                ->disabled(!self::$html_writable),
-                        ]),
-                        (new Para())->items([
-                            (self::$html_writable ?
-                            (new Submit(['html'], __('Save')))
-                                ->accesskey('s') :
-                            (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$html_file)))),
-                            ... My::hiddenFields(),
-                        ]),
-                        (new Para())->items([
-                            (new Text(null, __('Note: this supplemental HTML head directives will added to the default HTML head.'))),
-                        ])
+                        (new Para())
+                            ->items([
+                                (new Textarea('html_content'))
+                                    ->cols(72)
+                                    ->rows(25)
+                                    ->value(Html::escapeHTML(self::$html_content))
+                                    ->class('maximal')
+                                    ->disabled(!self::$html_writable),
+                            ]),
+                        (new Para())
+                            ->items([
+                                (self::$html_writable ?
+                                (new Submit(['html'], __('Save')))
+                                    ->accesskey('s') :
+                                (new Text(null, sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$html_file)))),
+                                ... My::hiddenFields(),
+                            ]),
+                        (new Para())
+                            ->items([
+                                (new Text(null, __('Note: this supplemental HTML head directives will added to the default HTML head.'))),
+                            ])
                             ->class('info'),
-                        (new Para())->items([
-                            (new Text(null, __('Sample HTML head:'))),
-                        ]),
-                        (new Para())->items([
-                            (new Textarea('html_demo_content'))
-                                ->cols(72)
-                                ->rows(25)
-                                ->value(Html::escapeHTML(self::$html_demo_content))
-                                ->class('maximal')
-                                ->readonly(true),
-                        ]),
+                        (new Para())
+                            ->items([
+                                (new Text(null, __('Sample HTML head:'))),
+                            ]),
+                        (new Para())
+                            ->items([
+                                (new Textarea('html_demo_content'))
+                                    ->cols(72)
+                                    ->rows(25)
+                                    ->value(Html::escapeHTML(self::$html_demo_content))
+                                    ->class('maximal')
+                                    ->readonly(true),
+                            ]),
                     ]),
             ])
             ->render();
