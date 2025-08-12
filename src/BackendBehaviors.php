@@ -164,7 +164,10 @@ class BackendBehaviors
 
     public static function themeEditorWriteFile(string $file, string $type): string
     {
-        if (App::auth()->prefs()->interface->minifythemeresources && ($type === 'js' || $type === 'css')) {
+        // List of supported extension for minification
+        $types = ['js', 'css'];
+
+        if (App::auth()->prefs()->interface->minifythemeresources && in_array($type, $types)) {
             try {
                 $minified_file = self::getMinifiedFile($file);
 
