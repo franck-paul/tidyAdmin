@@ -36,6 +36,7 @@ L10n::$locales['Backgound color for header:'] = 'Couleur de fond de l\'en-tête 
 L10n::$locales['Backgound color for header (dark mode):'] = 'Couleur de fond de l\'en-tête (mode sombre) :';
 L10n::$locales['Add an exchange button between alternative text and media description'] = 'Ajouter un bouton d\'échange entre le texte alternatif et la description du média';
 L10n::$locales['Minify theme resources modified by the theme editor'] = 'Minifier les ressources du thème modifiées par l\'éditeur de thème';
+L10n::$locales['Set theme editor in development mode'] = 'Mettre l\'éditeur de thème en mode développement';
 L10n::$locales['Save'] = 'Enregistrer';
 L10n::$locales['Supplemental CSS'] = 'CSS supplémentaire';
 L10n::$locales['Note: this supplemental CSS rules will surcharge the default CSS rules.'] = 'Note : ces règles CSS supplémentaires viendront surcharger les règles CSS par défaut.';
