@@ -220,4 +220,14 @@ class BackendBehaviors
 
         return '';
     }
+
+    public static function themeEditorDevMode(): string
+    {
+        if (App::auth()->prefs()->interface->themeeditordevmode) {
+            // Will put theme editor in development mode
+            return 'DEV';
+        }
+
+        return '';
+    }
 }

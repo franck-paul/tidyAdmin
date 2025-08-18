@@ -36,6 +36,7 @@ L10n::$locales['Backgound color for header:'] = '';
 L10n::$locales['Backgound color for header (dark mode):'] = '';
 L10n::$locales['Add an exchange button between alternative text and media description'] = '';
 L10n::$locales['Minify theme resources modified by the theme editor'] = '';
+L10n::$locales['Set theme editor in development mode'] = '';
 L10n::$locales['Save'] = '';
 L10n::$locales['Supplemental CSS'] = '';
 L10n::$locales['Note: this supplemental CSS rules will surcharge the default CSS rules.'] = '';

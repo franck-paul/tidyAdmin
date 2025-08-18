@@ -183,6 +183,7 @@ class Manage extends Process
             $interface_pref->put('headercolor_dark', ThemeConfig::adjustColor($_POST['user_ui_headercolor_dark']), 'string');
             $interface_pref->put('swapaltdescmedia', !empty($_POST['user_ui_swapaltdescmedia']), 'boolean');
             $interface_pref->put('minifythemeresources', !empty($_POST['user_ui_minifythemeresources']), 'boolean');
+            $interface_pref->put('themeeditordevmode', !empty($_POST['user_ui_themeeditordevmode']), 'boolean');
 
             Notices::addSuccessNotice(__('Options updated'));
             My::redirect([
@@ -344,6 +345,7 @@ class Manage extends Process
         $user_ui_headercolor_dark     = $interface_pref->headercolor_dark;
         $user_ui_swapaltdescmedia     = $interface_pref->swapaltdescmedia;
         $user_ui_minifythemeresources = $interface_pref->minifythemeresources;
+        $user_ui_themeeditordevmode   = $interface_pref->themeeditordevmode;
 
         $head = Page::jsModal() .
         Page::jsConfirmClose('css-form') .
@@ -477,6 +479,12 @@ class Manage extends Process
                             (new Checkbox('user_ui_minifythemeresources', $user_ui_minifythemeresources))
                                 ->value(1)
                                 ->label((new Label(__('Minify theme resources modified by the theme editor'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_themeeditordevmode', $user_ui_themeeditordevmode))
+                                ->value(1)
+                                ->label((new Label(__('Set theme editor in development mode'), Label::INSIDE_TEXT_AFTER))),
                         ]),
                     (new Para())
                         ->items([

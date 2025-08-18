@@ -49,6 +49,7 @@ class Backend extends Process
             'adminPageHTMLHead'     => BackendBehaviors::adminPageHTMLHead(...),
             'themeEditorWriteFile'  => BackendBehaviors::themeEditorWriteFile(...),
             'themeEditorDeleteFile' => BackendBehaviors::themeEditorDeleteFile(...),
+            'themeEditorDevMode'    => BackendBehaviors::themeEditorDevMode(...),
         ]);
 
         return true;
