@@ -3,13 +3,16 @@
 
 dotclear.ready(() => {
   // Find <hr …><p class="right modules">…</p>
-  const plugin_config = document.querySelector('hr + p.right.modules');
+  let plugin_config = document.querySelector('hr + p.right.modules');
+  if (!plugin_config) plugin_config = document.querySelector('p.right.modules.vertical-separator'); // DC 2.36+
   if (plugin_config) {
     const plugin_title = document.querySelector('#content h2');
     if (plugin_title) {
       const next_sibling = plugin_title.nextElementSibling;
       // Move config link after h2
       plugin_title.insertAdjacentElement('afterend', plugin_config);
+      // Remove vertical-separator class
+      plugin_config.classList.remove('vertical-separator');
       // Position
       plugin_config.style.position = 'absolute';
       plugin_config.style.right = '1em';
