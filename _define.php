@@ -15,9 +15,9 @@ $this->registerModule(
     'Tidy Administration',
     'Customize your dotclear administration',
     'Franck Paul',
-    '8.20',
+    '9.0',
     [
-        'date'     => '2025-09-05T21:44:06+0200',
+        'date'     => '2025-09-07T15:43:45+0200',
         'requires' => [['core', '2.36']],
         'type'     => 'plugin',
         'settings' => [],
