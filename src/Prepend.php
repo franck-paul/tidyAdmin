@@ -17,12 +17,14 @@ namespace Dotclear\Plugin\tidyAdmin;
 
 use Autoloader;
 use Dotclear\App;
-use Dotclear\Core\Process;
+use Dotclear\Helper\Process\TraitProcess;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\L10n;
 
-class Prepend extends Process
+class Prepend
 {
+    use TraitProcess;
+
     public static function init(): bool
     {
         return self::status(My::checkContext(My::PREPEND));
