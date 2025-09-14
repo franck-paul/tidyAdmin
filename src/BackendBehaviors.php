@@ -57,6 +57,7 @@ class BackendBehaviors
         // Move plugin settings link to top
         if (App::auth()->prefs()->interface->pluginconfig) {
             echo
+                My::cssLoad('plugin_config.css') .
                 My::jsLoad('plugin_config.js');
         }
 

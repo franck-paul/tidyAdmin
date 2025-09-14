@@ -1,0 +1,8 @@
+a.button.mini-config {
+  display: flex;
+  padding: 0.25em;
+  img {
+    width: 1em;
+    height: 1em;
+  }
+}

@@ -37,9 +37,33 @@ dotclear.ready(() => {
       for (const plugin_config_element of plugin_config.childNodes) {
         if (plugin_config_element.tagName !== 'A') plugin_config_element.remove();
       }
+      // Replace some labels by icons
+      for (const plugin_config_element of plugin_config.children) {
+        if (
+          plugin_config_element.href.includes('&conf=1') || // config page
+          plugin_config_element.href.includes('process=UserPreferences') || // user pref page
+          plugin_config_element.href.includes('process=BlogPref') // blog parameters
+        ) {
+          plugin_config_element.setAttribute('title', plugin_config_element.innerText);
+          plugin_config_element.innerText = '';
+          let icons = '';
+          if (plugin_config_element.href.includes('process=UserPreferences')) {
+            icons = '<img src="images/menu/user-pref.svg" alt="">';
+          } else if (plugin_config_element.href.includes('process=BlogPref')) {
+            icons =
+              '<img src="images/menu/blog-pref.svg" alt="" class="light-only"><img src="images/menu/blog-pref-dark.svg" alt="" class="dark-only">';
+          }
+          if (icons === '')
+            icons =
+              '<img src="images/menu/settings.svg" alt="" class="light-only"><img src="images/menu/settings-dark.svg" alt="" class="dark-only">';
+          plugin_config_element.append(...dotclear.htmlToNodes(icons));
+          plugin_config_element.classList.add('mini-config');
+          plugin_config_element.classList.remove('clone');
+        }
+      }
       // Remove last hr (was just before plugin settings link)
       const hr = document.querySelectorAll('#content > hr');
-      if (hr) {
+      if (hr.length) {
         hr[hr.length - 1].remove();
       }
     }
