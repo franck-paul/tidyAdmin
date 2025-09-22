@@ -17,7 +17,6 @@ namespace Dotclear\Plugin\tidyAdmin;
 
 use Dotclear\App;
 use Dotclear\Core\Backend\Favorites;
-use Dotclear\Core\Backend\Page;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Exception;
@@ -92,7 +91,7 @@ class BackendBehaviors
             );
 
             echo
-                Page::jsJson('tidyadmin', [
+                App::backend()->page()->jsJson('tidyadmin', [
                     'header_color' => $header_color,
                 ]) .
                 My::cssLoad('header_color.css') .
@@ -113,12 +112,12 @@ class BackendBehaviors
 
         // User defined CSS rules
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.css')) {
-            echo Page::cssLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.css')));
+            echo App::backend()->page()->cssLoad(urldecode((string) App::backend()->page()->getVF('plugins/' . My::id() . '/admin.css')));
         }
 
         // User defined Javascript
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.js')) {
-            echo Page::jsLoad(urldecode(Page::getVF('plugins/' . My::id() . '/admin.js')));
+            echo App::backend()->page()->jsLoad(urldecode((string) App::backend()->page()->getVF('plugins/' . My::id() . '/admin.js')));
         }
 
         return '';

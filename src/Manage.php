@@ -16,9 +16,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\tidyAdmin;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Notices;
-use Dotclear\Core\Backend\Page;
-use Dotclear\Core\Backend\ThemeConfig;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Checkbox;
@@ -181,13 +178,13 @@ class Manage
             $interface_pref->put('switchfetch', !empty($_POST['user_ui_switchfetch']), 'boolean');
             $interface_pref->put('stickytoolbar', !empty($_POST['user_ui_stickytoolbar']), 'boolean');
             $interface_pref->put('userheadercolor', !empty($_POST['user_ui_userheadercolor']), 'boolean');
-            $interface_pref->put('headercolor', ThemeConfig::adjustColor($_POST['user_ui_headercolor']), 'string');
-            $interface_pref->put('headercolor_dark', ThemeConfig::adjustColor($_POST['user_ui_headercolor_dark']), 'string');
+            $interface_pref->put('headercolor', App::backend()->themeConfig()->adjustColor($_POST['user_ui_headercolor']), 'string');
+            $interface_pref->put('headercolor_dark', App::backend()->themeConfig()->adjustColor($_POST['user_ui_headercolor_dark']), 'string');
             $interface_pref->put('swapaltdescmedia', !empty($_POST['user_ui_swapaltdescmedia']), 'boolean');
             $interface_pref->put('minifythemeresources', !empty($_POST['user_ui_minifythemeresources']), 'boolean');
             $interface_pref->put('themeeditordevmode', !empty($_POST['user_ui_themeeditordevmode']), 'boolean');
 
-            Notices::addSuccessNotice(__('Options updated'));
+            App::backend()->notices()->addSuccessNotice(__('Options updated'));
             My::redirect([
                 'part' => 'options',
             ]);
@@ -212,7 +209,7 @@ class Manage
                     fclose($fp);
                 }
 
-                Notices::addSuccessNotice(__('JS supplemental script updated'));
+                App::backend()->notices()->addSuccessNotice(__('JS supplemental script updated'));
                 My::redirect([
                     'part' => 'js-editor',
                 ]);
@@ -240,7 +237,7 @@ class Manage
                     fclose($fp);
                 }
 
-                Notices::addSuccessNotice(__('CSS supplemental rules updated'));
+                App::backend()->notices()->addSuccessNotice(__('CSS supplemental rules updated'));
                 My::redirect([
                     'part' => 'css-editor',
                 ]);
@@ -268,7 +265,7 @@ class Manage
                     fclose($fp);
                 }
 
-                Notices::addSuccessNotice(__('PO supplemental l10n updated'));
+                App::backend()->notices()->addSuccessNotice(__('PO supplemental l10n updated'));
                 My::redirect([
                     'part' => 'po-editor',
                 ]);
@@ -296,7 +293,7 @@ class Manage
                     fclose($fp);
                 }
 
-                Notices::addSuccessNotice(__('HTML head supplemental directives updated'));
+                App::backend()->notices()->addSuccessNotice(__('HTML head supplemental directives updated'));
                 My::redirect([
                     'part' => 'html-editor',
                 ]);
@@ -349,24 +346,24 @@ class Manage
         $user_ui_minifythemeresources = $interface_pref->minifythemeresources;
         $user_ui_themeeditordevmode   = $interface_pref->themeeditordevmode;
 
-        $head = Page::jsModal() .
-        Page::jsConfirmClose('css-form') .
-        Page::jsPageTabs(self::$part);
+        $head = App::backend()->page()->jsModal() .
+        App::backend()->page()->jsConfirmClose('css-form') .
+        App::backend()->page()->jsPageTabs(self::$part);
         if ($user_ui_colorsyntax) {
-            $head .= Page::jsLoadCodeMirror($user_ui_colorsyntax_theme);
+            $head .= App::backend()->page()->jsLoadCodeMirror($user_ui_colorsyntax_theme);
         }
 
         $head .= My::cssLoad('style.css');
 
-        Page::openModule(My::name(), $head);
+        App::backend()->page()->openModule(My::name(), $head);
 
-        echo Page::breadcrumb(
+        echo App::backend()->page()->breadcrumb(
             [
                 __('System')                       => '',
                 __('Tidy administration settings') => '',
             ]
         );
-        echo Notices::getNotices();
+        echo App::backend()->notices()->getNotices();
 
         // First tab (options)
         echo (new Div('options'))
@@ -702,7 +699,7 @@ class Manage
 
         if ($user_ui_colorsyntax) {
             echo
-            Page::jsRunCodeMirror(
+            App::backend()->page()->jsRunCodeMirror(
                 [
                     [
                         'name'  => 'editor_css',
@@ -732,6 +729,6 @@ class Manage
             );
         }
 
-        Page::closeModule();
+        App::backend()->page()->closeModule();
     }
 }
