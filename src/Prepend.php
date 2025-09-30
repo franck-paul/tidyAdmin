@@ -19,7 +19,6 @@ use Autoloader;
 use Dotclear\App;
 use Dotclear\Helper\Process\TraitProcess;
 use Dotclear\Helper\File\Path;
-use Dotclear\Helper\L10n;
 
 class Prepend
 {
@@ -52,7 +51,7 @@ class Prepend
         if ($file !== false && file_exists($file)) {
             $file = Path::real($l10nFilename, false);
             if ($file !== false) {
-                L10n::set($file);
+                App::lang()->set($file);
             }
         }
 
