@@ -6,3 +6,9 @@ a.button.mini-config {
     height: 1em;
   }
 }
+.new-stuff,
+.top-add {
+  &.mini-config {
+    margin-right: 2.5em;
+  }
+}
