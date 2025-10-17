@@ -26,8 +26,12 @@ dotclear.ready(() => {
       ) {
         plugin_config.style.padding = '1em';
       }
-      // If the next sibling is a .top-add/.new-stuff add a right margin to it to make room for config button
-      if (next_sibling.classList.contains('top-add') || next_sibling.classList.contains('new-stuff')) {
+      // If the next sibling is a .top-add/.new-stuff or an alert (success, warning, …) add a right margin to it to make room for config button
+      if (
+        next_sibling.classList.contains('top-add') ||
+        next_sibling.classList.contains('new-stuff') ||
+        next_sibling.getAttribute('role') === 'alert'
+      ) {
         next_sibling.classList.add('mini-config');
       }
       // Make settings links looks like a button

@@ -1,1 +1,1 @@
-a.button.mini-config{padding:.25em;display:flex;& img{width:1em;height:1em}}.new-stuff,.top-add{&.mini-config{margin-right:2.5em}}
+a.button.mini-config{padding:.25em;display:flex;& img{width:1em;height:1em}}.new-stuff,.top-add,[role=alert]{&.mini-config{margin-right:2.5em}}
