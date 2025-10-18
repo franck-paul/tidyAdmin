@@ -149,8 +149,15 @@ class BackendBehaviors
             /**
              * @var array<string, array{string, string, string|list<string>|null}>
              */
-            $dashboardIcons = [];
-            $favorites      = App::backend()->favorites()->getUserFavorites();
+            $dashboardIcons = [
+                'home' => [
+                    __('Go to dashboard'),
+                    App::backend()->url()->get('admin.home'),
+                    ['style/dashboard.svg', 'style/dashboard-dark.svg'],
+                ],
+            ];
+            // Get user favorites
+            $favorites = App::backend()->favorites()->getUserFavorites();
             foreach ($favorites as $favorite_id => $favorite) {
                 $dashboardIcons[$favorite_id] = [
                     (string) $favorite->title(),
