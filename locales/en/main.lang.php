@@ -12,6 +12,7 @@ use Dotclear\Helper\L10n;
 
 L10n::$locales['Tidy Administration'] = '';
 L10n::$locales['Customize your dotclear administration'] = '';
+L10n::$locales['Go to dashboard'] = '';
 L10n::$locales['Options updated'] = '';
 L10n::$locales['Unable to write file %s. Please check the dotclear var folder permissions.'] = '';
 L10n::$locales['JS supplemental script updated'] = '';
@@ -37,6 +38,8 @@ L10n::$locales['Backgound color for header (dark mode):'] = '';
 L10n::$locales['Add an exchange button between alternative text and media description'] = '';
 L10n::$locales['Minify theme resources modified by the theme editor'] = '';
 L10n::$locales['Set theme editor in development mode'] = '';
+L10n::$locales['Display dock with favorites'] = '';
+L10n::$locales['The dock will be hidden on small screens'] = '';
 L10n::$locales['Save'] = '';
 L10n::$locales['Supplemental CSS'] = '';
 L10n::$locales['Note: this supplemental CSS rules will surcharge the default CSS rules.'] = '';

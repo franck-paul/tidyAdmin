@@ -12,6 +12,7 @@ use Dotclear\Helper\L10n;
 
 L10n::$locales['Tidy Administration'] = 'Personnalisation de l\'administration';
 L10n::$locales['Customize your dotclear administration'] = 'Changez l\'aspect de votre administration';
+L10n::$locales['Go to dashboard'] = 'Aller au tableau de bord';
 L10n::$locales['Options updated'] = 'Les options ont été mises à jour';
 L10n::$locales['Unable to write file %s. Please check the dotclear var folder permissions.'] = 'Impossible d\'écrire le fichier %s. Vérifiez les permissions du dossier var.';
 L10n::$locales['JS supplemental script updated'] = 'Le script JS supplémentaire a été mis à jour';
@@ -37,6 +38,8 @@ L10n::$locales['Backgound color for header (dark mode):'] = 'Couleur de fond de 
 L10n::$locales['Add an exchange button between alternative text and media description'] = 'Ajouter un bouton d\'échange entre le texte alternatif et la description du média';
 L10n::$locales['Minify theme resources modified by the theme editor'] = 'Minifier les ressources du thème modifiées par l\'éditeur de thème';
 L10n::$locales['Set theme editor in development mode'] = 'Mettre l\'éditeur de thème en mode développement';
+L10n::$locales['Display dock with favorites'] = 'Afficher la barre avec les favoris';
+L10n::$locales['The dock will be hidden on small screens'] = 'Le barre des favoris sera caché sur les petits écrans';
 L10n::$locales['Save'] = 'Enregistrer';
 L10n::$locales['Supplemental CSS'] = 'CSS supplémentaire';
 L10n::$locales['Note: this supplemental CSS rules will surcharge the default CSS rules.'] = 'Note : ces règles CSS supplémentaires viendront surcharger les règles CSS par défaut.';

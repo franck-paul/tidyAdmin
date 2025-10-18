@@ -27,7 +27,7 @@ use JShrink\Minifier;
 
 class BackendBehaviors
 {
-    public static function adminPageHTMLHead(bool $main): string
+    public static function adminPageHTMLHead(bool $main = false): string
     {
         // Reduce home button
         if (App::auth()->prefs()->interface->minidcicon) {
@@ -132,7 +132,7 @@ class BackendBehaviors
         return '';
     }
 
-    public static function adminPageHTMLBody(bool $main): string
+    public static function adminPageHTMLBody(bool $main = false): string
     {
         if ($main && App::auth()->prefs()->interface->dock) {
             // Display favorites in dock
