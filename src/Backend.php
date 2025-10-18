@@ -49,6 +49,7 @@ class Backend
 
         App::behavior()->addBehaviors([
             'adminPageHTMLHead'     => BackendBehaviors::adminPageHTMLHead(...),
+            'adminPageHTMLBody'     => BackendBehaviors::adminPageHTMLBody(...),
             'themeEditorWriteFile'  => BackendBehaviors::themeEditorWriteFile(...),
             'themeEditorDeleteFile' => BackendBehaviors::themeEditorDeleteFile(...),
             'themeEditorDevMode'    => BackendBehaviors::themeEditorDevMode(...),

@@ -183,6 +183,7 @@ class Manage
             $interface_pref->put('swapaltdescmedia', !empty($_POST['user_ui_swapaltdescmedia']), 'boolean');
             $interface_pref->put('minifythemeresources', !empty($_POST['user_ui_minifythemeresources']), 'boolean');
             $interface_pref->put('themeeditordevmode', !empty($_POST['user_ui_themeeditordevmode']), 'boolean');
+            $interface_pref->put('dock', !empty($_POST['user_ui_dock']), 'boolean');
 
             App::backend()->notices()->addSuccessNotice(__('Options updated'));
             My::redirect([
@@ -345,6 +346,7 @@ class Manage
         $user_ui_swapaltdescmedia     = $interface_pref->swapaltdescmedia;
         $user_ui_minifythemeresources = $interface_pref->minifythemeresources;
         $user_ui_themeeditordevmode   = $interface_pref->themeeditordevmode;
+        $user_ui_dock                 = $interface_pref->dock;
 
         $head = App::backend()->page()->jsModal() .
         App::backend()->page()->jsConfirmClose('css-form') .
@@ -485,6 +487,15 @@ class Manage
                                 ->value(1)
                                 ->label((new Label(__('Set theme editor in development mode'), Label::INSIDE_TEXT_AFTER))),
                         ]),
+                    (new Para())
+                        ->items([
+                            (new Checkbox('user_ui_dock', $user_ui_dock))
+                                ->value(1)
+                                ->label((new Label(__('Display dock with favorites'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Note())
+                        ->class(['form-note','info'])
+                        ->text(__('The dock will be hidden on small screens')),
                     (new Para())
                         ->items([
                             (new Submit(['opts'], __('Save')))

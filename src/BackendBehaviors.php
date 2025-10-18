@@ -19,12 +19,15 @@ use Dotclear\App;
 use Dotclear\Core\Backend\Favorites;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
+use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Link;
+use Dotclear\Helper\Html\Form\Text;
 use Exception;
 use JShrink\Minifier;
 
 class BackendBehaviors
 {
-    public static function adminPageHTMLHead(): string
+    public static function adminPageHTMLHead(bool $main): string
     {
         // Reduce home button
         if (App::auth()->prefs()->interface->minidcicon) {
@@ -118,6 +121,65 @@ class BackendBehaviors
         // User defined Javascript
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.js')) {
             echo App::backend()->page()->jsLoad(urldecode((string) App::backend()->page()->getVF('plugins/' . My::id() . '/admin.js')));
+        }
+
+        if ($main && App::auth()->prefs()->interface->dock) {
+            // Display favorites in dock
+            echo
+                My::cssLoad('dock.css');
+        }
+
+        return '';
+    }
+
+    public static function adminPageHTMLBody(bool $main): string
+    {
+        if ($main && App::auth()->prefs()->interface->dock) {
+            // Display favorites in dock
+
+            /*
+             * List of dock icons (user favorites)
+             *
+             * items structure:
+             * [0] = title
+             * [1] = url
+             * [2] = icons (usually array (light/dark))
+             */
+
+            /**
+             * @var array<string, array{string, string, string|list<string>|null}>
+             */
+            $dashboardIcons = [];
+            $favorites      = App::backend()->favorites()->getUserFavorites();
+            foreach ($favorites as $favorite_id => $favorite) {
+                $dashboardIcons[$favorite_id] = [
+                    (string) $favorite->title(),
+                    (string) $favorite->url(),
+                    $favorite->largeIcon(),
+                ];
+            }
+
+            echo (new Div('dock'))
+                ->items(
+                    array_map(
+                        fn (string $id, array $info) => (new Link('icon-process-' . $id . '-dock'))
+                            /*
+                             * $info item structure:
+                             * [0] = title
+                             * [1] = url
+                             * [2] = icons (usually array (light/dark))
+                             * [3] = additional informations (usually set by 3rd party plugins on adminDashboardFavsIconV2 behaviour)
+                             */
+                            ->href($info[1])
+                            ->title($info[0])
+                            ->items([
+                                (new Text(null, App::backend()->helper()->adminIcon($info[2], alt:$info[0]))),
+                            ]),
+                        array_keys($dashboardIcons),
+                        array_values($dashboardIcons)
+                    )
+                )
+            ->render();
         }
 
         return '';
