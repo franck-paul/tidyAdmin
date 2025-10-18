@@ -123,7 +123,7 @@ msgid "Display dock with favorites"
 msgstr "Afficher la barre avec les favoris"
 
 msgid "The dock will be hidden on small screens"
-msgstr "Le barre des favoris sera caché sur les petits écrans"
+msgstr "Le barre des favoris sera cachée sur les petits écrans"
 
 msgid "Save"
 msgstr "Enregistrer"
