@@ -137,32 +137,40 @@ class BackendBehaviors
         if ($main && App::auth()->prefs()->interface->dock) {
             // Display favorites in dock
 
-            /*
+            $url     = htmlspecialchars_decode((string) App::backend()->url()->get('admin.home'));
+            $pattern = '@' . preg_quote($url, '@') . '(&.*)?' . '$@';
+
+            /**
+             * @var array<string, array{string, string, string|list<string>|null, string}>
+             *
              * List of dock icons (user favorites)
              *
              * items structure:
              * [0] = title
              * [1] = url
              * [2] = icons (usually array (light/dark))
-             */
-
-            /**
-             * @var array<string, array{string, string, string|list<string>|null}>
+             * [3] = class
              */
             $dashboardIcons = [
                 'home' => [
                     __('Go to dashboard'),
                     App::backend()->url()->get('admin.home'),
                     ['style/dashboard.svg', 'style/dashboard-dark.svg'],
+                    preg_match($pattern, (string) $_SERVER['REQUEST_URI']) ? 'active' : '',
                 ],
             ];
+
             // Get user favorites
             $favorites = App::backend()->favorites()->getUserFavorites();
             foreach ($favorites as $favorite_id => $favorite) {
+                $url     = htmlspecialchars_decode((string) $favorite->url());
+                $pattern = '@' . preg_quote($url, '@') . '(&.*)?' . '$@';
+
                 $dashboardIcons[$favorite_id] = [
                     (string) $favorite->title(),
                     (string) $favorite->url(),
                     $favorite->largeIcon(),
+                    preg_match($pattern, (string) $_SERVER['REQUEST_URI']) ? 'active' : '',
                 ];
             }
 
@@ -175,10 +183,11 @@ class BackendBehaviors
                              * [0] = title
                              * [1] = url
                              * [2] = icons (usually array (light/dark))
-                             * [3] = additional informations (usually set by 3rd party plugins on adminDashboardFavsIconV2 behaviour)
+                             * [3] = class
                              */
                             ->href($info[1])
                             ->title($info[0])
+                            ->class($info[3])
                             ->items([
                                 (new Text(null, App::backend()->helper()->adminIcon($info[2], alt:$info[0]))),
                             ]),
