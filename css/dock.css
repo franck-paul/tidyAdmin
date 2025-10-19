@@ -51,7 +51,10 @@
       transition: opacity 1s;
 
       &:hover,
-      &:active {
+      &:active,
+      &:focus,
+      &:focus-visible,
+      &:focus-within {
         opacity: 1;
       }
     }
