@@ -189,7 +189,10 @@ class BackendBehaviors
                             ->title($info[0])
                             ->class($info[3])
                             ->items([
-                                (new Text(null, App::backend()->helper()->adminIcon($info[2], alt:$info[0]))),
+                                (new Div())
+                                    ->items([
+                                        (new Text(null, App::backend()->helper()->adminIcon($info[2], alt:$info[0]))),
+                                    ]),
                             ]),
                         array_keys($dashboardIcons),
                         array_values($dashboardIcons)
