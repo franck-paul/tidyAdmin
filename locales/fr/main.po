@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-18 18:22+0200\n"
+"POT-Creation-Date: 2025-10-19 11:42+0200\n"
 "PO-Revision-Date: 2023-04-11 10:30+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: French (https://app.transifex.com/open-time/teams/109573/fr/)\n"
@@ -124,6 +124,15 @@ msgstr "Afficher la barre avec les favoris"
 
 msgid "The dock will be hidden on small screens"
 msgstr "Le barre des favoris sera cachée sur les petits écrans"
+
+msgid "Report the currently active favorite in the dock"
+msgstr "Signaler le favori actuellement actif dans le dock"
+
+msgid "Automatically hide/show the dock"
+msgstr "Masquer/afficher automatiquement le dock"
+
+msgid "The dock will be hidden/shown only if hovering over it is possible"
+msgstr "Le dock ne sera caché/affiché que s'il est possible de le survoler."
 
 msgid "Save"
 msgstr "Enregistrer"
