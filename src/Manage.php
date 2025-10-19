@@ -184,6 +184,8 @@ class Manage
             $interface_pref->put('minifythemeresources', !empty($_POST['user_ui_minifythemeresources']), 'boolean');
             $interface_pref->put('themeeditordevmode', !empty($_POST['user_ui_themeeditordevmode']), 'boolean');
             $interface_pref->put('dock', !empty($_POST['user_ui_dock']), 'boolean');
+            $interface_pref->put('dockactive', !empty($_POST['user_ui_dockactive']), 'boolean');
+            $interface_pref->put('dockautohide', !empty($_POST['user_ui_dockautohide']), 'boolean');
 
             App::backend()->notices()->addSuccessNotice(__('Options updated'));
             My::redirect([
@@ -347,6 +349,8 @@ class Manage
         $user_ui_minifythemeresources = $interface_pref->minifythemeresources;
         $user_ui_themeeditordevmode   = $interface_pref->themeeditordevmode;
         $user_ui_dock                 = $interface_pref->dock;
+        $user_ui_dockactive           = $interface_pref->dockactive;
+        $user_ui_dockautohide         = $interface_pref->dockautohide;
 
         $head = App::backend()->page()->jsModal() .
         App::backend()->page()->jsConfirmClose('css-form') .
@@ -438,7 +442,7 @@ class Manage
                                 ->value(1)
                                 ->label((new Label(__('Use an user-defined background color for header'), Label::INSIDE_TEXT_AFTER))),
                             (new Table())
-                                ->class('fitcontent')
+                                ->class(['fitcontent', 'secondlevel'])
                                 ->tbody(
                                     (new Tbody())
                                     ->rows([
@@ -494,8 +498,25 @@ class Manage
                                 ->label((new Label(__('Display dock with favorites'), Label::INSIDE_TEXT_AFTER))),
                         ]),
                     (new Note())
-                        ->class(['form-note','info'])
+                        ->class(['form-note', 'info'])
                         ->text(__('The dock will be hidden on small screens')),
+                    (new Para())
+                        ->class('secondlevel')
+                        ->items([
+                            (new Checkbox('user_ui_dockactive', $user_ui_dockactive))
+                                ->value(1)
+                                ->label((new Label(__('Report the currently active favorite in the dock'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Para())
+                        ->class('secondlevel')
+                        ->items([
+                            (new Checkbox('user_ui_dockautohide', $user_ui_dockautohide))
+                                ->value(1)
+                                ->label((new Label(__('Automatically hide/show the dock'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                    (new Note())
+                        ->class(['form-note', 'info', 'secondlevel'])
+                        ->text(__('The dock will be hidden/shown only if hovering over it is possible')),
                     (new Para())
                         ->items([
                             (new Submit(['opts'], __('Save')))

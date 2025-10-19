@@ -137,6 +137,8 @@ class BackendBehaviors
         if ($main && App::auth()->prefs()->interface->dock) {
             // Display favorites in dock
 
+            $show_active = App::auth()->prefs()->interface->dockactive;
+
             $url     = htmlspecialchars_decode((string) App::backend()->url()->get('admin.home'));
             $pattern = '@' . preg_quote($url, '@') . '(&.*)?' . '$@';
 
@@ -156,7 +158,7 @@ class BackendBehaviors
                     __('Go to dashboard'),
                     App::backend()->url()->get('admin.home'),
                     ['style/dashboard.svg', 'style/dashboard-dark.svg'],
-                    preg_match($pattern, (string) $_SERVER['REQUEST_URI']) ? 'active' : '',
+                    $show_active ? (preg_match($pattern, (string) $_SERVER['REQUEST_URI']) ? 'active' : '') : '',
                 ],
             ];
 
@@ -170,11 +172,12 @@ class BackendBehaviors
                     (string) $favorite->title(),
                     (string) $favorite->url(),
                     $favorite->largeIcon(),
-                    preg_match($pattern, (string) $_SERVER['REQUEST_URI']) ? 'active' : '',
+                    $show_active ? (preg_match($pattern, (string) $_SERVER['REQUEST_URI']) ? 'active' : '') : '',
                 ];
             }
 
             echo (new Div('dock'))
+                ->class(App::auth()->prefs()->interface->dockautohide ? 'autohide' : '')
                 ->items(
                     array_map(
                         fn (string $id, array $info) => (new Link('icon-process-' . $id . '-dock'))

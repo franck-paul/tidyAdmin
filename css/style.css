@@ -9,3 +9,7 @@ textarea[name$='_content'] + .CodeMirror {
 table.fitcontent {
   width: fit-content;
 }
+
+.secondlevel {
+  margin-inline-start: 1em;
+}
