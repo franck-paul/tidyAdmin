@@ -38,6 +38,7 @@ L10n::$locales['Backgound color for header (dark mode):'] = 'Couleur de fond de 
 L10n::$locales['Add an exchange button between alternative text and media description'] = 'Ajouter un bouton d\'échange entre le texte alternatif et la description du média';
 L10n::$locales['Minify theme resources modified by the theme editor'] = 'Minifier les ressources du thème modifiées par l\'éditeur de thème';
 L10n::$locales['Set theme editor in development mode'] = 'Mettre l\'éditeur de thème en mode développement';
+L10n::$locales['In development mode, custom files will be ignored and theme files will be editable'] = 'En mode développement, les fichiers personnalisés seront ignorés et les fichiers du thème seront modifiables.';
 L10n::$locales['Display dock with favorites'] = 'Afficher la barre avec les favoris';
 L10n::$locales['The dock will be hidden on small screens'] = 'Le barre des favoris sera cachée sur les petits écrans';
 L10n::$locales['Report the currently active favorite in the dock'] = 'Signaler le favori actuellement actif dans le dock';
