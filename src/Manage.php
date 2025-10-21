@@ -491,6 +491,9 @@ class Manage
                                 ->value(1)
                                 ->label((new Label(__('Set theme editor in development mode'), Label::INSIDE_TEXT_AFTER))),
                         ]),
+                    (new Note())
+                        ->class(['form-note', 'info'])
+                        ->text(__('In development mode, custom files will be ignored and theme files will be editable')),
                     (new Para())
                         ->items([
                             (new Checkbox('user_ui_dock', $user_ui_dock))
