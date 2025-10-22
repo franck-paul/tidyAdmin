@@ -45,12 +45,22 @@
     vertical-align: middle;
   }
 
+  div#dock_hover {
+    height: var(--dock-gap);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin-left: calc(-1 * var(--dock-gap));
+  }
+
   @media (any-hover: hover) {
     &.autohide {
-      opacity: 0;
       transition: opacity 1s;
 
-      &:hover,
+      &:has(div#dock_hover:hover) {
+        opacity: 1;
+      }
+
       &:active,
       &:focus,
       &:focus-visible,

@@ -126,6 +126,7 @@ class BackendBehaviors
         if ($main && App::auth()->prefs()->interface->dock) {
             // Display favorites in dock
             echo
+                My::jsLoad('dock.js') .
                 My::cssLoad('dock.css');
         }
 
@@ -178,8 +179,8 @@ class BackendBehaviors
 
             echo (new Div('dock'))
                 ->class(App::auth()->prefs()->interface->dockautohide ? 'autohide' : '')
-                ->items(
-                    array_map(
+                ->items([
+                    ... array_map(
                         fn (string $id, array $info) => (new Link('icon-process-' . $id . '-dock'))
                             /*
                              * $info item structure:
@@ -199,8 +200,9 @@ class BackendBehaviors
                             ]),
                         array_keys($dashboardIcons),
                         array_values($dashboardIcons)
-                    )
-                )
+                    ),
+                    (new Div('dock_hover')),
+                ])
             ->render();
         }
 
