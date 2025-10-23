@@ -1,7 +1,7 @@
 #dock {
   --dock-gap: 0.5em;
   backdrop-filter: blur(10px) brightness(0.8);
-  background-color: light-dark(rgba(255 255 255 / 45%), rgb(18 20 22 / 45%));
+  background-color: light-dark(rgba(255 255 255 / 45%), rgba(18 20 22 / 45%));
   border-radius: 1em;
   bottom: var(--dock-gap);
   box-shadow:
@@ -17,6 +17,14 @@
   align-items: center;
   z-index: calc(infinity);
 
+  @media (prefers-contrast: more) {
+    backdrop-filter: blur(10px) brightness(0.2);
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    backdrop-filter: brightness(1);
+    background-color: light-dark(rgb(255 255 255), rgb(18 20 22));
+  }
+
   a {
     border-bottom: none;
     position: relative;
@@ -26,6 +34,10 @@
       background: light-dark(#ffffff, #3a3e43);
       padding: 0.25em;
       border-radius: 0.5em;
+
+      @media (prefers-contrast: more) {
+        border: 1px solid;
+      }
     }
 
     &:hover div {
