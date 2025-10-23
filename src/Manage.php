@@ -180,14 +180,22 @@ class Manage
             $interface_pref->put('switchfetch', !empty($_POST['user_ui_switchfetch']), 'boolean');
             $interface_pref->put('stickytoolbar', !empty($_POST['user_ui_stickytoolbar']), 'boolean');
             $interface_pref->put('userheadercolor', !empty($_POST['user_ui_userheadercolor']), 'boolean');
-            $interface_pref->put('headercolor', App::backend()->themeConfig()->adjustColor($_POST['user_ui_headercolor']), 'string');
-            $interface_pref->put('headercolor_dark', App::backend()->themeConfig()->adjustColor($_POST['user_ui_headercolor_dark']), 'string');
+            if (!is_null($_POST['user_ui_headercolor'])) {
+                $interface_pref->put('headercolor', App::backend()->themeConfig()->adjustColor($_POST['user_ui_headercolor']), 'string');
+            }
+            if (!is_null($_POST['user_ui_headercolor_dark'])) {
+                $interface_pref->put('headercolor_dark', App::backend()->themeConfig()->adjustColor($_POST['user_ui_headercolor_dark']), 'string');
+            }
             $interface_pref->put('swapaltdescmedia', !empty($_POST['user_ui_swapaltdescmedia']), 'boolean');
             $interface_pref->put('minifythemeresources', !empty($_POST['user_ui_minifythemeresources']), 'boolean');
             $interface_pref->put('themeeditordevmode', !empty($_POST['user_ui_themeeditordevmode']), 'boolean');
             $interface_pref->put('dock', !empty($_POST['user_ui_dock']), 'boolean');
-            $interface_pref->put('dockactive', !empty($_POST['user_ui_dockactive']), 'boolean');
-            $interface_pref->put('dockautohide', !empty($_POST['user_ui_dockautohide']), 'boolean');
+            if (!is_null($_POST['user_ui_dockactive'])) {
+                $interface_pref->put('dockactive', !empty($_POST['user_ui_dockactive']), 'boolean');
+            }
+            if (!is_null($_POST['user_ui_dockautohide'])) {
+                $interface_pref->put('dockautohide', !empty($_POST['user_ui_dockautohide']), 'boolean');
+            }
 
             App::backend()->notices()->addSuccessNotice(__('Options updated'));
             My::redirect([
