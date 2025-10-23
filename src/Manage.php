@@ -21,8 +21,10 @@ use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Color;
 use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Legend;
 use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Single;
@@ -359,7 +361,7 @@ class Manage
             $head .= App::backend()->page()->jsLoadCodeMirror($user_ui_colorsyntax_theme);
         }
 
-        $head .= My::cssLoad('style.css');
+        $head .= My::jsLoad('admin.js') . My::cssLoad('style.css');
 
         App::backend()->page()->openModule(My::name(), $head);
 
@@ -385,141 +387,161 @@ class Manage
                     (new Note())
                         ->class('warning')
                         ->text(__('These options will be set only for the current user')),
-                    (new Para())
+                    (new Fieldset())
+                        ->legend(new Legend(__('Header')))
                         ->items([
-                            (new Checkbox('user_ui_minidcicon', $user_ui_minidcicon))
-                                ->value(1)
-                                ->label((new Label(__('Use mini Dotclear icon (top left) in header'), Label::INSIDE_TEXT_AFTER))),
-                        ]),
-                    (new Para())
-                        ->items([
-                            (new Checkbox('user_ui_movesearchmenu', $user_ui_movesearchmenu))
-                                ->value(1)
-                                ->label((new Label(__('Move the search form (main menu) in header'), Label::INSIDE_TEXT_AFTER))),
-                        ]),
-                    (new Para())
-                        ->items([
-                            (new Checkbox('user_ui_switchtheme', $user_ui_switchtheme))
-                                ->value(1)
-                                ->label((new Label(__('Double click on header to switch theme (not permanent)'), Label::INSIDE_TEXT_AFTER))),
-                        ]),
-                    (new Note())
-                        ->class(['form-note','info'])
-                        ->text(__('To permanently change theme go the your user preferences')),
-                    (new Para())
-                        ->items([
-                            (new Checkbox('user_ui_switchfetch', $user_ui_switchfetch))
-                                ->value(1)
-                                ->label((new Label(__('Add a button in header to stop or run Javascript fetch requests (not permanent)'), Label::INSIDE_TEXT_AFTER))),
-                        ]),
-                    (new Para())
-                        ->items([
-                            (new Checkbox('user_ui_clonesearchmedia', $user_ui_clonesearchmedia))
-                                ->value(1)
-                                ->label((new Label(__('Clone the media manager search input in always visible area'), Label::INSIDE_TEXT_AFTER))),
-                        ]),
-                    (new Para())
-                        ->items([
-                            (new Checkbox('user_ui_hovercollapser', $user_ui_hovercollapser))
-                                ->value(1)
-                                ->label((new Label(__('Enabled mouse hover activation on collapser'), Label::INSIDE_TEXT_AFTER))),
-                        ]),
-                    (new Para())
-                        ->items([
-                            (new Checkbox('user_ui_pluginconfig', $user_ui_pluginconfig))
-                                ->value(1)
-                                ->label((new Label(__('Move plugin settings link to top of page'), Label::INSIDE_TEXT_AFTER))),
-                        ]),
-                    (new Para())
-                        ->items([
-                            (new Checkbox('user_ui_stickytoolbar', $user_ui_stickytoolbar))
-                                ->value(1)
-                                ->label((new Label(__('Always display editor toolbar during edition'), Label::INSIDE_TEXT_AFTER))),
-                        ]),
-                    (new Para())
-                        ->items([
-                            (new Checkbox('user_ui_userheadercolor', $user_ui_userheadercolor))
-                                ->value(1)
-                                ->label((new Label(__('Use an user-defined background color for header'), Label::INSIDE_TEXT_AFTER))),
-                            (new Table())
-                                ->class(['fitcontent', 'secondlevel'])
-                                ->tbody(
-                                    (new Tbody())
-                                    ->rows([
-                                        (new Tr())
-                                            ->items([
-                                                (new Td())
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_minidcicon', $user_ui_minidcicon))
+                                        ->value(1)
+                                        ->label((new Label(__('Use mini Dotclear icon (top left) in header'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_movesearchmenu', $user_ui_movesearchmenu))
+                                        ->value(1)
+                                        ->label((new Label(__('Move the search form (main menu) in header'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_switchtheme', $user_ui_switchtheme))
+                                        ->value(1)
+                                        ->label((new Label(__('Double click on header to switch theme (not permanent)'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
+                            (new Note())
+                                ->class(['form-note','info'])
+                                ->text(__('To permanently change theme go the your user preferences')),
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_switchfetch', $user_ui_switchfetch))
+                                        ->value(1)
+                                        ->label((new Label(__('Add a button in header to stop or run Javascript fetch requests (not permanent)'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_userheadercolor', $user_ui_userheadercolor))
+                                        ->value(1)
+                                        ->label((new Label(__('Use an user-defined background color for header'), Label::INSIDE_TEXT_AFTER))),
+                                    (new Table())
+                                        ->class(['fitcontent', 'secondlevel'])
+                                        ->tbody(
+                                            (new Tbody())
+                                            ->rows([
+                                                (new Tr())
                                                     ->items([
-                                                        (new Label(__('Backgound color for header:'), Label::OL_TF))
-                                                            ->for('user_ui_headercolor'),
+                                                        (new Td())
+                                                            ->items([
+                                                                (new Label(__('Backgound color for header:'), Label::OL_TF))
+                                                                    ->for('user_ui_headercolor'),
+                                                            ]),
+                                                        (new Td())
+                                                            ->items([
+                                                                (new Color('user_ui_headercolor', $user_ui_headercolor)),
+                                                            ]),
                                                     ]),
-                                                (new Td())
+                                                (new Tr())
                                                     ->items([
-                                                        (new Color('user_ui_headercolor', $user_ui_headercolor)),
+                                                        (new Td())
+                                                            ->items([
+                                                                (new Label(__('Backgound color for header (dark mode):'), Label::OL_TF))
+                                                                    ->for('user_ui_headercolor_dark'),
+                                                            ]),
+                                                        (new Td())
+                                                            ->items([
+                                                                (new Color('user_ui_headercolor_dark', $user_ui_headercolor_dark)),
+                                                            ]),
                                                     ]),
-                                            ]),
-                                        (new Tr())
-                                            ->items([
-                                                (new Td())
-                                                    ->items([
-                                                        (new Label(__('Backgound color for header (dark mode):'), Label::OL_TF))
-                                                            ->for('user_ui_headercolor_dark'),
-                                                    ]),
-                                                (new Td())
-                                                    ->items([
-                                                        (new Color('user_ui_headercolor_dark', $user_ui_headercolor_dark)),
-                                                    ]),
-                                            ]),
-                                    ])
-                                ),
+                                            ])
+                                        ),
+                                ]),
                         ]),
-                    (new Para())
+                    (new Fieldset())
+                        ->legend(new Legend(__('Menu and dock')))
                         ->items([
-                            (new Checkbox('user_ui_swapaltdescmedia', $user_ui_swapaltdescmedia))
-                                ->value(1)
-                                ->label((new Label(__('Add an exchange button between alternative text and media description'), Label::INSIDE_TEXT_AFTER))),
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_hovercollapser', $user_ui_hovercollapser))
+                                        ->value(1)
+                                        ->label((new Label(__('Enabled mouse hover activation on collapser'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_dock', $user_ui_dock))
+                                        ->value(1)
+                                        ->label((new Label(__('Display dock with favorites'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
+                            (new Note())
+                                ->class(['form-note', 'info'])
+                                ->text(__('The dock will be hidden on small screens')),
+                            (new Para())
+                                ->class('secondlevel')
+                                ->items([
+                                    (new Checkbox('user_ui_dockactive', $user_ui_dockactive))
+                                        ->value(1)
+                                        ->label((new Label(__('Report the currently active favorite in the dock'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
+                            (new Para())
+                                ->class('secondlevel')
+                                ->items([
+                                    (new Checkbox('user_ui_dockautohide', $user_ui_dockautohide))
+                                        ->value(1)
+                                        ->label((new Label(__('Automatically hide/show the dock'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
+                            (new Note())
+                                ->class(['form-note', 'info', 'secondlevel'])
+                                ->text(__('The dock will be hidden/shown only if hovering over it is possible')),
                         ]),
-                    (new Para())
+                    (new Fieldset())
+                        ->legend(new Legend(__('Media manager')))
                         ->items([
-                            (new Checkbox('user_ui_minifythemeresources', $user_ui_minifythemeresources))
-                                ->value(1)
-                                ->label((new Label(__('Minify theme resources modified by the theme editor'), Label::INSIDE_TEXT_AFTER))),
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_clonesearchmedia', $user_ui_clonesearchmedia))
+                                        ->value(1)
+                                        ->label((new Label(__('Clone the media manager search input in always visible area'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_swapaltdescmedia', $user_ui_swapaltdescmedia))
+                                        ->value(1)
+                                        ->label((new Label(__('Add an exchange button between alternative text and media description'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
                         ]),
-                    (new Para())
+                    (new Fieldset())
+                        ->legend(new Legend(__('Theme editor')))
                         ->items([
-                            (new Checkbox('user_ui_themeeditordevmode', $user_ui_themeeditordevmode))
-                                ->value(1)
-                                ->label((new Label(__('Set theme editor in development mode'), Label::INSIDE_TEXT_AFTER))),
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_minifythemeresources', $user_ui_minifythemeresources))
+                                        ->value(1)
+                                        ->label((new Label(__('Minify theme resources modified by the theme editor'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_themeeditordevmode', $user_ui_themeeditordevmode))
+                                        ->value(1)
+                                        ->label((new Label(__('Set theme editor in development mode'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
+                            (new Note())
+                                ->class(['form-note', 'info'])
+                                ->text(__('In development mode, custom files will be ignored and theme files will be editable')),
                         ]),
-                    (new Note())
-                        ->class(['form-note', 'info'])
-                        ->text(__('In development mode, custom files will be ignored and theme files will be editable')),
-                    (new Para())
+                    (new Fieldset())
+                        ->legend(new Legend(__('Tools')))
                         ->items([
-                            (new Checkbox('user_ui_dock', $user_ui_dock))
-                                ->value(1)
-                                ->label((new Label(__('Display dock with favorites'), Label::INSIDE_TEXT_AFTER))),
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_pluginconfig', $user_ui_pluginconfig))
+                                        ->value(1)
+                                        ->label((new Label(__('Move plugin settings link to top of page'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
+                            (new Para())
+                                ->items([
+                                    (new Checkbox('user_ui_stickytoolbar', $user_ui_stickytoolbar))
+                                        ->value(1)
+                                        ->label((new Label(__('Always display editor toolbar during edition'), Label::INSIDE_TEXT_AFTER))),
+                                ]),
                         ]),
-                    (new Note())
-                        ->class(['form-note', 'info'])
-                        ->text(__('The dock will be hidden on small screens')),
-                    (new Para())
-                        ->class('secondlevel')
-                        ->items([
-                            (new Checkbox('user_ui_dockactive', $user_ui_dockactive))
-                                ->value(1)
-                                ->label((new Label(__('Report the currently active favorite in the dock'), Label::INSIDE_TEXT_AFTER))),
-                        ]),
-                    (new Para())
-                        ->class('secondlevel')
-                        ->items([
-                            (new Checkbox('user_ui_dockautohide', $user_ui_dockautohide))
-                                ->value(1)
-                                ->label((new Label(__('Automatically hide/show the dock'), Label::INSIDE_TEXT_AFTER))),
-                        ]),
-                    (new Note())
-                        ->class(['form-note', 'info', 'secondlevel'])
-                        ->text(__('The dock will be hidden/shown only if hovering over it is possible')),
                     (new Para())
                         ->items([
                             (new Submit(['opts'], __('Save')))
