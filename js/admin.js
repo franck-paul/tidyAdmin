@@ -7,8 +7,8 @@ dotclear.ready(() => {
     const applyheadercolor = (checked) => {
       const lightcolor = document.querySelector('#user_ui_headercolor');
       const darkcolor = document.querySelector('#user_ui_headercolor_dark');
-      lightcolor.disabled = !checked;
-      darkcolor.disabled = !checked;
+      lightcolor.readOnly = !checked;
+      darkcolor.readOnly = !checked;
     };
     headercolor.addEventListener('change', (event) => {
       // State has changed
@@ -16,21 +16,5 @@ dotclear.ready(() => {
     });
     // 1st pass
     applyheadercolor(headercolor.checked);
-  }
-
-  const dock = document.querySelector('#user_ui_dock');
-  if (dock) {
-    const applydock = (checked) => {
-      const dockitemactive = document.querySelector('#user_ui_dockactive');
-      const dockautohide = document.querySelector('#user_ui_dockautohide');
-      dockitemactive.disabled = !checked;
-      dockautohide.disabled = !checked;
-    };
-    dock.addEventListener('change', (event) => {
-      // State has changed
-      applydock(event.target.checked);
-    });
-    // 1st pass
-    applydock(dock.checked);
   }
 });
