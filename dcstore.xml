@@ -1,11 +1,11 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="tidyAdmin">
     <name>Tidy Administration</name>
-    <version>9.21</version>
+    <version>9.22</version>
     <author>Franck Paul</author>
     <desc>Customize your dotclear administration</desc>
-    <date>2025-10-23T10:43:31+0200</date>
-    <file>https://github.com/franck-paul/tidyAdmin/releases/download/9.21/plugin-tidyAdmin-9.21.zip</file>
+    <date>2025-10-23T11:14:40+0200</date>
+    <file>https://github.com/franck-paul/tidyAdmin/releases/download/9.22/plugin-tidyAdmin-9.22.zip</file>
     <da:dcmin>2.36</da:dcmin>
     <da:details>https://open-time.net/?q=tidyadmin</da:details>
     <da:support>https://github.com/franck-paul/tidyadmin</da:support>
