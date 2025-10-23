@@ -138,7 +138,7 @@ msgid "Minify theme resources modified by the theme editor"
 msgstr "Minifier les ressources du thème modifiées par l'éditeur de thème"
 
 msgid "Set theme editor in development mode"
-msgstr "Mettre l'éditeur de thème en mode développement"
+msgstr "Basculer l'éditeur de thème en mode développement"
 
 msgid ""
 "In development mode, custom files will be ignored and theme files will be "
