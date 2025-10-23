@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-21 13:43+0200\n"
+"POT-Creation-Date: 2025-10-23 08:26+0200\n"
 "PO-Revision-Date: 2023-04-11 10:30+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2025\n"
 "Language-Team: French (https://app.transifex.com/open-time/teams/109573/fr/)\n"
@@ -62,6 +62,9 @@ msgstr "Options"
 msgid "These options will be set only for the current user"
 msgstr "Ces options ne seront définies que pour l'utilisateur actuel."
 
+msgid "Header"
+msgstr "Entête"
+
 msgid "Use mini Dotclear icon (top left) in header"
 msgstr "Utiliser une mini-icône Dotclear (haut gauche) dans l'entête"
 
@@ -83,22 +86,6 @@ msgstr ""
 "Ajouter un bouton dans l'en-tête pour stopper ou autoriser les requêtes "
 "Javascript fetch (non permanent)"
 
-msgid "Clone the media manager search input in always visible area"
-msgstr ""
-"Cloner le champ de recherche de la médiathèque dans une partie toujours "
-"visible"
-
-msgid "Enabled mouse hover activation on collapser"
-msgstr ""
-"Activer la détection du survol de la souris sur la barre de réduction du "
-"menu"
-
-msgid "Move plugin settings link to top of page"
-msgstr "Remonter le lien vers les réglages de plugin en haut de la page"
-
-msgid "Always display editor toolbar during edition"
-msgstr "Toujours afficher la barre d'outils de l'éditeur pendant l'édition"
-
 msgid "Use an user-defined background color for header"
 msgstr "Utiliser une couleur de fond particulière pour l'en-tête"
 
@@ -108,23 +95,13 @@ msgstr "Couleur de fond de l'en-tête :"
 msgid "Backgound color for header (dark mode):"
 msgstr "Couleur de fond de l'en-tête (mode sombre) :"
 
-msgid "Add an exchange button between alternative text and media description"
+msgid "Menu and dock"
+msgstr "Menu et dock"
+
+msgid "Enabled mouse hover activation on collapser"
 msgstr ""
-"Ajouter un bouton d'échange entre le texte alternatif et la description du "
-"média"
-
-msgid "Minify theme resources modified by the theme editor"
-msgstr "Minifier les ressources du thème modifiées par l'éditeur de thème"
-
-msgid "Set theme editor in development mode"
-msgstr "Mettre l'éditeur de thème en mode développement"
-
-msgid ""
-"In development mode, custom files will be ignored and theme files will be "
-"editable"
-msgstr ""
-"En mode développement, les fichiers personnalisés seront ignorés et les "
-"fichiers du thème seront modifiables."
+"Activer la détection du survol de la souris sur la barre de réduction du "
+"menu"
 
 msgid "Display dock with favorites"
 msgstr "Afficher la barre avec les favoris"
@@ -140,6 +117,44 @@ msgstr "Masquer/afficher automatiquement le dock"
 
 msgid "The dock will be hidden/shown only if hovering over it is possible"
 msgstr "Le dock ne sera caché/affiché que s'il est possible de le survoler."
+
+msgid "Media manager"
+msgstr "Médiathèque"
+
+msgid "Clone the media manager search input in always visible area"
+msgstr ""
+"Cloner le champ de recherche de la médiathèque dans une partie toujours "
+"visible"
+
+msgid "Add an exchange button between alternative text and media description"
+msgstr ""
+"Ajouter un bouton d'échange entre le texte alternatif et la description du "
+"média"
+
+msgid "Theme editor"
+msgstr "Éditeur de thème"
+
+msgid "Minify theme resources modified by the theme editor"
+msgstr "Minifier les ressources du thème modifiées par l'éditeur de thème"
+
+msgid "Set theme editor in development mode"
+msgstr "Mettre l'éditeur de thème en mode développement"
+
+msgid ""
+"In development mode, custom files will be ignored and theme files will be "
+"editable"
+msgstr ""
+"En mode développement, les fichiers personnalisés seront ignorés et les "
+"fichiers du thème seront modifiables."
+
+msgid "Tools"
+msgstr "Outils"
+
+msgid "Move plugin settings link to top of page"
+msgstr "Remonter le lien vers les réglages de plugin en haut de la page"
+
+msgid "Always display editor toolbar during edition"
+msgstr "Toujours afficher la barre d'outils de l'éditeur pendant l'édition"
 
 msgid "Save"
 msgstr "Enregistrer"
