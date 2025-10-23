@@ -1,1 +1,1 @@
-textarea[name$=_demo_content]{font:1em var(--monospace)}textarea[name$=_content]+.CodeMirror{height:30em}table.fitcontent{width:fit-content}.secondlevel{margin-inline-start:1em}
+textarea[name$=_demo_content]{font:1em var(--monospace)}textarea[name$=_content]+.CodeMirror{height:30em}table.fitcontent{width:fit-content}.secondlevel{margin-inline-start:1em}.multicolumns{grid-template-columns:repeat(auto-fit,minmax(min(42em,100% - 2em),1fr));gap:1em;margin:1em .5em 1em 0;display:grid;&>p{grid-column:1/-1;width:fit-content}&>*{margin:0}}

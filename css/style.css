@@ -13,3 +13,21 @@ table.fitcontent {
 .secondlevel {
   margin-inline-start: 1em;
 }
+
+.multicolumns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(42em, calc(100% - 2em)), 1fr));
+  gap: 1em;
+  margin: 1em 0.5em 1em 0;
+
+  & > p {
+    /* 1st level messages, form buttons group, ... */
+    grid-column: 1 / -1;
+    width: fit-content;
+  }
+
+  & > * {
+    /* Margins are managed by grid gap */
+    margin: 0;
+  }
+}
