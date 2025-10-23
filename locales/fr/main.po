@@ -107,7 +107,7 @@ msgid "Display dock with favorites"
 msgstr "Afficher le dock (barre avec les favoris)"
 
 msgid "The dock will be hidden on small screens"
-msgstr "Le barre des favoris sera cachée sur les petits écrans"
+msgstr "Le dock sera caché sur les petits écrans"
 
 msgid "Report the currently active favorite in the dock"
 msgstr "Signaler le favori actuellement actif dans le dock"
