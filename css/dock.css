@@ -1,6 +1,6 @@
 #dock {
   --dock-gap: 0.5em;
-  backdrop-filter: blur(10px) brightness(0.8);
+  backdrop-filter: blur(3px);
   background-color: light-dark(rgba(255 255 255 / 45%), rgba(18 20 22 / 45%));
   border-radius: 1em;
   bottom: var(--dock-gap);
