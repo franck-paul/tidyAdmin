@@ -126,7 +126,8 @@ class BackendBehaviors
         if ($main && App::auth()->prefs()->interface->dock) {
             // Display favorites in dock
             echo
-                My::cssLoad('dock.css');
+                My::cssLoad('dock.css') .
+                My::jsLoad('dock.js');
         }
 
         return '';
