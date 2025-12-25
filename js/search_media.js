@@ -25,11 +25,11 @@ dotclear.ready(() => {
       // Insert cloned input and its label before filters
       if (recent_media) {
         // Next to recent folders selector
-        recent_media.insertAdjacentElement('afterend', cloned);
+        recent_media.after(cloned);
         cloned.classList.add('tidy_moved');
         recent_media.classList.add('tidy_moved');
       } else {
-        filters.insertAdjacentElement('beforebegin', cloned);
+        filters.before(cloned);
       }
       // Simulate form submit on enter key in input cloned field
       const filtersform = document.getElementById('filters-form');
