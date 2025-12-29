@@ -10,7 +10,7 @@ dotclear.ready(() => {
     if (plugin_title) {
       const next_sibling = plugin_title.nextElementSibling;
       // Move config link after h2
-      plugin_title.insertAdjacentElement('afterend', plugin_config);
+      plugin_title.after(plugin_config);
       // Remove vertical-separator class
       plugin_config.classList.remove('vertical-separator');
       // Position

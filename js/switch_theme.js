@@ -8,7 +8,7 @@ dotclear.ready(() => {
     header?.addEventListener('dblclick', (_event) => {
       let { theme } = document.documentElement.dataset;
       if (theme == null || theme === '') {
-        theme = window.matchMedia('(prefers-color-scheme: dark)') ? 'dark' : 'light';
+        theme = globalThis.matchMedia('(prefers-color-scheme: dark)') ? 'dark' : 'light';
       }
       // Set new theme, the application will be cope by the mutation observer
       document.documentElement.dataset.theme = theme === 'dark' ? 'light' : 'dark';
