@@ -26,9 +26,14 @@ dotclear.ready(() => {
       const options = [];
       // Search for fieldsets
       for (const fieldset of div.querySelectorAll('fieldset')) {
-        const id = fieldset.getAttribute('id');
+        let id = fieldset.getAttribute('id');
         const legend = fieldset.querySelector('legend');
-        if (id && legend) {
+        if (legend) {
+          if (!id) {
+            // Add a random ID to the fieldset
+            id = `group-${Date.now()}`;
+            fieldset.setAttribute('id', id);
+          }
           const option = document.createElement('option');
           option.setAttribute('value', `${id}`);
           option.appendChild(document.createTextNode(legend.textContent));
