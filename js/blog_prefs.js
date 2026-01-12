@@ -2,6 +2,8 @@
 'use strict';
 
 dotclear.ready(() => {
+  const data = dotclear.getData('tidyadmin_blogprefs');
+
   const move = (selection, tab = '') => {
     const prefix = tab === '' ? '#' : `#${tab}.`;
     globalThis.location = `${prefix}${selection}`;
@@ -34,14 +36,18 @@ dotclear.ready(() => {
         }
       }
       if (options.length) {
+        const label = document.createElement('label');
+        label.appendChild(document.createTextNode(data.goto));
+        label.classList.add('navigation', 'form-buttons');
         const select = document.createElement('select');
         select.setAttribute('id', `go-${div.getAttribute('id')}`);
-        select.classList.add('navigation', 'meta-helper'); // meta-helper will force confirm-close to ignore this select
+        select.classList.add('meta-helper'); // meta-helper class will force confirm-close to ignore this select changes
         for (const option of options) {
           select.appendChild(option);
         }
         select.addEventListener('change', (event) => move(event.target.value, 'params'));
-        title.after(select);
+        label.appendChild(select);
+        title.after(label);
       }
     }
   }

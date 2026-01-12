@@ -32,6 +32,9 @@ class BackendBehaviors
         if (App::auth()->prefs()->interface->menusblogprefs) {
             return
                 My::cssLoad('blog_prefs.css') .
+                App::backend()->page()->jsJson('tidyadmin_blogprefs', [
+                    'goto' => __('Goto:'),
+                ]) .
                 My::jsLoad('blog_prefs.js');
         }
 
