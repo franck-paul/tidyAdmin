@@ -188,6 +188,7 @@ class Manage
             $interface_pref->put('dock', !empty($_POST['user_ui_dock']), 'boolean');
             $interface_pref->put('dockactive', !empty($_POST['user_ui_dockactive']), 'boolean');
             $interface_pref->put('dockautohide', !empty($_POST['user_ui_dockautohide']), 'boolean');
+            $interface_pref->put('menusblogprefs', !empty($_POST['user_ui_menusblogprefs']), 'boolean');
 
             App::backend()->notices()->addSuccessNotice(__('Options updated'));
             My::redirect([
@@ -353,6 +354,7 @@ class Manage
         $user_ui_dock                 = $interface_pref->dock;
         $user_ui_dockactive           = $interface_pref->dockactive;
         $user_ui_dockautohide         = $interface_pref->dockautohide;
+        $user_ui_menusblogprefs       = $interface_pref->menusblogprefs;
 
         $head = App::backend()->page()->jsModal() .
         App::backend()->page()->jsConfirmClose('css-form') .
@@ -541,6 +543,12 @@ class Manage
                                         (new Checkbox('user_ui_stickytoolbar', $user_ui_stickytoolbar))
                                             ->value(1)
                                             ->label((new Label(__('Always display editor toolbar during edition'), Label::INSIDE_TEXT_AFTER))),
+                                    ]),
+                                (new Para())
+                                    ->items([
+                                        (new Checkbox('user_ui_menusblogprefs', $user_ui_menusblogprefs))
+                                            ->value(1)
+                                            ->label((new Label(__('Display direct access menus on blog parameters page'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                             ]),
                         (new Para())

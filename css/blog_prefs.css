@@ -1,0 +1,20 @@
+#standard-pref,
+#advanced-pref,
+#plugins-pref {
+  position: relative;
+
+  .navigation {
+    position: absolute;
+    top: 0;
+    right: 1em;
+  }
+}
+@media screen and (width <= 48em) {
+  #standard-pref,
+  #advanced-pref,
+  #plugins-pref {
+    .navigation {
+      display: none;
+    }
+  }
+}

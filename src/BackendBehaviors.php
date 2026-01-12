@@ -27,6 +27,17 @@ use JShrink\Minifier;
 
 class BackendBehaviors
 {
+    public static function adminBlogPreferencesHeaders(): string
+    {
+        if (App::auth()->prefs()->interface->menusblogprefs) {
+            return
+                My::cssLoad('blog_prefs.css') .
+                My::jsLoad('blog_prefs.js');
+        }
+
+        return '';
+    }
+
     public static function adminPageHTMLHead(bool $main = false): string
     {
         // Reduce home button
