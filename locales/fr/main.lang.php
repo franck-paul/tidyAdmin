@@ -49,6 +49,7 @@ L10n::$locales['In development mode, custom files will be ignored and theme file
 L10n::$locales['Tools'] = 'Outils';
 L10n::$locales['Move plugin settings link to top of page'] = 'Remonter le lien vers les réglages de plugin en haut de la page';
 L10n::$locales['Always display editor toolbar during edition'] = 'Toujours afficher la barre d\'outils de l\'éditeur pendant l\'édition';
+L10n::$locales['Display direct access menus on blog parameters page'] = 'Afficher les menus d\'accès direct sur la page des paramètres du blog';
 L10n::$locales['Save'] = 'Enregistrer';
 L10n::$locales['Supplemental CSS'] = 'CSS supplémentaire';
 L10n::$locales['Note: this supplemental CSS rules will surcharge the default CSS rules.'] = 'Note : ces règles CSS supplémentaires viendront surcharger les règles CSS par défaut.';
