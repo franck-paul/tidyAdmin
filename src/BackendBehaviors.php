@@ -27,6 +27,19 @@ use JShrink\Minifier;
 
 class BackendBehaviors
 {
+    public static function adminPreferencesHeaders(): string
+    {
+        if (App::auth()->prefs()->interface->menususerprefs) {
+            return
+                My::cssLoad('user_prefs.css') .
+                App::backend()->page()->jsJson('tidyadmin_userprefs', [
+                    'goto' => __('Goto:'),
+                ]) .
+                My::jsLoad('user_prefs.js');
+        }
+
+        return '';
+    }
     public static function adminBlogPreferencesHeaders(): string
     {
         if (App::auth()->prefs()->interface->menusblogprefs) {

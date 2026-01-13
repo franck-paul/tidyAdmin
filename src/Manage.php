@@ -189,6 +189,7 @@ class Manage
             $interface_pref->put('dockactive', !empty($_POST['user_ui_dockactive']), 'boolean');
             $interface_pref->put('dockautohide', !empty($_POST['user_ui_dockautohide']), 'boolean');
             $interface_pref->put('menusblogprefs', !empty($_POST['user_ui_menusblogprefs']), 'boolean');
+            $interface_pref->put('menususerprefs', !empty($_POST['user_ui_menususerprefs']), 'boolean');
 
             App::backend()->notices()->addSuccessNotice(__('Options updated'));
             My::redirect([
@@ -355,6 +356,7 @@ class Manage
         $user_ui_dockactive           = $interface_pref->dockactive;
         $user_ui_dockautohide         = $interface_pref->dockautohide;
         $user_ui_menusblogprefs       = $interface_pref->menusblogprefs;
+        $user_ui_menususerprefs       = $interface_pref->menususerprefs;
 
         $head = App::backend()->page()->jsModal() .
         App::backend()->page()->jsConfirmClose('css-form') .
@@ -549,6 +551,12 @@ class Manage
                                         (new Checkbox('user_ui_menusblogprefs', $user_ui_menusblogprefs))
                                             ->value(1)
                                             ->label((new Label(__('Display direct access menus on blog parameters page'), Label::INSIDE_TEXT_AFTER))),
+                                    ]),
+                                (new Para())
+                                    ->items([
+                                        (new Checkbox('user_ui_menususerprefs', $user_ui_menususerprefs))
+                                            ->value(1)
+                                            ->label((new Label(__('Display direct access menus on user preferences page'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                             ]),
                         (new Para())

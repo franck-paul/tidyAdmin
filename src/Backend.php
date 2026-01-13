@@ -51,6 +51,7 @@ class Backend
             'adminPageHTMLHead'           => BackendBehaviors::adminPageHTMLHead(...),
             'adminPageHTMLBody'           => BackendBehaviors::adminPageHTMLBody(...),
             'adminBlogPreferencesHeaders' => BackendBehaviors::adminBlogPreferencesHeaders(...),
+            'adminPreferencesHeaders'     => BackendBehaviors::adminPreferencesHeaders(...),
             'themeEditorWriteFile'        => BackendBehaviors::themeEditorWriteFile(...),
             'themeEditorDeleteFile'       => BackendBehaviors::themeEditorDeleteFile(...),
             'themeEditorDevMode'          => BackendBehaviors::themeEditorDevMode(...),

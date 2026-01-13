@@ -50,6 +50,7 @@ L10n::$locales['Tools'] = '';
 L10n::$locales['Move plugin settings link to top of page'] = '';
 L10n::$locales['Always display editor toolbar during edition'] = '';
 L10n::$locales['Display direct access menus on blog parameters page'] = '';
+L10n::$locales['Display direct access menus on user preferences page'] = '';
 L10n::$locales['Save'] = '';
 L10n::$locales['Supplemental CSS'] = '';
 L10n::$locales['Note: this supplemental CSS rules will surcharge the default CSS rules.'] = '';
