@@ -47,9 +47,7 @@ dotclear.ready(() => {
         const select = document.createElement('select');
         select.setAttribute('id', `go-${div.getAttribute('id')}`);
         select.classList.add('meta-helper'); // meta-helper class will force confirm-close to ignore this select changes
-        for (const option of options) {
-          select.appendChild(option);
-        }
+        options.forEach((option) => select.appendChild(option));
         select.addEventListener('change', (event) => move(event.target.value, 'params'));
         label.appendChild(select);
         title.after(label);
