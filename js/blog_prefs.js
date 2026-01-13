@@ -31,12 +31,12 @@ dotclear.ready(() => {
         if (legend) {
           if (!id) {
             // Add a random ID to the fieldset
-            id = `group-${Date.now()}`;
+            id = `group-${Date.now()}-${Math.floor(Math.random() * 8999 + 1000)}`;
             fieldset.setAttribute('id', id);
           }
           const option = document.createElement('option');
           option.setAttribute('value', `${id}`);
-          option.appendChild(document.createTextNode(legend.textContent));
+          option.appendChild(document.createTextNode(legend.textContent.trim()));
           options.push(option);
         }
       }
