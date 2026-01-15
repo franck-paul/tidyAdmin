@@ -359,7 +359,13 @@ class Manage
         $user_ui_menususerprefs       = $interface_pref->menususerprefs;
 
         $head = App::backend()->page()->jsModal() .
-        App::backend()->page()->jsConfirmClose('css-form') .
+        App::backend()->page()->jsConfirmClose(
+            'options-form',
+            'css-form',
+            'js-form',
+            'po-form',
+            'html-form'
+        ) .
         App::backend()->page()->jsPageTabs(self::$part);
         if ($user_ui_colorsyntax) {
             $head .= App::backend()->page()->jsLoadCodeMirror($user_ui_colorsyntax_theme);
