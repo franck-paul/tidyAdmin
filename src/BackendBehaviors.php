@@ -112,17 +112,44 @@ class BackendBehaviors
         // Header color
         if (App::auth()->prefs()->interface->userheadercolor) {
             // Prepare header color
-            $light        = App::auth()->prefs()->interface->headercolor;
-            $dark         = App::auth()->prefs()->interface->headercolor_dark ?? App::auth()->prefs()->interface->headercolor;
-            $header_color = sprintf(
+            $light             = App::auth()->prefs()->interface->headercolor;
+            $dark              = App::auth()->prefs()->interface->headercolor_dark ?? App::auth()->prefs()->interface->headercolor;
+            $header_background = sprintf(
                 'light-dark(%s, %s)',
                 (string) $light,
                 (string) $dark
             );
 
+            $isBrightColor = function (
+                string $color,  // Must be in hexadecimal form (ex: #ab65c3), with or without # prefix ; may be shorten (ex: #fff)
+            ): bool {
+                $color = trim($color, '#');
+                if (strlen($color) === 3) {
+                    $color .= $color;
+                }
+
+                // Calculate the brightness of the color
+                $red   = hexdec(substr($color, 0, 2));
+                $green = hexdec(substr($color, 2, 2));
+                $blue  = hexdec(substr($color, 4, 2));
+
+                $brightness = (($red * 299) + ($green * 587) + ($blue * 114)) / 1000;
+
+                // Return true if color is light, false if dark
+                return ($brightness >= 128);
+            };
+
+            // We will use white or black color, depending on braightness of background
+            $header_color = sprintf(
+                'light-dark(%s, %s)',
+                $isBrightColor((string) $light) ? '#000' : '#fff',
+                $isBrightColor((string) $dark) ? '#000' : '#fff',
+            );
+
             echo
                 App::backend()->page()->jsJson('tidyadmin', [
-                    'header_color' => $header_color,
+                    'header_color'      => $header_color,
+                    'header_background' => $header_background,
                 ]) .
                 My::cssLoad('header_color.css') .
                 My::jsLoad('header_color.js');

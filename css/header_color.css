@@ -2,7 +2,11 @@
 /* The --tidy-header-background variable will be user defined in plugin settings */
 #header,
 .popup h1 {
+  color: var(--tidy-header-color, var(--header-color));
   background-color: var(--tidy-header-background, var(--header-background));
+}
+#header a {
+  color: var(--tidy-header-color, var(--header-color));
 }
 @media screen and (width <= 82em) {
   #header,
