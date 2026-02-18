@@ -136,7 +136,7 @@ class BackendBehaviors
                 $brightness = (($red * 299) + ($green * 587) + ($blue * 114)) / 1000;
 
                 // Return true if color is light, false if dark
-                return ($brightness >= 128);
+                return $brightness >= 128;
             };
 
             // We will use white or black color, depending on braightness of background
