@@ -112,12 +112,12 @@ class BackendBehaviors
         // Header color
         if (App::auth()->prefs()->interface->userheadercolor) {
             // Prepare header color
-            $light             = App::auth()->prefs()->interface->headercolor;
-            $dark              = App::auth()->prefs()->interface->headercolor_dark ?? App::auth()->prefs()->interface->headercolor;
+            $light             = is_string($light = App::auth()->prefs()->interface->headercolor) ? $light : '';
+            $dark              = is_string($dark = App::auth()->prefs()->interface->headercolor_dark) ? $dark : $light;
             $header_background = sprintf(
                 'light-dark(%s, %s)',
-                (string) $light,
-                (string) $dark
+                $light,
+                $dark
             );
 
             $isBrightColor = function (
@@ -142,8 +142,8 @@ class BackendBehaviors
             // We will use white or black color, depending on braightness of background
             $header_color = sprintf(
                 'light-dark(%s, %s)',
-                $isBrightColor((string) $light) ? '#000' : '#fff',
-                $isBrightColor((string) $dark) ? '#000' : '#fff',
+                $isBrightColor($light) ? '#000' : '#fff',
+                $isBrightColor($dark) ? '#000' : '#fff',
             );
 
             echo
@@ -197,6 +197,8 @@ class BackendBehaviors
             $url     = htmlspecialchars_decode((string) App::backend()->url()->get('admin.home'));
             $pattern = '@' . preg_quote($url, '@') . '(&.*)?' . '$@';
 
+            $request_uri = is_string($request_uri = $_SERVER['REQUEST_URI']) ? $request_uri : '';
+
             /**
              * @var array<string, array{string, string, string|list<string>|null, string}>
              *
@@ -213,7 +215,7 @@ class BackendBehaviors
                     __('Go to dashboard'),
                     App::backend()->url()->get('admin.home'),
                     ['style/dashboard.svg', 'style/dashboard-dark.svg'],
-                    $show_active ? (preg_match($pattern, (string) $_SERVER['REQUEST_URI']) ? 'active' : '') : '',
+                    $show_active ? (preg_match($pattern, $request_uri) ? 'active' : '') : '',
                 ],
             ];
 
@@ -227,7 +229,7 @@ class BackendBehaviors
                     (string) $favorite->title(),
                     (string) $favorite->url(),
                     $favorite->largeIcon(),
-                    $show_active ? (preg_match($pattern, (string) $_SERVER['REQUEST_URI']) ? 'active' : '') : '',
+                    $show_active ? (preg_match($pattern, $request_uri) ? 'active' : '') : '',
                 ];
             }
 

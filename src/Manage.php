@@ -171,25 +171,28 @@ class Manage
             // Get interface setting
             $interface_pref = App::auth()->prefs()->interface;
 
-            $interface_pref->put('minidcicon', !empty($_POST['user_ui_minidcicon']), 'boolean');
-            $interface_pref->put('movesearchmenu', !empty($_POST['user_ui_movesearchmenu']), 'boolean');
-            $interface_pref->put('clonesearchmedia', !empty($_POST['user_ui_clonesearchmedia']), 'boolean');
-            $interface_pref->put('hovercollapser', !empty($_POST['user_ui_hovercollapser']), 'boolean');
-            $interface_pref->put('pluginconfig', !empty($_POST['user_ui_pluginconfig']), 'boolean');
-            $interface_pref->put('switchtheme', !empty($_POST['user_ui_switchtheme']), 'boolean');
-            $interface_pref->put('switchfetch', !empty($_POST['user_ui_switchfetch']), 'boolean');
-            $interface_pref->put('stickytoolbar', !empty($_POST['user_ui_stickytoolbar']), 'boolean');
-            $interface_pref->put('userheadercolor', !empty($_POST['user_ui_userheadercolor']), 'boolean');
-            $interface_pref->put('headercolor', App::backend()->themeConfig()->adjustColor($_POST['user_ui_headercolor']), 'string');
-            $interface_pref->put('headercolor_dark', App::backend()->themeConfig()->adjustColor($_POST['user_ui_headercolor_dark']), 'string');
-            $interface_pref->put('swapaltdescmedia', !empty($_POST['user_ui_swapaltdescmedia']), 'boolean');
-            $interface_pref->put('minifythemeresources', !empty($_POST['user_ui_minifythemeresources']), 'boolean');
-            $interface_pref->put('themeeditordevmode', !empty($_POST['user_ui_themeeditordevmode']), 'boolean');
-            $interface_pref->put('dock', !empty($_POST['user_ui_dock']), 'boolean');
-            $interface_pref->put('dockactive', !empty($_POST['user_ui_dockactive']), 'boolean');
-            $interface_pref->put('dockautohide', !empty($_POST['user_ui_dockautohide']), 'boolean');
-            $interface_pref->put('menusblogprefs', !empty($_POST['user_ui_menusblogprefs']), 'boolean');
-            $interface_pref->put('menususerprefs', !empty($_POST['user_ui_menususerprefs']), 'boolean');
+            $header_color_light = is_string($header_color_light = $_POST['ui_headercolor']) ? $header_color_light : '';
+            $header_color_dark  = is_string($header_color_dark = $_POST['ui_headercolor_dark']) ? $header_color_dark : '';
+
+            $interface_pref->put('minidcicon', !empty($_POST['ui_minidcicon']), 'boolean');
+            $interface_pref->put('movesearchmenu', !empty($_POST['ui_movesearchmenu']), 'boolean');
+            $interface_pref->put('clonesearchmedia', !empty($_POST['ui_clonesearchmedia']), 'boolean');
+            $interface_pref->put('hovercollapser', !empty($_POST['ui_hovercollapser']), 'boolean');
+            $interface_pref->put('pluginconfig', !empty($_POST['ui_pluginconfig']), 'boolean');
+            $interface_pref->put('switchtheme', !empty($_POST['ui_switchtheme']), 'boolean');
+            $interface_pref->put('switchfetch', !empty($_POST['ui_switchfetch']), 'boolean');
+            $interface_pref->put('stickytoolbar', !empty($_POST['ui_stickytoolbar']), 'boolean');
+            $interface_pref->put('userheadercolor', !empty($_POST['ui_userheadercolor']), 'boolean');
+            $interface_pref->put('headercolor', App::backend()->themeConfig()->adjustColor($header_color_light), 'string');
+            $interface_pref->put('headercolor_dark', App::backend()->themeConfig()->adjustColor($header_color_dark), 'string');
+            $interface_pref->put('swapaltdescmedia', !empty($_POST['ui_swapaltdescmedia']), 'boolean');
+            $interface_pref->put('minifythemeresources', !empty($_POST['ui_minifythemeresources']), 'boolean');
+            $interface_pref->put('themeeditordevmode', !empty($_POST['ui_themeeditordevmode']), 'boolean');
+            $interface_pref->put('dock', !empty($_POST['ui_dock']), 'boolean');
+            $interface_pref->put('dockactive', !empty($_POST['ui_dockactive']), 'boolean');
+            $interface_pref->put('dockautohide', !empty($_POST['ui_dockautohide']), 'boolean');
+            $interface_pref->put('menusblogprefs', !empty($_POST['ui_menusblogprefs']), 'boolean');
+            $interface_pref->put('menususerprefs', !empty($_POST['ui_menususerprefs']), 'boolean');
 
             App::backend()->notices()->addSuccessNotice(__('Options updated'));
             My::redirect([
@@ -202,8 +205,10 @@ class Manage
             try {
                 # Write file
                 $js_old_content   = self::$js_content;
-                self::$js_content = $_POST['js_content'] . "\n";
-                $fp               = @fopen(self::$js_file, 'wb');
+                $content          = is_string($content = $_POST['js_content']) ? $content : '';
+                self::$js_content = $content . "\n";
+
+                $fp = @fopen(self::$js_file, 'wb');
                 if (!$fp) {
                     throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$js_file));
                 }
@@ -230,8 +235,10 @@ class Manage
             try {
                 # Write file
                 $css_old_content   = self::$css_content;
-                self::$css_content = $_POST['css_content'] . "\n";
-                $fp                = @fopen(self::$css_file, 'wb');
+                $content           = is_string($content = $_POST['css_content']) ? $content : '';
+                self::$css_content = $content . "\n";
+
+                $fp = @fopen(self::$css_file, 'wb');
                 if (!$fp) {
                     throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$css_file));
                 }
@@ -258,8 +265,10 @@ class Manage
             try {
                 # Write file
                 $po_old_content   = self::$po_content;
-                self::$po_content = $_POST['po_content'] . "\n";
-                $fp               = @fopen(self::$po_file, 'wb');
+                $content          = is_string($content = $_POST['po_content']) ? $content : '';
+                self::$po_content = $content . "\n";
+
+                $fp = @fopen(self::$po_file, 'wb');
                 if (!$fp) {
                     throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$po_file));
                 }
@@ -286,8 +295,10 @@ class Manage
             try {
                 # Write file
                 $html_old_content   = self::$html_content;
-                self::$html_content = $_POST['html_content'] . "\n";
-                $fp                 = @fopen(self::$html_file, 'wb');
+                $content            = is_string($content = $_POST['html_content']) ? $content : '';
+                self::$html_content = $content . "\n";
+
+                $fp = @fopen(self::$html_file, 'wb');
                 if (!$fp) {
                     throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$html_file));
                 }
@@ -309,8 +320,9 @@ class Manage
             }
         }
 
-        if (!empty($_GET['part']) && in_array($_GET['part'], ['options', 'css-editor', 'js-editor', 'po-editor', 'html-editor'])) {
-            self::$part = $_GET['part'];
+        $part = is_string($part = $_GET['part'] ?? '') ? $part : '';
+        if (in_array($part, ['options', 'css-editor', 'js-editor', 'po-editor', 'html-editor'])) {
+            self::$part = $part;
         }
 
         if (self::$part === '') {
@@ -332,31 +344,44 @@ class Manage
         // Get interface setting
         $interface_pref = App::auth()->prefs()->interface;
 
-        $user_ui_colorsyntax       = $interface_pref->colorsyntax;
-        $user_ui_colorsyntax_theme = '';
-        if ($user_ui_colorsyntax) {
-            $user_ui_colorsyntax_theme = $interface_pref->colorsyntax_theme ?: 'default';
+        $ui_colorsyntax       = $interface_pref->colorsyntax;
+        $ui_colorsyntax_theme = '';
+        if ($ui_colorsyntax) {
+            $ui_colorsyntax_theme = is_string($ui_colorsyntax_theme = $interface_pref->colorsyntax_theme) ?
+                $ui_colorsyntax_theme :
+                'default';
         }
 
-        $user_ui_minidcicon           = $interface_pref->minidcicon;
-        $user_ui_movesearchmenu       = $interface_pref->movesearchmenu;
-        $user_ui_clonesearchmedia     = $interface_pref->clonesearchmedia;
-        $user_ui_hovercollapser       = $interface_pref->hovercollapser;
-        $user_ui_pluginconfig         = $interface_pref->pluginconfig;
-        $user_ui_switchtheme          = $interface_pref->switchtheme;
-        $user_ui_switchfetch          = $interface_pref->switchfetch;
-        $user_ui_stickytoolbar        = $interface_pref->stickytoolbar;
-        $user_ui_userheadercolor      = $interface_pref->userheadercolor;
-        $user_ui_headercolor          = $interface_pref->headercolor;
-        $user_ui_headercolor_dark     = $interface_pref->headercolor_dark;
-        $user_ui_swapaltdescmedia     = $interface_pref->swapaltdescmedia;
-        $user_ui_minifythemeresources = $interface_pref->minifythemeresources;
-        $user_ui_themeeditordevmode   = $interface_pref->themeeditordevmode;
-        $user_ui_dock                 = $interface_pref->dock;
-        $user_ui_dockactive           = $interface_pref->dockactive;
-        $user_ui_dockautohide         = $interface_pref->dockautohide;
-        $user_ui_menusblogprefs       = $interface_pref->menusblogprefs;
-        $user_ui_menususerprefs       = $interface_pref->menususerprefs;
+        $ui_minidcicon = is_bool($ui_minidcicon = $interface_pref->minidcicon) && $ui_minidcicon;
+
+        $ui_movesearchmenu   = is_bool($ui_movesearchmenu = $interface_pref->movesearchmenu)     && $ui_movesearchmenu;
+        $ui_clonesearchmedia = is_bool($ui_clonesearchmedia = $interface_pref->clonesearchmedia) && $ui_clonesearchmedia;
+
+        $ui_hovercollapser = is_bool($ui_hovercollapser = $interface_pref->hovercollapser) && $ui_hovercollapser;
+
+        $ui_pluginconfig = is_bool($ui_pluginconfig = $interface_pref->pluginconfig) && $ui_pluginconfig;
+
+        $ui_switchtheme = is_bool($ui_switchtheme = $interface_pref->switchtheme) && $ui_switchtheme;
+        $ui_switchfetch = is_bool($ui_switchfetch = $interface_pref->switchfetch) && $ui_switchfetch;
+
+        $ui_stickytoolbar = is_bool($ui_stickytoolbar = $interface_pref->stickytoolbar) && $ui_stickytoolbar;
+
+        $ui_userheadercolor = is_bool($ui_userheadercolor = $interface_pref->userheadercolor) && $ui_userheadercolor;
+
+        $ui_headercolor      = is_string($ui_headercolor = $interface_pref->headercolor) ? $ui_headercolor : '';
+        $ui_headercolor_dark = is_string($ui_headercolor_dark = $interface_pref->headercolor_dark) ? $ui_headercolor_dark : '';
+
+        $ui_swapaltdescmedia = is_bool($ui_swapaltdescmedia = $interface_pref->swapaltdescmedia) && $ui_swapaltdescmedia;
+
+        $ui_minifythemeresources = is_bool($ui_minifythemeresources = $interface_pref->minifythemeresources) && $ui_minifythemeresources;
+        $ui_themeeditordevmode   = is_bool($ui_themeeditordevmode = $interface_pref->themeeditordevmode)     && $ui_themeeditordevmode;
+
+        $ui_dock         = is_bool($ui_dock = $interface_pref->dock)                 && $ui_dock;
+        $ui_dockactive   = is_bool($ui_dockactive = $interface_pref->dockactive)     && $ui_dockactive;
+        $ui_dockautohide = is_bool($ui_dockautohide = $interface_pref->dockautohide) && $ui_dockautohide;
+
+        $ui_menusblogprefs = is_bool($ui_menusblogprefs = $interface_pref->menusblogprefs) && $ui_menusblogprefs;
+        $ui_menususerprefs = is_bool($ui_menususerprefs = $interface_pref->menususerprefs) && $ui_menususerprefs;
 
         $head = App::backend()->page()->jsModal() .
         App::backend()->page()->jsConfirmClose(
@@ -367,8 +392,8 @@ class Manage
             'html-form'
         ) .
         App::backend()->page()->jsPageTabs(self::$part);
-        if ($user_ui_colorsyntax) {
-            $head .= App::backend()->page()->jsLoadCodeMirror($user_ui_colorsyntax_theme);
+        if ($ui_colorsyntax) {
+            $head .= App::backend()->page()->jsLoadCodeMirror($ui_colorsyntax_theme);
         }
 
         $head .= My::jsLoad('admin.js') . My::cssLoad('style.css');
@@ -403,19 +428,19 @@ class Manage
                             ->items([
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_minidcicon', $user_ui_minidcicon))
+                                        (new Checkbox('ui_minidcicon', $ui_minidcicon))
                                             ->value(1)
                                             ->label((new Label(__('Use mini Dotclear icon (top left) in header'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_movesearchmenu', $user_ui_movesearchmenu))
+                                        (new Checkbox('ui_movesearchmenu', $ui_movesearchmenu))
                                             ->value(1)
                                             ->label((new Label(__('Move the search form (main menu) in header'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_switchtheme', $user_ui_switchtheme))
+                                        (new Checkbox('ui_switchtheme', $ui_switchtheme))
                                             ->value(1)
                                             ->label((new Label(__('Double click on header to switch theme (not permanent)'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
@@ -424,13 +449,13 @@ class Manage
                                     ->text(__('To permanently change theme go the your user preferences')),
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_switchfetch', $user_ui_switchfetch))
+                                        (new Checkbox('ui_switchfetch', $ui_switchfetch))
                                             ->value(1)
                                             ->label((new Label(__('Add a button in header to stop or run Javascript fetch requests (not permanent)'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_userheadercolor', $user_ui_userheadercolor))
+                                        (new Checkbox('ui_userheadercolor', $ui_userheadercolor))
                                             ->value(1)
                                             ->label((new Label(__('Use an user-defined background color for header'), Label::INSIDE_TEXT_AFTER))),
                                         (new Table())
@@ -443,11 +468,11 @@ class Manage
                                                             (new Td())
                                                                 ->items([
                                                                     (new Label(__('Backgound color for header:'), Label::OL_TF))
-                                                                        ->for('user_ui_headercolor'),
+                                                                        ->for('ui_headercolor'),
                                                                 ]),
                                                             (new Td())
                                                                 ->items([
-                                                                    (new Color('user_ui_headercolor', $user_ui_headercolor)),
+                                                                    (new Color('ui_headercolor', $ui_headercolor)),
                                                                 ]),
                                                         ]),
                                                     (new Tr())
@@ -455,11 +480,11 @@ class Manage
                                                             (new Td())
                                                                 ->items([
                                                                     (new Label(__('Backgound color for header (dark mode):'), Label::OL_TF))
-                                                                        ->for('user_ui_headercolor_dark'),
+                                                                        ->for('ui_headercolor_dark'),
                                                                 ]),
                                                             (new Td())
                                                                 ->items([
-                                                                    (new Color('user_ui_headercolor_dark', $user_ui_headercolor_dark)),
+                                                                    (new Color('ui_headercolor_dark', $ui_headercolor_dark)),
                                                                 ]),
                                                         ]),
                                                 ])
@@ -471,13 +496,13 @@ class Manage
                             ->items([
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_hovercollapser', $user_ui_hovercollapser))
+                                        (new Checkbox('ui_hovercollapser', $ui_hovercollapser))
                                             ->value(1)
                                             ->label((new Label(__('Enabled mouse hover activation on collapser'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_dock', $user_ui_dock))
+                                        (new Checkbox('ui_dock', $ui_dock))
                                             ->value(1)
                                             ->label((new Label(__('Display dock with favorites'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
@@ -487,14 +512,14 @@ class Manage
                                 (new Para())
                                     ->class('secondlevel')
                                     ->items([
-                                        (new Checkbox('user_ui_dockactive', $user_ui_dockactive))
+                                        (new Checkbox('ui_dockactive', $ui_dockactive))
                                             ->value(1)
                                             ->label((new Label(__('Report the currently active favorite in the dock'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                                 (new Para())
                                     ->class('secondlevel')
                                     ->items([
-                                        (new Checkbox('user_ui_dockautohide', $user_ui_dockautohide))
+                                        (new Checkbox('ui_dockautohide', $ui_dockautohide))
                                             ->value(1)
                                             ->label((new Label(__('Automatically hide/show the dock'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
@@ -507,13 +532,13 @@ class Manage
                             ->items([
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_clonesearchmedia', $user_ui_clonesearchmedia))
+                                        (new Checkbox('ui_clonesearchmedia', $ui_clonesearchmedia))
                                             ->value(1)
                                             ->label((new Label(__('Clone the media manager search input in always visible area'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_swapaltdescmedia', $user_ui_swapaltdescmedia))
+                                        (new Checkbox('ui_swapaltdescmedia', $ui_swapaltdescmedia))
                                             ->value(1)
                                             ->label((new Label(__('Add an exchange button between alternative text and media description'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
@@ -523,13 +548,13 @@ class Manage
                             ->items([
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_minifythemeresources', $user_ui_minifythemeresources))
+                                        (new Checkbox('ui_minifythemeresources', $ui_minifythemeresources))
                                             ->value(1)
                                             ->label((new Label(__('Minify theme resources modified by the theme editor'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_themeeditordevmode', $user_ui_themeeditordevmode))
+                                        (new Checkbox('ui_themeeditordevmode', $ui_themeeditordevmode))
                                             ->value(1)
                                             ->label((new Label(__('Set theme editor in development mode'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
@@ -542,25 +567,25 @@ class Manage
                             ->items([
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_pluginconfig', $user_ui_pluginconfig))
+                                        (new Checkbox('ui_pluginconfig', $ui_pluginconfig))
                                             ->value(1)
                                             ->label((new Label(__('Move plugin settings link to top of page'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_stickytoolbar', $user_ui_stickytoolbar))
+                                        (new Checkbox('ui_stickytoolbar', $ui_stickytoolbar))
                                             ->value(1)
                                             ->label((new Label(__('Always display editor toolbar during edition'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_menusblogprefs', $user_ui_menusblogprefs))
+                                        (new Checkbox('ui_menusblogprefs', $ui_menusblogprefs))
                                             ->value(1)
                                             ->label((new Label(__('Display direct access menus on blog parameters page'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                                 (new Para())
                                     ->items([
-                                        (new Checkbox('user_ui_menususerprefs', $user_ui_menususerprefs))
+                                        (new Checkbox('ui_menususerprefs', $ui_menususerprefs))
                                             ->value(1)
                                             ->label((new Label(__('Display direct access menus on user preferences page'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
@@ -777,7 +802,7 @@ class Manage
             ])
             ->render();
 
-        if ($user_ui_colorsyntax) {
+        if ($ui_colorsyntax) {
             echo
             App::backend()->page()->jsRunCodeMirror(
                 [
@@ -785,25 +810,25 @@ class Manage
                         'name'  => 'editor_css',
                         'id'    => 'css_content',
                         'mode'  => 'css',
-                        'theme' => $user_ui_colorsyntax_theme,
+                        'theme' => $ui_colorsyntax_theme,
                     ],
                     [
                         'name'  => 'editor_js',
                         'id'    => 'js_content',
                         'mode'  => 'javascript',
-                        'theme' => $user_ui_colorsyntax_theme,
+                        'theme' => $ui_colorsyntax_theme,
                     ],
                     [
                         'name'  => 'editor_po',
                         'id'    => 'po_content',
                         'mode'  => 'text/plain',
-                        'theme' => $user_ui_colorsyntax_theme,
+                        'theme' => $ui_colorsyntax_theme,
                     ],
                     [
                         'name'  => 'editor_html',
                         'id'    => 'html_content',
                         'mode'  => 'text/html',
-                        'theme' => $user_ui_colorsyntax_theme,
+                        'theme' => $ui_colorsyntax_theme,
                     ],
                 ]
             );

@@ -2,13 +2,13 @@
 'use strict';
 
 dotclear.ready(() => {
-  const headercolor = document.querySelector('#user_ui_userheadercolor');
+  const headercolor = document.querySelector('#ui_userheadercolor');
   if (!headercolor) {
     return;
   }
   const applyheadercolor = (checked) => {
-    const lightcolor = document.querySelector('#user_ui_headercolor');
-    const darkcolor = document.querySelector('#user_ui_headercolor_dark');
+    const lightcolor = document.querySelector('#ui_headercolor');
+    const darkcolor = document.querySelector('#ui_headercolor_dark');
     lightcolor.readOnly = !checked;
     darkcolor.readOnly = !checked;
   };
