@@ -1,9 +1,19 @@
 textarea[name$='_demo_content'] {
-  font: 1em var(--monospace);
+  font: clamp(90%, 0.9em, 2ex) var(--monospace);
+  resize: vertical;
+  overflow: auto;
 }
 
 textarea[name$='_content'] + .CodeMirror {
   height: 30em;
+  resize: vertical;
+  overflow: auto;
+  font-size: clamp(90%, 0.9em, 2ex);
+
+  .CodeMirror-linenumber {
+    font-size: 80%;
+    line-height: 1.75;
+  }
 }
 
 table.fitcontent {
