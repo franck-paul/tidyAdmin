@@ -90,7 +90,7 @@ dotclear.ready(() => {
     focusFirstFocusableInBlock(block);
   };
 
-  for (const div of document.querySelectorAll('[name="user-options"]')) {
+  for (const div of document.querySelectorAll('#part-user-options')) {
     const title = div.querySelector('h3');
     if (title) {
       const options = [];
