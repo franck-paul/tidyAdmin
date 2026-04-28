@@ -174,25 +174,25 @@ class Manage
             $header_color_light = is_string($header_color_light = $_POST['ui_headercolor']) ? $header_color_light : '';
             $header_color_dark  = is_string($header_color_dark = $_POST['ui_headercolor_dark']) ? $header_color_dark : '';
 
-            $interface_pref->put('minidcicon', !empty($_POST['ui_minidcicon']), 'boolean');
-            $interface_pref->put('movesearchmenu', !empty($_POST['ui_movesearchmenu']), 'boolean');
-            $interface_pref->put('clonesearchmedia', !empty($_POST['ui_clonesearchmedia']), 'boolean');
-            $interface_pref->put('hovercollapser', !empty($_POST['ui_hovercollapser']), 'boolean');
-            $interface_pref->put('pluginconfig', !empty($_POST['ui_pluginconfig']), 'boolean');
-            $interface_pref->put('switchtheme', !empty($_POST['ui_switchtheme']), 'boolean');
-            $interface_pref->put('switchfetch', !empty($_POST['ui_switchfetch']), 'boolean');
-            $interface_pref->put('stickytoolbar', !empty($_POST['ui_stickytoolbar']), 'boolean');
-            $interface_pref->put('userheadercolor', !empty($_POST['ui_userheadercolor']), 'boolean');
-            $interface_pref->put('headercolor', App::backend()->themeConfig()->adjustColor($header_color_light), 'string');
-            $interface_pref->put('headercolor_dark', App::backend()->themeConfig()->adjustColor($header_color_dark), 'string');
-            $interface_pref->put('swapaltdescmedia', !empty($_POST['ui_swapaltdescmedia']), 'boolean');
-            $interface_pref->put('minifythemeresources', !empty($_POST['ui_minifythemeresources']), 'boolean');
-            $interface_pref->put('themeeditordevmode', !empty($_POST['ui_themeeditordevmode']), 'boolean');
-            $interface_pref->put('dock', !empty($_POST['ui_dock']), 'boolean');
-            $interface_pref->put('dockactive', !empty($_POST['ui_dockactive']), 'boolean');
-            $interface_pref->put('dockautohide', !empty($_POST['ui_dockautohide']), 'boolean');
-            $interface_pref->put('menusblogprefs', !empty($_POST['ui_menusblogprefs']), 'boolean');
-            $interface_pref->put('menususerprefs', !empty($_POST['ui_menususerprefs']), 'boolean');
+            $interface_pref->put('minidcicon', !empty($_POST['ui_minidcicon']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('movesearchmenu', !empty($_POST['ui_movesearchmenu']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('clonesearchmedia', !empty($_POST['ui_clonesearchmedia']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('hovercollapser', !empty($_POST['ui_hovercollapser']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('pluginconfig', !empty($_POST['ui_pluginconfig']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('switchtheme', !empty($_POST['ui_switchtheme']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('switchfetch', !empty($_POST['ui_switchfetch']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('stickytoolbar', !empty($_POST['ui_stickytoolbar']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('userheadercolor', !empty($_POST['ui_userheadercolor']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('headercolor', App::backend()->themeConfig()->adjustColor($header_color_light), App::userWorkspace()::WS_STRING);
+            $interface_pref->put('headercolor_dark', App::backend()->themeConfig()->adjustColor($header_color_dark), App::userWorkspace()::WS_STRING);
+            $interface_pref->put('swapaltdescmedia', !empty($_POST['ui_swapaltdescmedia']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('minifythemeresources', !empty($_POST['ui_minifythemeresources']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('themeeditordevmode', !empty($_POST['ui_themeeditordevmode']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('dock', !empty($_POST['ui_dock']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('dockactive', !empty($_POST['ui_dockactive']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('dockautohide', !empty($_POST['ui_dockautohide']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('menusblogprefs', !empty($_POST['ui_menusblogprefs']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('menususerprefs', !empty($_POST['ui_menususerprefs']), App::userWorkspace()::WS_BOOL);
 
             App::backend()->notices()->addSuccessNotice(__('Options updated'));
             My::redirect([
