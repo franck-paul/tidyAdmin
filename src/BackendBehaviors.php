@@ -40,6 +40,7 @@ class BackendBehaviors
 
         return '';
     }
+
     public static function adminBlogPreferencesHeaders(): string
     {
         if (App::auth()->prefs()->interface->menusblogprefs) {
@@ -308,7 +309,7 @@ class BackendBehaviors
         // List of supported extension for minification
         $types = ['js', 'css'];
 
-        if (App::auth()->prefs()->interface->minifythemeresources && in_array($type, $types)) {
+        if (App::auth()->prefs()->interface->minifythemeresources && in_array($type, $types, true)) {
             try {
                 $minified_file = self::getMinifiedFile($file);
 
@@ -330,6 +331,7 @@ class BackendBehaviors
                         if (($fp = fopen($minified_file, 'wb')) === false) {
                             throw new Exception(sprintf('Unable to open file %s', $minified_file));
                         }
+
                         fwrite($fp, $minified);
                         fclose($fp);
                     } else {

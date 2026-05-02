@@ -321,7 +321,7 @@ class Manage
         }
 
         $part = is_string($part = $_GET['part'] ?? '') ? $part : '';
-        if (in_array($part, ['options', 'css-editor', 'js-editor', 'po-editor', 'html-editor'])) {
+        if (in_array($part, ['options', 'css-editor', 'js-editor', 'po-editor', 'html-editor'], true)) {
             self::$part = $part;
         }
 
