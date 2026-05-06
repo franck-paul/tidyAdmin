@@ -21,7 +21,7 @@ dotclear.ready(() => {
 
   const favicon = svg.replace('__BACK__', back[index]).replace('__TEXT__', text[index]);
 
-  const encodedSVG = favicon.replace(/\"/g, '%22').replace(/\#/g, '%23');
+  const encodedSVG = favicon.replaceAll('"', '%22').replaceAll('#', '%23');
 
   // Remove favicon.ico if present in head
   const ico = document.head.querySelector('link[href="images/favicon.ico"]');
