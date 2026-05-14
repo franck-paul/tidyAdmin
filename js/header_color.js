@@ -23,10 +23,14 @@ dotclear.ready(() => {
 
   const encodedSVG = favicon.replaceAll('"', '%22').replaceAll('#', '%23');
 
-  // Remove favicon.ico if present in head
-  const ico = document.head.querySelector('link[href="images/favicon.ico"]');
-  if (ico) {
-    ico.remove();
+  // Remove favicon.png and favicon.svg if present in head
+  const ico_png = document.head.querySelector('link[href="images/favicon.png"]');
+  if (ico_png) {
+    ico_png.remove();
+  }
+  const ico_svg = document.head.querySelector('link[href="images/favicon.svg"]');
+  if (ico_svg) {
+    ico_svg.remove();
   }
 
   // Cope with customized favicon

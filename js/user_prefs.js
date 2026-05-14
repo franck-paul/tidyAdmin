@@ -3,7 +3,7 @@
 
 dotclear.ready(() => {
   const data = dotclear.getData('tidyadmin_userprefs');
-  const isMotionReduced = window.matchMedia(`(prefers-reduced-motion: reduce)`)?.matches === true;
+  const isMotionReduced = globalThis.matchMedia(`(prefers-reduced-motion: reduce)`)?.matches === true;
 
   // Find 1st focusable element
   const isTabbable = (el) => {
