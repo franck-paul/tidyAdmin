@@ -3,7 +3,7 @@
   .navigation {
     position: absolute;
     top: 0;
-    right: 1em;
+    right: 0;
   }
 }
 @media screen and (width <= 48em) {
