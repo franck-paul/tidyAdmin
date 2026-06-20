@@ -44,11 +44,8 @@
       background: light-dark(#eeeeee, #494c52);
     }
 
-    &.active:after {
-      content: '•';
-      position: absolute;
-      left: 1em;
-      bottom: -1.125em;
+    &.active div {
+      outline: 1px solid;
     }
   }
 
