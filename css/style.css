@@ -14,6 +14,11 @@ textarea[name$='_content'] + .CodeMirror {
     font-size: 80%;
     line-height: 1.75;
   }
+
+  .CodeMirror-vscrollbar,
+  .CodeMirror-hscrollbar {
+    scrollbar-color: auto;
+  }
 }
 
 table.fitcontent {
