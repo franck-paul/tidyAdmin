@@ -7,7 +7,6 @@ textarea[name$='_demo_content'] {
 textarea[name$='_content'] + .CodeMirror {
   height: 30em;
   resize: vertical;
-  overflow: auto;
   font-size: clamp(90%, 0.9em, 2ex);
 
   .CodeMirror-linenumber {
