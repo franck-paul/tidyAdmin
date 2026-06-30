@@ -268,10 +268,10 @@ class BackendBehaviors
     public static function adminDashboardFavorites(Favorites $favs): string
     {
         $favs->register(My::id(), [
-            'title'      => __('Tidy Administration'),
-            'url'        => My::manageUrl(),
-            'small-icon' => My::icons(),
-            'large-icon' => My::icons(),
+            'title'          => __('Tidy Administration'),
+            'url'            => My::manageUrl(),
+            'menu-icon'      => My::icon(),
+            'dashboard-icon' => My::icon(),
         ]);
 
         return '';
