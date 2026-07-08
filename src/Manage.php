@@ -169,7 +169,7 @@ class Manage
 
         if (!empty($_POST['opts'])) {
             // Get interface setting
-            $interface_pref = App::auth()->prefs()->interface;
+            $interface_pref = App::auth()->prefs()->get('interface');
 
             $header_color_light = is_string($header_color_light = $_POST['ui_headercolor']) ? $header_color_light : '';
             $header_color_dark  = is_string($header_color_dark = $_POST['ui_headercolor_dark']) ? $header_color_dark : '';
@@ -342,46 +342,46 @@ class Manage
         }
 
         // Get interface setting
-        $interface_pref = App::auth()->prefs()->interface;
+        $interface_pref = App::auth()->prefs()->get('interface');
 
-        $ui_colorsyntax       = $interface_pref->colorsyntax;
+        $ui_colorsyntax       = $interface_pref->get('colorsyntax');
         $ui_colorsyntax_theme = '';
         if ($ui_colorsyntax) {
-            $ui_colorsyntax_theme = is_string($ui_colorsyntax_theme = $interface_pref->colorsyntax_theme) ?
+            $ui_colorsyntax_theme = is_string($ui_colorsyntax_theme = $interface_pref->get('colorsyntax_theme')) ?
                 $ui_colorsyntax_theme :
                 'default';
         }
 
-        $ui_minidcicon = is_bool($ui_minidcicon = $interface_pref->minidcicon) && $ui_minidcicon;
+        $ui_minidcicon = $interface_pref->getBool('minidcicon', false);
 
-        $ui_movesearchmenu   = is_bool($ui_movesearchmenu = $interface_pref->movesearchmenu)     && $ui_movesearchmenu;
-        $ui_clonesearchmedia = is_bool($ui_clonesearchmedia = $interface_pref->clonesearchmedia) && $ui_clonesearchmedia;
+        $ui_movesearchmenu   = $interface_pref->getBool('movesearchmenu', false);
+        $ui_clonesearchmedia = $interface_pref->getBool('clonesearchmedia', false);
 
-        $ui_hovercollapser = is_bool($ui_hovercollapser = $interface_pref->hovercollapser) && $ui_hovercollapser;
+        $ui_hovercollapser = $interface_pref->getBool('hovercollapser', false);
 
-        $ui_pluginconfig = is_bool($ui_pluginconfig = $interface_pref->pluginconfig) && $ui_pluginconfig;
+        $ui_pluginconfig = $interface_pref->getBool('pluginconfig', false);
 
-        $ui_switchtheme = is_bool($ui_switchtheme = $interface_pref->switchtheme) && $ui_switchtheme;
-        $ui_switchfetch = is_bool($ui_switchfetch = $interface_pref->switchfetch) && $ui_switchfetch;
+        $ui_switchtheme = $interface_pref->getBool('switchtheme', false);
+        $ui_switchfetch = $interface_pref->getBool('switchfetch', false);
 
-        $ui_stickytoolbar = is_bool($ui_stickytoolbar = $interface_pref->stickytoolbar) && $ui_stickytoolbar;
+        $ui_stickytoolbar = $interface_pref->getBool('stickytoolbar', false);
 
-        $ui_userheadercolor = is_bool($ui_userheadercolor = $interface_pref->userheadercolor) && $ui_userheadercolor;
+        $ui_userheadercolor = $interface_pref->getBool('userheadercolor', false);
 
-        $ui_headercolor      = is_string($ui_headercolor = $interface_pref->headercolor) ? $ui_headercolor : '';
-        $ui_headercolor_dark = is_string($ui_headercolor_dark = $interface_pref->headercolor_dark) ? $ui_headercolor_dark : '';
+        $ui_headercolor      = $interface_pref->getStr('headercolor', false);
+        $ui_headercolor_dark = $interface_pref->getStr('headercolor_dark', false);
 
-        $ui_swapaltdescmedia = is_bool($ui_swapaltdescmedia = $interface_pref->swapaltdescmedia) && $ui_swapaltdescmedia;
+        $ui_swapaltdescmedia = $interface_pref->getBool('swapaltdescmedia', false);
 
-        $ui_minifythemeresources = is_bool($ui_minifythemeresources = $interface_pref->minifythemeresources) && $ui_minifythemeresources;
-        $ui_themeeditordevmode   = is_bool($ui_themeeditordevmode = $interface_pref->themeeditordevmode)     && $ui_themeeditordevmode;
+        $ui_minifythemeresources = $interface_pref->getBool('minifythemeresources', false);
+        $ui_themeeditordevmode   = $interface_pref->getBool('themeeditordevmode', false);
 
-        $ui_dock         = is_bool($ui_dock = $interface_pref->dock)                 && $ui_dock;
-        $ui_dockactive   = is_bool($ui_dockactive = $interface_pref->dockactive)     && $ui_dockactive;
-        $ui_dockautohide = is_bool($ui_dockautohide = $interface_pref->dockautohide) && $ui_dockautohide;
+        $ui_dock         = $interface_pref->getBool('dock', false);
+        $ui_dockactive   = $interface_pref->getBool('dockactive', false);
+        $ui_dockautohide = $interface_pref->getBool('dockautohide', false);
 
-        $ui_menusblogprefs = is_bool($ui_menusblogprefs = $interface_pref->menusblogprefs) && $ui_menusblogprefs;
-        $ui_menususerprefs = is_bool($ui_menususerprefs = $interface_pref->menususerprefs) && $ui_menususerprefs;
+        $ui_menusblogprefs = $interface_pref->getBool('menusblogprefs', false);
+        $ui_menususerprefs = $interface_pref->getBool('menususerprefs', false);
 
         $head = App::backend()->page()->jsModal() .
         App::backend()->page()->jsConfirmClose(

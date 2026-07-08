@@ -29,7 +29,7 @@ class BackendBehaviors
 {
     public static function adminPreferencesHeaders(): string
     {
-        if (App::auth()->prefs()->interface->menususerprefs) {
+        if (App::auth()->prefs()->get('interface')->getBool('menususerprefs')) {
             return
                 My::cssLoad('user_prefs.css') .
                 App::backend()->page()->jsJson('tidyadmin_userprefs', [
@@ -43,7 +43,7 @@ class BackendBehaviors
 
     public static function adminBlogPreferencesHeaders(): string
     {
-        if (App::auth()->prefs()->interface->menusblogprefs) {
+        if (App::auth()->prefs()->get('interface')->getBool('menusblogprefs')) {
             return
                 My::cssLoad('blog_prefs.css') .
                 App::backend()->page()->jsJson('tidyadmin_blogprefs', [
@@ -58,63 +58,63 @@ class BackendBehaviors
     public static function adminPageHTMLHead(bool $main = false): string
     {
         // Reduce home button
-        if (App::auth()->prefs()->interface->minidcicon) {
+        if (App::auth()->prefs()->get('interface')->getBool('minidcicon')) {
             echo
                 My::cssLoad('dcicon.css') .
                 My::jsLoad('dcicon.js');
         }
 
         // Load search form (menu) repositioning helper
-        if (App::auth()->prefs()->interface->movesearchmenu) {
+        if (App::auth()->prefs()->get('interface')->getBool('movesearchmenu')) {
             echo
                 My::cssLoad('search_menu.css') .
                 My::jsLoad('search_menu.js');
         }
 
         // Load search form (media) repositioning helper
-        if (App::auth()->prefs()->interface->clonesearchmedia) {
+        if (App::auth()->prefs()->get('interface')->getBool('clonesearchmedia')) {
             echo
                 My::cssLoad('search_media.css') .
                 My::jsLoad('search_media.js');
         }
 
         // Add hover detection on collapser
-        if (App::auth()->prefs()->interface->hovercollapser) {
+        if (App::auth()->prefs()->get('interface')->getBool('hovercollapser')) {
             echo
                 My::jsLoad('hover_collapser.js');
         }
 
         // Move plugin settings link to top
-        if (App::auth()->prefs()->interface->pluginconfig) {
+        if (App::auth()->prefs()->get('interface')->getBool('pluginconfig')) {
             echo
                 My::cssLoad('plugin_config.css') .
                 My::jsLoad('plugin_config.js');
         }
 
         // Allow double click on header to switch theme
-        if (App::auth()->prefs()->interface->switchtheme) {
+        if (App::auth()->prefs()->get('interface')->getBool('switchtheme')) {
             echo
                 My::jsLoad('switch_theme.js');
         }
 
         // Switch fetch requests
-        if (App::auth()->prefs()->interface->switchfetch) {
+        if (App::auth()->prefs()->get('interface')->getBool('switchfetch')) {
             echo
                 My::cssLoad('switch_fetch.css') .
                 My::jsLoad('switch_fetch.js');
         }
 
         // Always display legacy editor toolbar
-        if (App::auth()->prefs()->interface->stickytoolbar) {
+        if (App::auth()->prefs()->get('interface')->getBool('stickytoolbar')) {
             echo
                 My::cssLoad('sticky_toolbar.css');
         }
 
         // Header color
-        if (App::auth()->prefs()->interface->userheadercolor) {
+        if (App::auth()->prefs()->get('interface')->getBool('userheadercolor')) {
             // Prepare header color
-            $light             = is_string($light = App::auth()->prefs()->interface->headercolor) ? $light : '';
-            $dark              = is_string($dark = App::auth()->prefs()->interface->headercolor_dark) ? $dark : $light;
+            $light             = App::auth()->prefs()->get('interface')->getStr('headercolor', false);
+            $dark              = App::auth()->prefs()->get('interface')->getStr('headercolor_dark', false);
             $header_background = sprintf(
                 'light-dark(%s, %s)',
                 $light,
@@ -157,7 +157,7 @@ class BackendBehaviors
         }
 
         // Swap alt/desc of media details
-        if (App::auth()->prefs()->interface->swapaltdescmedia) {
+        if (App::auth()->prefs()->get('interface')->getBool('swapaltdescmedia')) {
             echo
                 My::cssLoad('swap_alt_desc_media.css') .
                 My::jsLoad('swap_alt_desc_media.js');
@@ -178,7 +178,7 @@ class BackendBehaviors
             echo App::backend()->page()->jsLoad(urldecode((string) App::backend()->page()->getVF('plugins/' . My::id() . '/admin.js')));
         }
 
-        if ($main && App::auth()->prefs()->interface->dock) {
+        if ($main && App::auth()->prefs()->get('interface')->getBool('dock')) {
             // Display favorites in dock
             echo
                 My::cssLoad('dock.css') .
@@ -190,10 +190,10 @@ class BackendBehaviors
 
     public static function adminPageHTMLBody(bool $main = false): string
     {
-        if ($main && App::auth()->prefs()->interface->dock) {
+        if ($main && App::auth()->prefs()->get('interface')->getBool('dock')) {
             // Display favorites in dock
 
-            $show_active = App::auth()->prefs()->interface->dockactive;
+            $show_active = App::auth()->prefs()->get('interface')->getBool('dockactive');
 
             $url     = htmlspecialchars_decode((string) App::backend()->url()->get('admin.home'));
             $pattern = '@' . preg_quote($url, '@') . '(&.*)?' . '$@';
@@ -235,7 +235,7 @@ class BackendBehaviors
             }
 
             echo (new Div('dock'))
-                ->class(App::auth()->prefs()->interface->dockautohide ? 'autohide' : '')
+                ->class(App::auth()->prefs()->get('interface')->getBool('dockautohide') ? 'autohide' : '')
                 ->items(
                     array_map(
                         fn (string $id, array $info) => (new Link('icon-process-' . $id . '-dock'))
@@ -309,7 +309,7 @@ class BackendBehaviors
         // List of supported extension for minification
         $types = ['js', 'css'];
 
-        if (App::auth()->prefs()->interface->minifythemeresources && in_array($type, $types, true)) {
+        if (App::auth()->prefs()->get('interface')->getBool('minifythemeresources') && in_array($type, $types, true)) {
             try {
                 $minified_file = self::getMinifiedFile($file);
 
@@ -348,7 +348,7 @@ class BackendBehaviors
 
     public static function themeEditorDeleteFile(string $file, string $type): string
     {
-        if (App::auth()->prefs()->interface->minifythemeresources && ($type === 'js' || $type === 'css')) {
+        if (App::auth()->prefs()->get('interface')->getBool('minifythemeresources') && ($type === 'js' || $type === 'css')) {
             try {
                 $minified_file = self::getMinifiedFile($file);
 
@@ -366,7 +366,7 @@ class BackendBehaviors
 
     public static function themeEditorDevMode(): string
     {
-        if (App::auth()->prefs()->interface->themeeditordevmode) {
+        if (App::auth()->prefs()->get('interface')->getBool('themeeditordevmode')) {
             // Will put theme editor in development mode
             return 'DEV';
         }
