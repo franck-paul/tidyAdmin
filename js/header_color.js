@@ -23,14 +23,14 @@ dotclear.ready(() => {
 
   const encodedSVG = favicon.replaceAll('"', '%22').replaceAll('#', '%23');
 
-  // Remove favicon.png and favicon.svg if present in head
-  const ico_png = document.head.querySelector('link[href="images/favicon.png"]');
-  if (ico_png) {
-    ico_png.remove();
+  // Remove favicon.png and favicon.svg if present in head (rel="icon", rel="apple-touch-icon")
+  const png_icons = document.head.querySelectorAll('link[href="images/favicon.png"]');
+  for (const icon of png_icons) {
+    icon.remove();
   }
-  const ico_svg = document.head.querySelector('link[href="images/favicon.svg"]');
-  if (ico_svg) {
-    ico_svg.remove();
+  const svg_icons = document.head.querySelectorAll('link[href="images/favicon.svg"]');
+  for (const icon of svg_icons) {
+    icon.remove();
   }
 
   // Cope with customized favicon
@@ -38,8 +38,16 @@ dotclear.ready(() => {
   if (link) {
     // A SVG favicon exists in the head
     link.href = `data:image/svg+xml,${encodedSVG}`;
-    return;
   }
+
+  // Cope with customized favicon (Apple)
+  const link_apple = document.head.querySelector('link[rel="apple-touch-icon"][type="image/svg+xml"]');
+  if (link_apple) {
+    // A SVG favicon exists in the head
+    link_apple.href = `data:image/svg+xml,${encodedSVG}`;
+  }
+
+  if (link || link_apple) return;
 
   // Add a SVG favicon to the head
   const add = document.createElement('link');
