@@ -74,7 +74,7 @@ class BackendBehaviors
         // Load search form (media) repositioning helper
         if (App::auth()->prefs()->get('interface')->getBool('clonesearchmedia')) {
             $request_uri = isset($_SERVER['REQUEST_URI']) && is_string($request_uri = $_SERVER['REQUEST_URI']) ? $request_uri : '';
-            if (preg_match('/' . preg_quote(App::backend()->url()->get('admin.media'), '/') . '&?/', $request_uri)) {
+            if (preg_match('/' . preg_quote((string) App::backend()->url()->get('admin.media'), '/') . '&?/', $request_uri)) {
                 echo
                     My::cssLoad('search_media.css') .
                     My::jsLoad('search_media.js');
