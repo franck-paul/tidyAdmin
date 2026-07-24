@@ -446,7 +446,7 @@ class Manage
                                     ]),
                                 (new Note())
                                     ->class(['form-note','info'])
-                                    ->text(__('To permanently change theme go the your user preferences')),
+                                    ->text(__('To permanently change theme go the your preferences')),
                                 (new Para())
                                     ->items([
                                         (new Checkbox('ui_switchfetch', $ui_switchfetch))
@@ -587,7 +587,7 @@ class Manage
                                     ->items([
                                         (new Checkbox('ui_menususerprefs', $ui_menususerprefs))
                                             ->value(1)
-                                            ->label((new Label(__('Display direct access menus on user preferences page'), Label::INSIDE_TEXT_AFTER))),
+                                            ->label((new Label(__('Display direct access menus on preferences page'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                             ]),
                         (new Para())
