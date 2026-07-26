@@ -93,7 +93,7 @@ dotclear.ready(() => {
   for (const div of document.querySelectorAll('#part-user-options')) {
     const title = div.querySelector('h3');
     if (title) {
-      const options = [];
+      const legends = {};
       // Search for fieldsets
       for (const fieldset of div.querySelectorAll('fieldset')) {
         let id = fieldset.getAttribute('id');
@@ -104,12 +104,22 @@ dotclear.ready(() => {
             id = `group-${Date.now()}-${Math.floor(Math.random() * 8999 + 1000)}`;
             fieldset.setAttribute('id', id);
           }
+          legends[legend.textContent.trim()] = id;
+        }
+      }
+
+      const options = [];
+      if (Object.keys(legends).length) {
+        // Compose options
+        const sorted = Object.keys(legends).sort((a, b) => a.localeCompare(b));
+        for (const item of sorted) {
           const option = document.createElement('option');
-          option.setAttribute('value', `${id}`);
-          option.appendChild(document.createTextNode(legend.textContent.trim()));
+          option.setAttribute('value', legends[item]);
+          option.appendChild(document.createTextNode(item));
           options.push(option);
         }
       }
+
       if (options.length) {
         const label = document.createElement('label');
         label.appendChild(document.createTextNode(data.goto));
@@ -117,6 +127,7 @@ dotclear.ready(() => {
         const select = document.createElement('select');
         select.setAttribute('id', `go-${div.getAttribute('name')}`);
         select.classList.add('meta-helper'); // meta-helper class will force confirm-close to ignore this select changes
+        // biome-ignore lint/suspicious/useIterableCallbackReturn: don't care about return value
         options.forEach((option) => select.appendChild(option));
         select.addEventListener('change', (event) => move(event.target.value, 'user-options'));
         label.appendChild(select);
