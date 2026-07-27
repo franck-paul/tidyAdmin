@@ -317,7 +317,10 @@ class BackendBehaviors
                 $minified_file = self::getMinifiedFile($file);
 
                 // First delete existing minified version
-                if ($minified_file !== '' && file_exists($minified_file) && is_writable($minified_file)) {
+                if ($minified_file !== ''
+                    && file_exists($minified_file)
+                    && is_writable($minified_file)
+                ) {
                     unlink($minified_file);
                 }
 
@@ -356,7 +359,10 @@ class BackendBehaviors
                 $minified_file = self::getMinifiedFile($file);
 
                 // First delete existing minified version
-                if ($minified_file !== '' && file_exists($minified_file) && is_writable($minified_file)) {
+                if ($minified_file !== ''
+                    && file_exists($minified_file)
+                    && is_writable($minified_file)
+                ) {
                     unlink($minified_file);
                 }
             } catch (Exception) {
