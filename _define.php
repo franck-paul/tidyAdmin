@@ -11,20 +11,24 @@
  * @copyright Franck Paul contact@open-time.net
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-$this->registerModule(
-    'Tidy Administration',
-    'Customize your dotclear administration',
-    'Franck Paul',
-    '11.0',
-    [
-        'date'     => '2026-08-03T10:14:13+0200',
-        'requires' => [['core', '2.39']],
-        'type'     => 'plugin',
-        'settings' => [],
+declare(strict_types=1);
 
-        'details'    => 'https://open-time.net/?q=tidyadmin',
-        'support'    => 'https://github.com/franck-paul/tidyadmin',
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/tidyadmin/main/dcstore.xml',
-        'license'    => 'gpl2',
-    ]
-);
+if (isset($this) && is_object($this) && method_exists($this, 'registerModule') && isset($this->id) && is_string($this->id)) {
+    $this->registerModule(
+        'Tidy Administration',
+        'Customize your dotclear administration',
+        'Franck Paul',
+        '11.0',
+        [
+            'date'     => '2026-08-03T10:14:13+0200',
+            'requires' => [['core', '2.39']],
+            'type'     => 'plugin',
+            'settings' => [],
+
+            'details'    => 'https://open-time.net/?q=tidyadmin',
+            'support'    => 'https://github.com/franck-paul/tidyadmin',
+            'repository' => 'https://raw.githubusercontent.com/franck-paul/tidyadmin/main/dcstore.xml',
+            'license'    => 'gpl2',
+        ]
+    );
+}
