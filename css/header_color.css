@@ -1,7 +1,8 @@
 /* The 82em limit (see below) should be reviewed if change in default Dotclear CSS */
 /* The --tidy-header-background variable will be user defined in plugin settings */
 #header,
-.popup h1 {
+.popup h1,
+#debug-btn {
   color: var(--tidy-header-color, var(--header-color));
   background-color: var(--tidy-header-background, var(--header-background));
 }
