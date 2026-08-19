@@ -193,6 +193,7 @@ class Manage
             $interface_pref->put('dockautohide', !empty($_POST['ui_dockautohide']), App::userWorkspace()::WS_BOOL);
             $interface_pref->put('menusblogprefs', !empty($_POST['ui_menusblogprefs']), App::userWorkspace()::WS_BOOL);
             $interface_pref->put('menususerprefs', !empty($_POST['ui_menususerprefs']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('stickywidgets', !empty($_POST['ui_stickywidgets']), App::userWorkspace()::WS_BOOL);
 
             App::backend()->notices()->addSuccessNotice(__('Options updated'));
             My::redirect([
@@ -382,6 +383,8 @@ class Manage
 
         $ui_menusblogprefs = $interface_pref->getBool('menusblogprefs', false);
         $ui_menususerprefs = $interface_pref->getBool('menususerprefs', false);
+
+        $ui_stickywidgets = $interface_pref->getBool('stickywidgets', false);
 
         $head = App::backend()->page()->jsModal() .
         App::backend()->page()->jsConfirmClose(
@@ -588,6 +591,12 @@ class Manage
                                         (new Checkbox('ui_menususerprefs', $ui_menususerprefs))
                                             ->value(1)
                                             ->label((new Label(__('Display direct access menus on preferences page'), Label::INSIDE_TEXT_AFTER))),
+                                    ]),
+                                (new Para())
+                                    ->items([
+                                        (new Checkbox('ui_stickywidgets', $ui_stickywidgets))
+                                            ->value(1)
+                                            ->label((new Label(__('Keep the list of defined widgets visible while scrolling (widget management page)'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                             ]),
                         (new Para())

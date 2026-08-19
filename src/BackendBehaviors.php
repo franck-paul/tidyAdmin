@@ -166,6 +166,11 @@ class BackendBehaviors
                 My::jsLoad('swap_alt_desc_media.js');
         }
 
+        if (App::auth()->prefs()->get('interface')->getBool('stickywidgets')) {
+            echo
+                My::cssLoad('widgets.css');
+        }
+
         // User defined head directives
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html')) {
             echo trim((string) file_get_contents(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.html')) . "\n";
