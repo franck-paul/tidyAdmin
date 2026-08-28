@@ -162,6 +162,9 @@ class BackendBehaviors
         // Swap alt/desc of media details
         if (App::auth()->prefs()->get('interface')->getBool('swapaltdescmedia')) {
             echo
+                App::backend()->page()->jsJson('tidyadmin_alt', [
+                    'auto_submit' => App::auth()->prefs()->get('interface')->getBool('swapaltdescmedia_submit', false),
+                ]) .
                 My::cssLoad('swap_alt_desc_media.css') .
                 My::jsLoad('swap_alt_desc_media.js');
         }

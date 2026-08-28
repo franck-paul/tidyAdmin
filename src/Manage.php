@@ -186,6 +186,7 @@ class Manage
             $interface_pref->put('headercolor', App::backend()->themeConfig()->adjustColor($header_color_light), App::userWorkspace()::WS_STRING);
             $interface_pref->put('headercolor_dark', App::backend()->themeConfig()->adjustColor($header_color_dark), App::userWorkspace()::WS_STRING);
             $interface_pref->put('swapaltdescmedia', !empty($_POST['ui_swapaltdescmedia']), App::userWorkspace()::WS_BOOL);
+            $interface_pref->put('swapaltdescmedia_submit', !empty($_POST['ui_swapaltdescmedia_submit']), App::userWorkspace()::WS_BOOL);
             $interface_pref->put('minifythemeresources', !empty($_POST['ui_minifythemeresources']), App::userWorkspace()::WS_BOOL);
             $interface_pref->put('themeeditordevmode', !empty($_POST['ui_themeeditordevmode']), App::userWorkspace()::WS_BOOL);
             $interface_pref->put('dock', !empty($_POST['ui_dock']), App::userWorkspace()::WS_BOOL);
@@ -372,7 +373,8 @@ class Manage
         $ui_headercolor      = $interface_pref->getStr('headercolor', false);
         $ui_headercolor_dark = $interface_pref->getStr('headercolor_dark', false);
 
-        $ui_swapaltdescmedia = $interface_pref->getBool('swapaltdescmedia', false);
+        $ui_swapaltdescmedia        = $interface_pref->getBool('swapaltdescmedia', false);
+        $ui_swapaltdescmedia_submit = $interface_pref->getBool('swapaltdescmedia_submit', false);
 
         $ui_minifythemeresources = $interface_pref->getBool('minifythemeresources', false);
         $ui_themeeditordevmode   = $interface_pref->getBool('themeeditordevmode', false);
@@ -544,6 +546,12 @@ class Manage
                                         (new Checkbox('ui_swapaltdescmedia', $ui_swapaltdescmedia))
                                             ->value(1)
                                             ->label((new Label(__('Add an exchange button between alternative text and media description'), Label::INSIDE_TEXT_AFTER))),
+                                    ]),
+                                (new Para())
+                                    ->items([
+                                        (new Checkbox('ui_swapaltdescmedia_submit', $ui_swapaltdescmedia_submit))
+                                            ->value(1)
+                                            ->label((new Label(__('Submit the form after exchanging the alternative text and media description (only if previous option is enabled)'), Label::INSIDE_TEXT_AFTER))),
                                     ]),
                             ]),
                         (new Fieldset())

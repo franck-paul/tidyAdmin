@@ -44,6 +44,7 @@ L10n::$locales['The dock will be hidden/shown only if hovering over it is possib
 L10n::$locales['Media manager'] = '';
 L10n::$locales['Clone the media manager search input in always visible area'] = '';
 L10n::$locales['Add an exchange button between alternative text and media description'] = '';
+L10n::$locales['Submit the form after exchanging the alternative text and media description (only if previous option is enabled)'] = '';
 L10n::$locales['Theme editor'] = '';
 L10n::$locales['Minify theme resources modified by the theme editor'] = '';
 L10n::$locales['Set theme editor in development mode'] = '';

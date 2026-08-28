@@ -2,6 +2,7 @@
 'use strict';
 
 dotclear.ready(() => {
+  const options = dotclear.getData('tidyadmin_alt');
   const media_alt =
     document.querySelector('#change-properties-form #media_alt') ?? // 2.33+
     document.querySelector('#media-details #media_alt'); // older
@@ -27,5 +28,9 @@ dotclear.ready(() => {
   button.addEventListener('click', () => {
     // Swap two fields contents
     [media_alt.value, media_desc.value] = [media_desc.value, media_alt.value];
+    if (options.auto_submit) {
+      const submit = document.querySelector('#change-properties-submit');
+      if (submit) submit.click();
+    }
   });
 });
