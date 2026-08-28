@@ -44,6 +44,7 @@ L10n::$locales['The dock will be hidden/shown only if hovering over it is possib
 L10n::$locales['Media manager'] = 'Médiathèque';
 L10n::$locales['Clone the media manager search input in always visible area'] = 'Cloner le champ de recherche de la médiathèque dans une partie toujours visible';
 L10n::$locales['Add an exchange button between alternative text and media description'] = 'Ajouter un bouton d\'échange entre le texte alternatif et la description du média';
+L10n::$locales['Submit the form after exchanging the alternative text and media description (only if previous option is enabled)'] = 'Soumettre le formulaire après avoir échangé le texte alternatif et la description du média (uniquement si l\'option précédente est activée)';
 L10n::$locales['Theme editor'] = 'Éditeur de thème';
 L10n::$locales['Minify theme resources modified by the theme editor'] = 'Minifier les ressources du thème modifiées par l\'éditeur de thème';
 L10n::$locales['Set theme editor in development mode'] = 'Basculer l\'éditeur de thème en mode développement';
