@@ -151,8 +151,12 @@ class BackendBehaviors
             );
 
             // Add theme-color (see https://www.matuzo.at/blog/html-boilerplate)
-            $format = '<meta name="theme-color" content="%s" media="(prefers-color-scheme: %s)">';
-            $head   = sprintf($format, $dark, 'dark') . "\n" . sprintf($format, $light, 'light') . "\n";
+            if ($dark !== $light) {
+                $format = '<meta name="theme-color" content="%s" media="(prefers-color-scheme: %s)">';
+                $head   = sprintf($format, $dark, 'dark') . "\n" . sprintf($format, $light, 'light') . "\n";
+            } else {
+                $head = sprintf('<meta name="theme-color" content="%s">', $light);
+            }
 
             echo
                 $head .
