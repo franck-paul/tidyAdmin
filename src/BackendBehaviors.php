@@ -150,7 +150,12 @@ class BackendBehaviors
                 $isBrightColor($dark) ? '#000' : '#fff',
             );
 
+            // Add theme-color (see https://www.matuzo.at/blog/html-boilerplate)
+            $format = '<meta name="theme-color" content="%s" media="(prefers-color-scheme: %s)">';
+            $head   = sprintf($format, $dark, 'dark') . "\n" . sprintf($format, $light, 'light') . "\n";
+
             echo
+                $head .
                 App::backend()->page()->jsJson('tidyadmin', [
                     'header_color'      => $header_color,
                     'header_background' => $header_background,
