@@ -1,1 +1,1 @@
-#tidy-switch-fetch{width:1.5em;height:1.5em;color:var(--header-color);background-color:var(--header-background);border:none;margin:.25em .5em 0 0;padding:0}
+#tidy-switch-fetch{width:1.5em;height:1.5em;color:var(--header-color);background-color:var(--tidy-header-background,var(--header-background));border:none;margin:.25em .5em 0 0;padding:0}
