@@ -1,8 +1,11 @@
 #tidy-switch-fetch {
-  width: 1.5em;
-  height: 1.5em;
+  inline-size: 1.5em;
+  block-size: 1.5em;
   padding: 0;
-  margin: 0.25em 0.5em 0 0;
+  margin-block-start: 0.25em;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0.5em;
   border: none;
   color: var(--header-color);
   background-color: var(--tidy-header-background, var(--header-background));

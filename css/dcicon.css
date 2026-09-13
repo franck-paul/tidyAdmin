@@ -2,7 +2,7 @@
 #header.tidy_dcicon {
   h1,
   h1 a {
-    width: calc(32px + 0.5em) !important;
+    inline-size: calc(32px + 0.5em) !important;
   }
 
   h1 a {
@@ -16,23 +16,23 @@
   }
 
   #top-info-blog {
-    padding-left: 0.5em;
+    padding-inline-start: 0.5em;
   }
 }
 body.popup.tidy_dcicon {
   h1 {
-    width: 41px;
-    height: 41px;
+    inline-size: 41px;
+    block-size: 41px;
     background-image: url(style/dc_logos/dotclear-mini.svg);
     background-repeat: no-repeat;
     background-size: 38px;
     position: absolute;
-    top: 0;
-    left: 0;
+    inset-block-start: 0;
+    inset-inline-start: 0;
     z-index: 99;
     @media screen and (width <= 43em) {
-      width: 37px;
-      height: 37px;
+      inline-size: 37px;
+      block-size: 37px;
       background-size: 34px;
     }
   }
@@ -44,10 +44,13 @@ body.popup.tidy_dcicon {
 
 @media screen and (max-width: 43em) {
   #top-info-blog {
-    margin-bottom: 0;
-    padding: 0.5em 0 0 0.5em;
+    margin-block-end: 0;
+    padding-block-start: 0.5em;
+    padding-block-end: 0;
+    padding-inline-start: 0.5em;
+    padding-inline-end: 0;
   }
 }
 #top-info-blog a {
-  margin-left: 0.5em;
+  margin-inline-start: 0.5em;
 }

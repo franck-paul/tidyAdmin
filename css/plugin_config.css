@@ -2,14 +2,14 @@ a.button.mini-config {
   display: flex;
   padding: 0.25em;
   img {
-    width: 1em;
-    height: 1em;
+    inline-size: 1em;
+    block-size: 1em;
   }
 }
 .new-stuff,
 .top-add,
 [role='alert'] {
   &.mini-config {
-    margin-right: 2.5em;
+    margin-inline-end: 2.5em;
   }
 }

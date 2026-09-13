@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 tidyAdmin module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-28 11:42+0200\n"
+"POT-Creation-Date: 2026-09-13 17:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../git-plugins/tidyAdmin/src/Backend.php:29
-#: ../git-plugins/tidyAdmin/src/BackendBehaviors.php:282
+#: ../git-plugins/tidyAdmin/src/BackendBehaviors.php:291
 msgid "Tidy Administration"
 msgstr ""
 
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Customize your dotclear administration"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/BackendBehaviors.php:227
+#: ../git-plugins/tidyAdmin/src/BackendBehaviors.php:236
 msgid "Go to dashboard"
 msgstr ""
 
@@ -37,10 +37,10 @@ msgstr ""
 #: ../git-plugins/tidyAdmin/src/Manage.php:245
 #: ../git-plugins/tidyAdmin/src/Manage.php:275
 #: ../git-plugins/tidyAdmin/src/Manage.php:305
-#: ../git-plugins/tidyAdmin/src/Manage.php:645
-#: ../git-plugins/tidyAdmin/src/Manage.php:695
-#: ../git-plugins/tidyAdmin/src/Manage.php:746
-#: ../git-plugins/tidyAdmin/src/Manage.php:797
+#: ../git-plugins/tidyAdmin/src/Manage.php:648
+#: ../git-plugins/tidyAdmin/src/Manage.php:698
+#: ../git-plugins/tidyAdmin/src/Manage.php:749
+#: ../git-plugins/tidyAdmin/src/Manage.php:800
 #, php-format
 msgid "Unable to write file %s. Please check the dotclear var folder permissions."
 msgstr ""
@@ -94,166 +94,167 @@ msgstr ""
 msgid "Double click on header to switch theme (not permanent)"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:454
-msgid "To permanently change theme go the your preferences"
+#: ../git-plugins/tidyAdmin/src/Manage.php:455
+#, php-format
+msgid "To permanently change theme go to <a href=\"%s\">your preferences</a>."
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:459
+#: ../git-plugins/tidyAdmin/src/Manage.php:462
 msgid "Add a button in header to stop or run Javascript fetch requests (not permanent)"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:465
+#: ../git-plugins/tidyAdmin/src/Manage.php:468
 msgid "Use an user-defined background color for header"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:475
+#: ../git-plugins/tidyAdmin/src/Manage.php:478
 msgid "Backgound color for header:"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:487
+#: ../git-plugins/tidyAdmin/src/Manage.php:490
 msgid "Backgound color for header (dark mode):"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:500
+#: ../git-plugins/tidyAdmin/src/Manage.php:503
 msgid "Menu and dock"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:506
+#: ../git-plugins/tidyAdmin/src/Manage.php:509
 msgid "Enabled mouse hover activation on collapser"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:512
+#: ../git-plugins/tidyAdmin/src/Manage.php:515
 msgid "Display dock with favorites"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:516
+#: ../git-plugins/tidyAdmin/src/Manage.php:519
 msgid "The dock will be hidden on small screens"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:522
+#: ../git-plugins/tidyAdmin/src/Manage.php:525
 msgid "Report the currently active favorite in the dock"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:529
+#: ../git-plugins/tidyAdmin/src/Manage.php:532
 msgid "Automatically hide/show the dock"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:533
+#: ../git-plugins/tidyAdmin/src/Manage.php:536
 msgid "The dock will be hidden/shown only if hovering over it is possible"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:536
+#: ../git-plugins/tidyAdmin/src/Manage.php:539
 msgid "Media manager"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:542
+#: ../git-plugins/tidyAdmin/src/Manage.php:545
 msgid "Clone the media manager search input in always visible area"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:548
+#: ../git-plugins/tidyAdmin/src/Manage.php:551
 msgid "Add an exchange button between alternative text and media description"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:554
+#: ../git-plugins/tidyAdmin/src/Manage.php:557
 msgid "Submit the form after exchanging the alternative text and media description (only if previous option is enabled)"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:558
+#: ../git-plugins/tidyAdmin/src/Manage.php:561
 msgid "Theme editor"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:564
+#: ../git-plugins/tidyAdmin/src/Manage.php:567
 msgid "Minify theme resources modified by the theme editor"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:570
+#: ../git-plugins/tidyAdmin/src/Manage.php:573
 msgid "Set theme editor in development mode"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:574
+#: ../git-plugins/tidyAdmin/src/Manage.php:577
 msgid "In development mode, custom files will be ignored and theme files will be editable"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:577
+#: ../git-plugins/tidyAdmin/src/Manage.php:580
 msgid "Tools"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:583
+#: ../git-plugins/tidyAdmin/src/Manage.php:586
 msgid "Move plugin settings link to top of page"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:589
+#: ../git-plugins/tidyAdmin/src/Manage.php:592
 msgid "Always display editor toolbar during edition"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:595
+#: ../git-plugins/tidyAdmin/src/Manage.php:598
 msgid "Display direct access menus on blog parameters page"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:601
+#: ../git-plugins/tidyAdmin/src/Manage.php:604
 msgid "Display direct access menus on preferences page"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:607
+#: ../git-plugins/tidyAdmin/src/Manage.php:610
 msgid "Keep the list of defined widgets visible while scrolling (widget management page)"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:612
-#: ../git-plugins/tidyAdmin/src/Manage.php:643
-#: ../git-plugins/tidyAdmin/src/Manage.php:693
-#: ../git-plugins/tidyAdmin/src/Manage.php:744
-#: ../git-plugins/tidyAdmin/src/Manage.php:795
+#: ../git-plugins/tidyAdmin/src/Manage.php:615
+#: ../git-plugins/tidyAdmin/src/Manage.php:646
+#: ../git-plugins/tidyAdmin/src/Manage.php:696
+#: ../git-plugins/tidyAdmin/src/Manage.php:747
+#: ../git-plugins/tidyAdmin/src/Manage.php:798
 msgid "Save"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:623
-#: ../git-plugins/tidyAdmin/src/Manage.php:625
+#: ../git-plugins/tidyAdmin/src/Manage.php:626
+#: ../git-plugins/tidyAdmin/src/Manage.php:628
 msgid "Supplemental CSS"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:650
+#: ../git-plugins/tidyAdmin/src/Manage.php:653
 msgid "Note: this supplemental CSS rules will surcharge the default CSS rules."
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:655
+#: ../git-plugins/tidyAdmin/src/Manage.php:658
 msgid "Sample CSS:"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:673
-#: ../git-plugins/tidyAdmin/src/Manage.php:675
+#: ../git-plugins/tidyAdmin/src/Manage.php:676
+#: ../git-plugins/tidyAdmin/src/Manage.php:678
 msgid "Supplemental JS"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:700
+#: ../git-plugins/tidyAdmin/src/Manage.php:703
 msgid "Note: this supplemental JS script will surcharge the default JS scripts."
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:705
+#: ../git-plugins/tidyAdmin/src/Manage.php:708
 msgid "Sample JS:"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:723
-#: ../git-plugins/tidyAdmin/src/Manage.php:725
+#: ../git-plugins/tidyAdmin/src/Manage.php:726
+#: ../git-plugins/tidyAdmin/src/Manage.php:728
 msgid "Supplemental PO"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:751
+#: ../git-plugins/tidyAdmin/src/Manage.php:754
 msgid "Note: this supplemental PO l10n will surcharge the default l10n."
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:756
+#: ../git-plugins/tidyAdmin/src/Manage.php:759
 msgid "Sample PO:"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:774
-#: ../git-plugins/tidyAdmin/src/Manage.php:776
+#: ../git-plugins/tidyAdmin/src/Manage.php:777
+#: ../git-plugins/tidyAdmin/src/Manage.php:779
 msgid "Supplemental HTML head directives"
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:802
+#: ../git-plugins/tidyAdmin/src/Manage.php:805
 msgid "Note: this supplemental HTML head directives will added to the default HTML head."
 msgstr ""
 
-#: ../git-plugins/tidyAdmin/src/Manage.php:807
+#: ../git-plugins/tidyAdmin/src/Manage.php:810
 msgid "Sample HTML head:"
 msgstr ""

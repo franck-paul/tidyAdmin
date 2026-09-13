@@ -1,1 +1,1 @@
-.jstElements,.cke_top{position:sticky;top:0}.toolbar_bottom .jstElements{top:inherit;bottom:0}
+.jstElements,.cke_top{position:sticky;inset-block-start:0}.toolbar_bottom .jstElements{inset-block-start:inherit;inset-block-end:0}

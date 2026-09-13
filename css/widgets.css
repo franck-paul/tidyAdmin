@@ -1,4 +1,4 @@
 #sidebarsWidgets {
   position: sticky;
-  top: 0;
+  inset-block-start: 0;
 }

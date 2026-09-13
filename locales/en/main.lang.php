@@ -29,7 +29,7 @@ L10n::$locales['Header'] = '';
 L10n::$locales['Use mini Dotclear icon (top left) in header'] = '';
 L10n::$locales['Move the search form (main menu) in header'] = '';
 L10n::$locales['Double click on header to switch theme (not permanent)'] = '';
-L10n::$locales['To permanently change theme go the your preferences'] = '';
+L10n::$locales['To permanently change theme go to <a href="%s">your preferences</a>.'] = '';
 L10n::$locales['Add a button in header to stop or run Javascript fetch requests (not permanent)'] = '';
 L10n::$locales['Use an user-defined background color for header'] = '';
 L10n::$locales['Backgound color for header:'] = '';

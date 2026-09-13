@@ -8,12 +8,14 @@
   gap: 0.5em;
 
   #top-info-user {
-    margin-left: auto;
+    margin-inline-start: auto;
   }
 }
 #search-menu.tidy_moved {
-  padding: 0.5em 0.5em 0.5em 0;
-  margin-left: auto;
+  padding-block: 0.5em;
+  padding-inline-start: 0;
+  padding-inline-end: 0.5em;
+  margin-inline-start: auto;
 
   p {
     display: flex;
@@ -21,7 +23,7 @@
     align-content: center;
     justify-content: flex-start;
     margin: initial;
-    width: inherit;
+    inline-size: inherit;
   }
 
   #qx {
@@ -29,7 +31,7 @@
     background-color: Field;
     background-image: none;
     text-indent: 0;
-    width: inherit;
+    inline-size: inherit;
   }
 
   input[type='submit'] {

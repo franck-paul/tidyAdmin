@@ -1,12 +1,12 @@
 textarea[name$='_demo_content'] {
   font: clamp(90%, 0.9em, 2ex) var(--monospace);
-  resize: vertical;
+  resize: block;
   overflow: auto;
 }
 
 textarea[name$='_content'] + .CodeMirror {
-  height: 30em;
-  resize: vertical;
+  block-size: 30em;
+  resize: block;
   font-size: clamp(90%, 0.9em, 2ex);
 
   .CodeMirror-linenumber {
@@ -21,7 +21,7 @@ textarea[name$='_content'] + .CodeMirror {
 }
 
 table.fitcontent {
-  width: fit-content;
+  inline-size: fit-content;
 }
 
 .secondlevel {
@@ -32,12 +32,14 @@ table.fitcontent {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(42em, calc(100% - 2em)), 1fr));
   gap: 1em;
-  margin: 1em 0.5em 1em 0;
+  margin-block: 1em;
+  margin-inline-start: 0;
+  margin-inline-end: 0.5em;
 
   & > p {
     /* 1st level messages, form buttons group, ... */
     grid-column: 1 / -1;
-    width: fit-content;
+    inline-size: fit-content;
   }
 
   & > * {

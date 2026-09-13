@@ -15,7 +15,7 @@ dotclear.ready(() => {
       plugin_config.classList.remove('vertical-separator');
       // Position
       plugin_config.style.position = 'absolute';
-      plugin_config.style.right = '1em';
+      plugin_config.style.insetInlineEnd = '1em';
       // Z-index
       plugin_config.style.zIndex = '1';
       // If the first child of this form is a fieldset (or .fieldset class) add a padding to visually put the button inside the first fieldset

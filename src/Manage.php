@@ -451,7 +451,10 @@ class Manage
                                     ]),
                                 (new Note())
                                     ->class(['form-note','info'])
-                                    ->text(__('To permanently change theme go the your preferences')),
+                                    ->text(sprintf(
+                                        __('To permanently change theme go to <a href="%s">your preferences</a>.'),
+                                        App::backend()->url()->get('admin.user.preferences') . '#user-options'
+                                    )),
                                 (new Para())
                                     ->items([
                                         (new Checkbox('ui_switchfetch', $ui_switchfetch))
