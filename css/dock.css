@@ -17,6 +17,10 @@
   align-items: center;
   z-index: calc(infinity);
 
+  [dir='rtl'] & {
+    translate: 50% 0;
+  }
+
   @media (prefers-contrast: more) {
     backdrop-filter: blur(10px) brightness(0.2);
   }
