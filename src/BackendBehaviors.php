@@ -74,7 +74,7 @@ class BackendBehaviors
         // Load search form (media) repositioning helper
         if (App::auth()->prefs()->get('interface')->getBool('clonesearchmedia')) {
             $request_uri = isset($_SERVER['REQUEST_URI']) && is_string($request_uri = $_SERVER['REQUEST_URI']) ? $request_uri : '';
-            if (preg_match('/' . preg_quote((string) App::backend()->url()->get('admin.media'), '/') . '&?/', $request_uri)) {
+            if (preg_match('/' . preg_quote(App::backend()->url()->get('admin.media'), '/') . '&?/', $request_uri)) {
                 echo
                     My::cssLoad('search_media.css') .
                     My::jsLoad('search_media.js');
@@ -190,12 +190,12 @@ class BackendBehaviors
 
         // User defined CSS rules
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.css')) {
-            echo App::backend()->page()->cssLoad(urldecode((string) App::backend()->page()->getVF('plugins/' . My::id() . '/admin.css')));
+            echo App::backend()->page()->cssLoad(urldecode(App::backend()->page()->getVF('plugins/' . My::id() . '/admin.css')));
         }
 
         // User defined Javascript
         if (file_exists(Path::real(App::config()->varRoot()) . '/plugins/' . My::id() . '/admin.js')) {
-            echo App::backend()->page()->jsLoad(urldecode((string) App::backend()->page()->getVF('plugins/' . My::id() . '/admin.js')));
+            echo App::backend()->page()->jsLoad(urldecode(App::backend()->page()->getVF('plugins/' . My::id() . '/admin.js')));
         }
 
         if ($main && App::auth()->prefs()->get('interface')->getBool('dock')) {
@@ -215,7 +215,7 @@ class BackendBehaviors
 
             $show_active = App::auth()->prefs()->get('interface')->getBool('dockactive');
 
-            $url     = htmlspecialchars_decode((string) App::backend()->url()->get('admin.home'));
+            $url     = htmlspecialchars_decode(App::backend()->url()->get('admin.home'));
             $pattern = '@' . preg_quote($url, '@') . '(&.*)?' . '$@';
 
             $request_uri = is_string($request_uri = $_SERVER['REQUEST_URI']) ? $request_uri : '';
@@ -321,7 +321,7 @@ class BackendBehaviors
         // 2. Remove newlines
         $css = str_replace(["\r\n", "\r", "\n", "\t"], '', (string) $css);
 
-        return trim((string) $css);
+        return trim($css);
     }
 
     public static function themeEditorWriteFile(string $file, string $type): string
