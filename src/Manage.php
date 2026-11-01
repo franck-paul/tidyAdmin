@@ -211,13 +211,15 @@ class Manage
                 self::$js_content = $content . "\n";
 
                 $fp = @fopen(self::$js_file, 'wb');
-                if (!$fp) {
+                if ($fp === false) {
                     throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$js_file));
                 }
 
                 fwrite($fp, self::$js_content);
                 fclose($fp);
-                if ($fp = @fopen(self::$js_backup_file, 'wb')) {
+
+                $fp = @fopen(self::$js_backup_file, 'wb');
+                if ($fp !== false) {
                     // Backup file
                     fwrite($fp, $js_old_content);
                     fclose($fp);
@@ -241,13 +243,15 @@ class Manage
                 self::$css_content = $content . "\n";
 
                 $fp = @fopen(self::$css_file, 'wb');
-                if (!$fp) {
+                if ($fp === false) {
                     throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$css_file));
                 }
 
                 fwrite($fp, self::$css_content);
                 fclose($fp);
-                if ($fp = @fopen(self::$css_backup_file, 'wb')) {
+
+                $fp = @fopen(self::$css_backup_file, 'wb');
+                if ($fp !== false) {
                     // Backup file
                     fwrite($fp, $css_old_content);
                     fclose($fp);
@@ -271,13 +275,15 @@ class Manage
                 self::$po_content = $content . "\n";
 
                 $fp = @fopen(self::$po_file, 'wb');
-                if (!$fp) {
+                if ($fp === false) {
                     throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$po_file));
                 }
 
                 fwrite($fp, self::$po_content);
                 fclose($fp);
-                if ($fp = @fopen(self::$po_backup_file, 'wb')) {
+
+                $fp = @fopen(self::$po_backup_file, 'wb');
+                if ($fp !== false) {
                     // Backup file
                     fwrite($fp, $po_old_content);
                     fclose($fp);
@@ -301,13 +307,15 @@ class Manage
                 self::$html_content = $content . "\n";
 
                 $fp = @fopen(self::$html_file, 'wb');
-                if (!$fp) {
+                if ($fp === false) {
                     throw new Exception(sprintf(__('Unable to write file %s. Please check the dotclear var folder permissions.'), self::$html_file));
                 }
 
                 fwrite($fp, self::$html_content);
                 fclose($fp);
-                if ($fp = fopen(self::$html_backup_file, 'wb')) {
+
+                $fp = fopen(self::$html_backup_file, 'wb');
+                if ($fp !== false) {
                     // Backup file
                     fwrite($fp, $html_old_content);
                     fclose($fp);
@@ -346,7 +354,7 @@ class Manage
         // Get interface setting
         $interface_pref = App::auth()->prefs()->get('interface');
 
-        $ui_colorsyntax       = $interface_pref->get('colorsyntax');
+        $ui_colorsyntax       = $interface_pref->getBool('colorsyntax', false);
         $ui_colorsyntax_theme = '';
         if ($ui_colorsyntax) {
             $ui_colorsyntax_theme = is_string($ui_colorsyntax_theme = $interface_pref->get('colorsyntax_theme')) ?
