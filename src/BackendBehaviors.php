@@ -17,11 +17,11 @@ namespace Dotclear\Plugin\tidyAdmin;
 
 use Dotclear\App;
 use Dotclear\Core\Backend\Favorites;
+use Dotclear\Core\Backend\Icon;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Html\Form\Div;
 use Dotclear\Helper\Html\Form\Link;
-use Dotclear\Helper\Html\Form\Text;
 use Exception;
 use JShrink\Minifier;
 
@@ -221,21 +221,21 @@ class BackendBehaviors
             $request_uri = is_string($request_uri = $_SERVER['REQUEST_URI']) ? $request_uri : '';
 
             /**
-             * @var array<string, array{string, string, string|list<string>|null, string}>
+             * @var array<string, array{string, string, Icon, string}>
              *
              * List of dock icons (user favorites)
              *
              * items structure:
              * [0] = title
              * [1] = url
-             * [2] = icons (usually array (light/dark))
+             * [2] = icons
              * [3] = class
              */
             $dashboardIcons = [
                 'home' => [
                     __('Go to dashboard'),
                     App::backend()->url()->get('admin.home'),
-                    ['style/dashboard.svg', 'style/dashboard-dark.svg'],
+                    (new Icon('style/dashboard.svg', 'style/dashboard-dark.svg', __('Go to dashboard'))),
                     $show_active ? ((bool) preg_match($pattern, $request_uri) ? 'active' : '') : '',
                 ],
             ];
@@ -245,13 +245,15 @@ class BackendBehaviors
             foreach ($favorites as $favorite_id => $favorite) {
                 $url     = htmlspecialchars_decode((string) $favorite->url());
                 $pattern = '@' . preg_quote($url, '@') . '(&.*)?' . '$@';
-
-                $dashboardIcons[$favorite_id] = [
-                    (string) $favorite->title(),
-                    (string) $favorite->url(),
-                    $favorite->largeIcon(),
-                    $show_active ? ((bool) preg_match($pattern, $request_uri) ? 'active' : '') : '',
-                ];
+                $icon    = $favorite->dashboardIcon();
+                if ($icon !== null) {
+                    $dashboardIcons[$favorite_id] = [
+                        (string) $favorite->title(),
+                        (string) $favorite->url(),
+                        $icon,
+                        $show_active ? ((bool) preg_match($pattern, $request_uri) ? 'active' : '') : '',
+                    ];
+                }
             }
 
             echo (new Div('dock'))
@@ -272,7 +274,7 @@ class BackendBehaviors
                             ->items([
                                 (new Div())
                                     ->items([
-                                        (new Text(null, App::backend()->helper()->adminIcon($info[2], alt:$info[0]))),
+                                        $info[2]->getComponent(),
                                     ]),
                             ]),
                         array_keys($dashboardIcons),
