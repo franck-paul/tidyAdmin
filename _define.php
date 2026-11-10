@@ -18,9 +18,9 @@ if (isset($this) && is_object($this) && method_exists($this, 'registerModule') &
         'Tidy Administration',
         'Customize your dotclear administration',
         'Franck Paul',
-        '11.5',
+        '11.6',
         [
-            'date'     => '2026-11-07T17:08:15+0100',
+            'date'     => '2026-11-10T08:48:09+0100',
             'requires' => [['core', '2.39']],
             'type'     => 'plugin',
             'settings' => [],
