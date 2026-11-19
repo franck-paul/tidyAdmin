@@ -127,6 +127,13 @@ dotclear.ready(() => {
         const select = document.createElement('select');
         select.setAttribute('id', `go-${div.getAttribute('name')}`);
         select.classList.add('meta-helper'); // meta-helper class will force confirm-close to ignore this select changes
+
+        // Add en empty option in 1st position
+        const option = document.createElement('option');
+        option.setAttribute('value', '');
+        option.appendChild(document.createTextNode('-'));
+        select.appendChild(option);
+
         // biome-ignore lint/suspicious/useIterableCallbackReturn: don't care about return value
         options.forEach((option) => select.appendChild(option));
         select.addEventListener('change', (event) => move(event.target.value, 'user-options'));
